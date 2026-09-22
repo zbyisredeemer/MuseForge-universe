@@ -1,5 +1,6 @@
 import { MouseEvent as ReactMouseEvent, PointerEvent, useMemo, useRef, useState } from 'react';
-import { MuseImage, MuseStyle, getGalaxyById, styles } from './data/styles';
+import { getGalaxyById, styles } from './data/styles';
+import type { MuseImage, MuseStyle } from './data/styles';
 
 type View = { kind: 'universe' } | { kind: 'style'; style: MuseStyle };
 
@@ -19,7 +20,7 @@ function App() {
           <span className="brand-mark">✦</span>
           <span>MuseForge <b>Universe</b></span>
         </button>
-        <div className="topbar-meta">PROMPT CONSTELLATION · v0.1</div>
+        <div className="topbar-meta">PROMPT CONSTELLATION · v0.2</div>
       </header>
 
       {view.kind === 'universe' ? (
