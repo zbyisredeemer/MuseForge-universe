@@ -90,7 +90,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
       <div className="universe-footer">
         <span>01 STYLE ONLINE</span>
         <span>8 FOREST MUSES</span>
-        <span>4K · PROMPT INCLUDED</span>
+        <span>HD · PROMPT INCLUDED</span>
       </div>
     </section>
   );
@@ -119,7 +119,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         <div className="eyebrow">STYLE PLANET · 001</div>
         <h2>{style.name}</h2>
         <p>{style.description}</p>
-        <div className="style-stats"><b>{style.images.length}</b> 张首发图 · SVG 2160×3840 · 可缩放至 4K+</div>
+        <div className="style-stats"><b>{style.images.length}</b> 张首发图 · 前 4 张写实 WebP · 后 4 张 SVG 占位</div>
         <div className="drag-hint">拖动球体旋转 · 点击图片查看高清图与 Prompt</div>
       </div>
 
@@ -162,7 +162,7 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
         <button className="viewer-close" onClick={onClose}>×</button>
         <div className="viewer-image-wrap">
           <img src={image.image} alt={image.title} />
-          <a href={image.image} target="_blank" rel="noreferrer" className="open-original">查看 4K 原图 ↗</a>
+          <a href={image.image} target="_blank" rel="noreferrer" className="open-original">查看原图 ↗</a>
         </div>
         <aside className="prompt-panel">
           <div className="eyebrow">PROMPT DNA</div>
@@ -175,7 +175,7 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
             <summary>Negative Prompt</summary>
             <p>{image.negativePrompt}</p>
           </details>
-          <div className="image-meta">2160 × 3840 SVG · 无损矢量 · 4K READY</div>
+          <div className="image-meta">{image.image.endsWith('.webp') ? '941 × 1672 WebP · AI 写实生成图' : '2160 × 3840 SVG · 矢量占位图'}</div>
         </aside>
       </div>
     </div>
