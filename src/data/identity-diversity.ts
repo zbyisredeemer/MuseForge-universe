@@ -4,22 +4,46 @@ type IdentityProfile = {
   id: string;
   ageBand: string;
   faceShape: string;
+  faceWidth: string;
+  cheekbones: string;
+  jawShape: string;
+  chinShape: string;
   skinTone: string;
   eyeShape: string;
+  eyeSpacing: string;
   browShape: string;
   noseShape: string;
+  noseWidth: string;
   lipShape: string;
+  lipRatio: string;
+  asymmetry: string;
   distinctiveFeature: string;
   hair: string[];
 };
 
-const AGE_BANDS = ['21-24', '25-28', '29-32', '33-36', '37-40', '41-45'] as const;
-const FACE_SHAPES = ['oval', 'round', 'heart-shaped', 'long-oval', 'soft-square', 'diamond', 'pear-shaped', 'angular-oval'] as const;
-const SKIN_TONES = ['porcelain-neutral', 'fair-warm', 'light-neutral', 'light-olive', 'warm-beige', 'golden-beige', 'medium-neutral', 'sun-kissed-warm'] as const;
-const EYE_SHAPES = ['almond', 'round-almond', 'slightly upturned', 'soft downturned', 'deep-set almond', 'wide-set almond', 'close-set almond', 'hooded almond', 'monolid', 'tapered double-eyelid'] as const;
-const BROW_SHAPES = ['straight-soft', 'gently arched', 'low straight', 'defined arch', 'full natural', 'fine curved', 'soft angled', 'thick straight'] as const;
-const NOSE_SHAPES = ['small straight', 'slender bridge', 'soft rounded tip', 'low straight bridge', 'defined narrow bridge', 'short refined', 'gentle convex bridge', 'wider natural bridge', 'delicate upturned tip'] as const;
-const LIP_SHAPES = ['soft full', 'medium balanced', 'defined cupid-bow', 'slender upper lip', 'full lower lip', 'small rounded', 'wide soft smile', 'subtle asymmetrical'] as const;
+type RegionalStyleProfile = {
+  region: string;
+  country: string;
+  wardrobeTag: string;
+  prompt: string;
+  appearance: string[];
+};
+
+const AGE_BANDS = ['21-24', '25-28', '29-32', '33-36', '37-40', '41-45', '46-50', '51-56'] as const;
+const FACE_SHAPES = ['oval', 'round', 'heart-shaped', 'long-oval', 'soft-square', 'diamond', 'pear-shaped', 'angular-oval', 'broad-oval', 'narrow-oblong'] as const;
+const FACE_WIDTHS = ['narrow', 'slim-medium', 'balanced-medium', 'soft-wide', 'broad-cheeked', 'narrow-cheeked', 'medium-wide'] as const;
+const CHEEKBONES = ['low-soft', 'medium-rounded', 'high-defined', 'broad-soft', 'high-subtle', 'flat-gentle', 'prominent-natural'] as const;
+const JAW_SHAPES = ['soft-tapered', 'rounded', 'defined-square', 'narrow-angular', 'broad-soft', 'delicate-v', 'straight-soft', 'asymmetric-natural'] as const;
+const CHIN_SHAPES = ['short-rounded', 'medium-rounded', 'slender', 'broad-soft', 'slightly-pointed', 'square-soft', 'recessed-soft'] as const;
+const SKIN_TONES = ['porcelain-neutral', 'fair-warm', 'light-neutral', 'light-olive', 'warm-beige', 'golden-beige', 'medium-neutral', 'sun-kissed-warm', 'medium-olive', 'deep-warm-brown'] as const;
+const EYE_SHAPES = ['almond', 'round-almond', 'slightly upturned', 'soft downturned', 'deep-set almond', 'wide-set almond', 'close-set almond', 'hooded almond', 'monolid', 'tapered double-eyelid', 'rounded monolid', 'narrow almond'] as const;
+const EYE_SPACING = ['close', 'slightly-close', 'balanced', 'slightly-wide', 'wide', 'deep-set-balanced', 'shallow-set-wide'] as const;
+const BROW_SHAPES = ['straight-soft', 'gently arched', 'low straight', 'defined arch', 'full natural', 'fine curved', 'soft angled', 'thick straight', 'high-soft-arch', 'short-natural'] as const;
+const NOSE_SHAPES = ['small straight', 'slender bridge', 'soft rounded tip', 'low straight bridge', 'defined narrow bridge', 'short refined', 'gentle convex bridge', 'wider natural bridge', 'delicate upturned tip', 'long straight', 'broad soft tip'] as const;
+const NOSE_WIDTHS = ['narrow', 'slender-medium', 'balanced', 'medium-wide', 'wide-natural', 'narrow-tip', 'broad-tip'] as const;
+const LIP_SHAPES = ['soft full', 'medium balanced', 'defined cupid-bow', 'slender upper lip', 'full lower lip', 'small rounded', 'wide soft smile', 'subtle asymmetrical', 'broad balanced', 'narrow defined'] as const;
+const LIP_RATIOS = ['upper-thin/lower-full', 'balanced', 'upper-full/lower-medium', 'both-slim', 'both-full', 'wide-medium', 'small-full'] as const;
+const ASYMMETRIES = ['slightly higher left brow', 'slightly higher right brow', 'subtle uneven smile', 'mild nostril asymmetry', 'soft jaw asymmetry', 'minor eye-height asymmetry', 'natural lip asymmetry', 'balanced but not perfectly symmetrical'] as const;
 const DISTINCTIVE_FEATURES = [
   'subtle beauty mark under the left eye',
   'tiny beauty mark near the right cheekbone',
@@ -32,7 +56,11 @@ const DISTINCTIVE_FEATURES = [
   'softly prominent cheekbones',
   'gentle jawline asymmetry',
   'slightly fuller left eyebrow',
-  'clean face with no visible marks'
+  'clean face with no visible marks',
+  'tiny mole near the left jawline',
+  'faint sun freckles on upper cheeks',
+  'subtle under-eye texture',
+  'small dimple on one cheek'
 ] as const;
 
 const HAIR_PROFILES = [
@@ -49,24 +77,57 @@ const HAIR_PROFILES = [
   ['mid-length', 'half-up', 'dark-brown'],
   ['short-pixie', 'textured', 'black'],
   ['long', 'side-parted', 'espresso-brown'],
-  ['shoulder-length', 'center-parted', 'black']
+  ['shoulder-length', 'center-parted', 'black'],
+  ['collarbone-length', 'curly', 'deep-brown'],
+  ['short-bob', 'straight', 'espresso-brown'],
+  ['long', 'braided-low-ponytail', 'dark-brown'],
+  ['mid-length', 'natural-curls', 'black']
 ] as const;
+
+// Forest 005-020 deliberately rotate regional fashion references.
+// These affect styling/material cues only; facial geometry remains independently generated by Identity DNA.
+const FOREST_REGIONAL_STYLES: RegionalStyleProfile[] = [
+  { region: 'east-asia', country: 'Japan', wardrobeTag: 'japanese-minimal-wrap-detail', prompt: 'regional styling reference: contemporary Japanese minimalism, natural cotton and linen, restrained wrap tailoring, practical woodland styling, never costume-like', appearance: ['regional-style-japan', 'minimal-natural-fabric'] },
+  { region: 'central-asia', country: 'Kazakhstan', wardrobeTag: 'kazakh-woven-trim-detail', prompt: 'regional styling reference: contemporary Kazakhstan editorial styling, subtle woven geometric trim and structured natural-fiber layers, practical woodland styling, never costume-like', appearance: ['regional-style-kazakhstan', 'woven-trim'] },
+  { region: 'northern-europe', country: 'Finland', wardrobeTag: 'finnish-wool-minimalism', prompt: 'regional styling reference: contemporary Finnish outdoor minimalism, clean wool textures and understated functional tailoring, practical woodland styling', appearance: ['regional-style-finland', 'nordic-minimalism'] },
+  { region: 'southern-europe', country: 'Italy', wardrobeTag: 'italian-tailored-linen', prompt: 'regional styling reference: contemporary Italian natural-fabric tailoring, elegant linen structure and restrained accessories, adapted for a forest editorial', appearance: ['regional-style-italy', 'tailored-linen'] },
+  { region: 'southeast-asia', country: 'Vietnam', wardrobeTag: 'vietnamese-longline-tailoring', prompt: 'regional styling reference: contemporary Vietnamese longline tailoring in lightweight natural fabric, subtle clean lines, adapted for a forest editorial, never costume-like', appearance: ['regional-style-vietnam', 'longline-tailoring'] },
+  { region: 'western-europe', country: 'France', wardrobeTag: 'french-quiet-luxury-layering', prompt: 'regional styling reference: contemporary French quiet-luxury layering, soft blouse textures and understated tailoring, adapted for woodland', appearance: ['regional-style-france', 'quiet-luxury'] },
+  { region: 'caucasus', country: 'Georgia', wardrobeTag: 'georgian-woven-belt-detail', prompt: 'regional styling reference: contemporary Georgian fashion with a restrained woven belt or trim detail, structured but modern, adapted for woodland', appearance: ['regional-style-georgia', 'woven-belt-detail'] },
+  { region: 'east-asia', country: 'Mongolia', wardrobeTag: 'mongolian-long-coat-line', prompt: 'regional styling reference: contemporary Mongolian long-coat proportions with minimal closure details and natural fibers, modern woodland editorial, never costume-like', appearance: ['regional-style-mongolia', 'long-coat-line'] },
+  { region: 'east-asia', country: 'China', wardrobeTag: 'chinese-stand-collar-detail', prompt: 'regional styling reference: contemporary Chinese fashion with a subtle stand-collar or knot detail, modern natural-fabric construction, restrained forest editorial', appearance: ['regional-style-china', 'stand-collar-detail'] },
+  { region: 'west-asia', country: 'Turkey', wardrobeTag: 'turkish-textured-layering', prompt: 'regional styling reference: contemporary Turkish textured layering, muted woven accents and elegant practical silhouettes, adapted for woodland', appearance: ['regional-style-turkey', 'textured-layering'] },
+  { region: 'south-asia', country: 'India', wardrobeTag: 'indian-handloom-texture', prompt: 'regional styling reference: contemporary Indian handloom texture and subtle block-print trim in muted forest tones, modern editorial styling, never costume-like', appearance: ['regional-style-india', 'handloom-texture'] },
+  { region: 'east-asia', country: 'South Korea', wardrobeTag: 'korean-clean-layered-tailoring', prompt: 'regional styling reference: contemporary Korean clean layered tailoring, restrained proportions and soft natural fabrics, adapted for woodland', appearance: ['regional-style-south-korea', 'clean-layering'] },
+  { region: 'south-america', country: 'Peru', wardrobeTag: 'peruvian-alpaca-texture', prompt: 'regional styling reference: contemporary Peruvian alpaca-knit texture and subtle woven accents, muted palette, modern woodland editorial', appearance: ['regional-style-peru', 'alpaca-texture'] },
+  { region: 'north-america', country: 'Mexico', wardrobeTag: 'mexican-subtle-embroidery', prompt: 'regional styling reference: contemporary Mexican natural cotton with restrained hand-embroidery accents, modern silhouette, adapted for woodland', appearance: ['regional-style-mexico', 'subtle-embroidery'] },
+  { region: 'southeast-asia', country: 'Indonesia', wardrobeTag: 'indonesian-batik-accent', prompt: 'regional styling reference: contemporary Indonesian styling with a restrained batik accent used sparingly in lining or a wrap detail, modern rain-ready woodland look', appearance: ['regional-style-indonesia', 'batik-accent'] },
+  { region: 'north-africa', country: 'Morocco', wardrobeTag: 'moroccan-longline-detail', prompt: 'regional styling reference: contemporary Moroccan longline tailoring with restrained woven texture and fluid silhouette, modern forest editorial, never costume-like', appearance: ['regional-style-morocco', 'longline-detail'] }
+];
 
 function pick<T>(values: readonly T[], index: number, step: number, offset: number) {
   return values[(index * step + offset) % values.length];
 }
 
 function buildIdentityProfile(index: number): IdentityProfile {
-  const hair = pick(HAIR_PROFILES, index, 11, 3);
+  const hair = pick(HAIR_PROFILES, index, 5, 3);
   return {
     id: `muse-face-${String(index + 1).padStart(4, '0')}`,
     ageBand: pick(AGE_BANDS, index, 5, 1),
-    faceShape: pick(FACE_SHAPES, index, 5, 2),
+    faceShape: pick(FACE_SHAPES, index, 3, 2),
+    faceWidth: pick(FACE_WIDTHS, index, 5, 1),
+    cheekbones: pick(CHEEKBONES, index, 3, 0),
+    jawShape: pick(JAW_SHAPES, index, 5, 2),
+    chinShape: pick(CHIN_SHAPES, index, 4, 1),
     skinTone: pick(SKIN_TONES, index, 7, 1),
-    eyeShape: pick(EYE_SHAPES, index, 7, 3),
-    browShape: pick(BROW_SHAPES, index, 3, 4),
-    noseShape: pick(NOSE_SHAPES, index, 5, 2),
+    eyeShape: pick(EYE_SHAPES, index, 5, 3),
+    eyeSpacing: pick(EYE_SPACING, index, 3, 0),
+    browShape: pick(BROW_SHAPES, index, 7, 4),
+    noseShape: pick(NOSE_SHAPES, index, 7, 2),
+    noseWidth: pick(NOSE_WIDTHS, index, 5, 1),
     lipShape: pick(LIP_SHAPES, index, 3, 1),
+    lipRatio: pick(LIP_RATIOS, index, 4, 0),
+    asymmetry: pick(ASYMMETRIES, index, 5, 4),
     distinctiveFeature: pick(DISTINCTIVE_FEATURES, index, 7, 5),
     hair: [...hair]
   };
@@ -76,32 +137,50 @@ function identityPrompt(profile: IdentityProfile) {
   return [
     `distinct adult woman identity ${profile.id}`,
     `age ${profile.ageBand}`,
-    `${profile.faceShape} face`,
+    `${profile.faceShape} face with ${profile.faceWidth} facial width`,
+    `${profile.cheekbones} cheekbones`,
+    `${profile.jawShape} jaw and ${profile.chinShape} chin`,
     `${profile.skinTone} complexion`,
-    `${profile.eyeShape} eyes`,
+    `${profile.eyeShape} eyes with ${profile.eyeSpacing} spacing`,
     `${profile.browShape} brows`,
-    `${profile.noseShape} nose`,
-    `${profile.lipShape} lips`,
+    `${profile.noseShape} nose with ${profile.noseWidth} width`,
+    `${profile.lipShape} lips, ${profile.lipRatio} lip proportion`,
+    profile.asymmetry,
     profile.distinctiveFeature,
     `${profile.hair.join(' ')} hair`,
-    'facial bone structure and proportions must be clearly different from every other portrait in this collection',
-    'avoid a recurring model identity'
+    'natural pores, subtle skin tone variation, believable under-eye texture, realistic hairline and baby hairs',
+    'facial bone structure, eye spacing, nose geometry, jaw, chin and lip proportions must be clearly different from every other portrait in this collection',
+    'avoid generic influencer face, beauty-template face and recurring model identity'
   ].join(', ');
 }
 
 const identityNegativePrompt =
-  'same face as another image, cloned face, recurring identity, lookalike, identical facial proportions, repeated model, face copy';
+  'same face as another image, cloned face, recurring identity, lookalike, identical facial proportions, repeated model, face copy, face template, same eyes, same nose, same lips, same jawline, same chin, generic influencer face, doll face, plastic skin, airbrushed skin, excessive facial symmetry, face-swap look';
+
+function getRegionalStyle(planetId: string, localIndex: number) {
+  if (planetId !== 'forest-muse' || localIndex < 4 || localIndex > 19) return undefined;
+  return FOREST_REGIONAL_STYLES[localIndex - 4];
+}
+
+function removeFixedRegionalDescriptor(prompt: string, regionalStyle?: RegionalStyleProfile) {
+  if (!regionalStyle) return prompt;
+  return prompt.replace(/\bEast Asian\b/gi, '').replace(/\s+/g, ' ').trim();
+}
 
 export function applyIdentityDiversity(planets: MusePlanet[]): MusePlanet[] {
   let globalIndex = 0;
 
   return planets.map((planet) => ({
     ...planet,
-    images: planet.images.map((image) => {
+    images: planet.images.map((image, localIndex) => {
       const profile = buildIdentityProfile(globalIndex++);
+      const regionalStyle = getRegionalStyle(planet.id, localIndex);
+      const basePrompt = removeFixedRegionalDescriptor(image.prompt, regionalStyle);
+      const regionalPrompt = regionalStyle ? `. ${regionalStyle.prompt}` : '';
+
       return {
         ...image,
-        prompt: `${identityPrompt(profile)}. ${image.prompt}`,
+        prompt: `${identityPrompt(profile)}${regionalPrompt}. ${basePrompt}`,
         negativePrompt: `${image.negativePrompt}, ${identityNegativePrompt}`,
         dna: {
           ...image.dna,
@@ -109,16 +188,37 @@ export function applyIdentityDiversity(planets: MusePlanet[]): MusePlanet[] {
             ...image.dna.subject,
             identityId: profile.id,
             ageBand: profile.ageBand,
+            region: regionalStyle?.region ?? image.dna.subject.region,
+            country: regionalStyle?.country ?? image.dna.subject.country,
+            appearance: [
+              ...(image.dna.subject.appearance ?? []),
+              ...(regionalStyle?.appearance ?? [])
+            ],
             hair: profile.hair,
             face: {
               shape: profile.faceShape,
+              faceWidth: profile.faceWidth,
+              cheekbones: profile.cheekbones,
+              jawShape: profile.jawShape,
+              chinShape: profile.chinShape,
               skinTone: profile.skinTone,
               eyeShape: profile.eyeShape,
+              eyeSpacing: profile.eyeSpacing,
               browShape: profile.browShape,
               noseShape: profile.noseShape,
+              noseWidth: profile.noseWidth,
               lipShape: profile.lipShape,
+              lipRatio: profile.lipRatio,
+              asymmetry: profile.asymmetry,
               distinctiveFeatures: [profile.distinctiveFeature]
             }
+          },
+          fashion: {
+            ...image.dna.fashion,
+            outfit: [
+              ...(image.dna.fashion.outfit ?? []),
+              ...(regionalStyle ? [regionalStyle.wardrobeTag] : [])
+            ]
           }
         }
       };
