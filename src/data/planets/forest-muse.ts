@@ -1,4 +1,3 @@
-import { forestArtwork } from '../../art';
 import type { MuseImage, MusePlanet } from '../types';
 
 const negativePrompt =
@@ -135,7 +134,7 @@ function createForestExpansionImage(item: ForestExpansion, offset: number): Muse
   return {
     id: `forest-${String(number).padStart(2, '0')}`,
     title: item.title,
-    image: forestArtwork(number - 1),
+    image: `/images/nature/forest-muse/forest-muse-${String(number).padStart(3, '0')}.webp`,
     galaxyId: 'nature',
     planetId: 'forest-muse',
     prompt: item.prompt,
@@ -148,7 +147,7 @@ function createForestExpansionImage(item: ForestExpansion, offset: number): Muse
       pose: { action: item.action, expression: item.expression },
       photography: { composition: item.composition, lens: item.lens, lighting: item.lighting },
       aesthetics: { styles: item.styles, mood: item.mood, palette: item.palette },
-      generation: { aspectRatio: '9:16', resolution: '2160x3840', format: 'svg', assetType: 'placeholder' }
+      generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
     }
   };
 }
@@ -247,7 +246,7 @@ export const forestMuse: MusePlanet = {
     {
       id: 'forest-05',
       title: '野花林隙',
-      image: forestArtwork(4),
+      image: '/images/nature/forest-muse/forest-muse-005.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
@@ -261,13 +260,13 @@ export const forestMuse: MusePlanet = {
         pose: { action: 'standing', expression: 'natural' },
         photography: { composition: 'environmental-portrait', lens: '85mm', lighting: ['soft-light', 'golden-light'] },
         aesthetics: { styles: ['photorealistic', 'editorial'], mood: ['fresh', 'dreamy'], palette: ['cream', 'moss-green', 'warm-gold'] },
-        generation: { aspectRatio: '9:16', resolution: '2160x3840', format: 'svg', assetType: 'placeholder' }
+        generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
     {
       id: 'forest-06',
       title: '雾松',
-      image: forestArtwork(5),
+      image: '/images/nature/forest-muse/forest-muse-006.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
@@ -281,13 +280,13 @@ export const forestMuse: MusePlanet = {
         pose: { action: 'standing', expression: 'quiet' },
         photography: { composition: 'half-body', lens: '85mm', lighting: ['diffused-light'] },
         aesthetics: { styles: ['photorealistic', 'cinematic', 'minimalist'], mood: ['cool', 'serene'], palette: ['silver', 'deep-green'] },
-        generation: { aspectRatio: '9:16', resolution: '2160x3840', format: 'svg', assetType: 'placeholder' }
+        generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
     {
       id: 'forest-07',
       title: '月夜森林',
-      image: forestArtwork(6),
+      image: '/images/nature/forest-muse/forest-muse-007.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
@@ -301,13 +300,13 @@ export const forestMuse: MusePlanet = {
         pose: { action: 'standing', expression: 'mysterious-calm' },
         photography: { composition: 'half-body', lens: '85mm', lighting: ['moonlight', 'rim-light'] },
         aesthetics: { styles: ['photorealistic', 'cinematic', 'fantasy-realism'], mood: ['mysterious', 'serene'], palette: ['blue-black', 'teal'] },
-        generation: { aspectRatio: '9:16', resolution: '2160x3840', format: 'svg', assetType: 'placeholder' }
+        generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
     {
       id: 'forest-08',
       title: '金叶暮光',
-      image: forestArtwork(7),
+      image: '/images/nature/forest-muse/forest-muse-008.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
@@ -321,7 +320,7 @@ export const forestMuse: MusePlanet = {
         pose: { action: 'walking', expression: 'calm' },
         photography: { composition: 'full-body', lens: '50mm', lighting: ['warm-backlight', 'natural-light'] },
         aesthetics: { styles: ['photorealistic', 'cinematic', 'editorial'], mood: ['warm', 'elegant'], palette: ['amber', 'olive', 'warm-gold'] },
-        generation: { aspectRatio: '9:16', resolution: '2160x3840', format: 'svg', assetType: 'placeholder' }
+        generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
     ...forestExpansion.map(createForestExpansionImage)

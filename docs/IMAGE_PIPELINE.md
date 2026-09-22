@@ -81,24 +81,24 @@ public/images/
 | 002 | 蕨雨 | ✅ Generated | `forest-muse-002.webp` |
 | 003 | 杉林斜阳 | ✅ Generated | `forest-muse-003.webp` |
 | 004 | 翡翠溪谷 | ✅ Generated | `forest-muse-004.webp` |
-| 005 | 野花林隙 | ⏳ Placeholder | `forest-muse-005.webp` |
-| 006 | 雾松 | ⏳ Placeholder | `forest-muse-006.webp` |
-| 007 | 月夜森林 | ⏳ Placeholder | `forest-muse-007.webp` |
-| 008 | 金叶暮光 | ⏳ Placeholder | `forest-muse-008.webp` |
-| 009 | 雨后木桥 | ⏳ Placeholder | `forest-muse-009.webp` |
-| 010 | 溪边白衫 | ⏳ Placeholder | `forest-muse-010.webp` |
-| 011 | 秋林风衣 | ⏳ Placeholder | `forest-muse-011.webp` |
-| 012 | 薄雾针叶林 | ⏳ Placeholder | `forest-muse-012.webp` |
-| 013 | 林间逆光 | ⏳ Placeholder | `forest-muse-013.webp` |
-| 014 | 野莓灌木 | ⏳ Placeholder | `forest-muse-014.webp` |
-| 015 | 古树根系 | ⏳ Placeholder | `forest-muse-015.webp` |
-| 016 | 晨露蕨径 | ⏳ Placeholder | `forest-muse-016.webp` |
-| 017 | 林中长椅 | ⏳ Placeholder | `forest-muse-017.webp` |
-| 018 | 小径回眸 | ⏳ Placeholder | `forest-muse-018.webp` |
-| 019 | 雨幕深林 | ⏳ Placeholder | `forest-muse-019.webp` |
-| 020 | 暮色林缘 | ⏳ Placeholder | `forest-muse-020.webp` |
+| 005 | 野花林隙 | ✅ Generated | `forest-muse-005.webp` |
+| 006 | 雾松 | ✅ Generated | `forest-muse-006.webp` |
+| 007 | 月夜森林 | ✅ Generated | `forest-muse-007.webp` |
+| 008 | 金叶暮光 | ✅ Generated | `forest-muse-008.webp` |
+| 009 | 雨后木桥 | ✅ Generated | `forest-muse-009.webp` |
+| 010 | 溪边白衫 | ✅ Generated | `forest-muse-010.webp` |
+| 011 | 秋林风衣 | ✅ Generated | `forest-muse-011.webp` |
+| 012 | 薄雾针叶林 | ✅ Generated | `forest-muse-012.webp` |
+| 013 | 林间逆光 | ✅ Generated | `forest-muse-013.webp` |
+| 014 | 野莓灌木 | ✅ Generated | `forest-muse-014.webp` |
+| 015 | 古树根系 | ✅ Generated | `forest-muse-015.webp` |
+| 016 | 晨露蕨径 | ✅ Generated | `forest-muse-016.webp` |
+| 017 | 林中长椅 | ✅ Generated | `forest-muse-017.webp` |
+| 018 | 小径回眸 | ✅ Generated | `forest-muse-018.webp` |
+| 019 | 雨幕深林 | ✅ Generated | `forest-muse-019.webp` |
+| 020 | 暮色林缘 | ✅ Generated | `forest-muse-020.webp` |
 
-当前 Forest Muse 真实化进度：**4 / 20（20%）**。
+当前 Forest Muse 真实化进度：**20 / 20（100%）**。
 
 ## 校验工具
 
@@ -117,25 +117,13 @@ npm run validate:assets
 
 ## 下一批真实化顺序
 
-Forest Muse 建议按以下顺序替换：
+Forest Muse 已完成 **20 / 20** 真实化。下一阶段按以下顺序推进：
 
 ```text
-005 野花林隙
-006 雾松
-007 月夜森林
-008 金叶暮光
-009 雨后木桥
-010 溪边白衫
-011 秋林风衣
-012 薄雾针叶林
-013 林间逆光
-014 野莓灌木
-015 古树根系
-016 晨露蕨径
-017 林中长椅
-018 小径回眸
-019 雨幕深林
-020 暮色林缘
+Hanfu Muse
+Tokyo Night
+Snow Muse
+Ocean Muse
 ```
 
-完成 Forest 20 / 20 后，再按 Hanfu → Tokyo Night → Snow → Ocean 的顺序替换其他星球。
+后续新增真实图片继续遵循 Identity DNA 去同脸规则与标准 WebP 资产目录。
