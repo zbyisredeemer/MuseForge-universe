@@ -117,10 +117,9 @@ npm run validate:assets
 
 ## 下一批真实化顺序
 
-Forest Muse 已完成 **20 / 20**；Hanfu Muse 已完成首批 **10 / 20**。下一阶段按以下顺序推进：
+Forest Muse 与 Hanfu Muse 均已完成 **20 / 20**。下一阶段按以下顺序推进：
 
 ```text
-Hanfu Muse 011-020
 Tokyo Night
 Snow Muse
 Ocean Muse
@@ -143,7 +142,17 @@ Ocean Muse
 | 008 | 秋山旅人 | ✅ Generated | `hanfu-muse-008.webp` |
 | 009 | 月满江亭 | ✅ Generated | `hanfu-muse-009.webp` |
 | 010 | 宫阙灯影 | ✅ Generated | `hanfu-muse-010.webp` |
+| 011 | 雨夜青伞 | ✅ Generated | `hanfu-muse-011.webp` |
+| 012 | 雪梅暗香 | ✅ Generated | `hanfu-muse-012.webp` |
+| 013 | 月下琵琶 | ✅ Generated | `hanfu-muse-013.webp` |
+| 014 | 金阙夕照 | ✅ Generated | `hanfu-muse-014.webp` |
+| 015 | 烟波湖亭 | ✅ Generated | `hanfu-muse-015.webp` |
+| 016 | 灯市绯影 | ✅ Generated | `hanfu-muse-016.webp` |
+| 017 | 丝路长风 | ✅ Generated | `hanfu-muse-017.webp` |
+| 018 | 花月同春 | ✅ Generated | `hanfu-muse-018.webp` |
+| 019 | 翡翠浴阁 | ✅ Generated | `hanfu-muse-019.webp` |
+| 020 | 凤仪宫灯 | ✅ Generated | `hanfu-muse-020.webp` |
 
-当前 Hanfu Muse 真实化进度：**10 / 20（50%）**。
+当前 Hanfu Muse 真实化进度：**20 / 20（100%）**。
 
 本批次在保持成年人、东方古典审美和写实摄影质感的前提下，提高了服装剪裁、露肩、薄纱、腰线和姿态中的女性魅力表达，同时继续执行 Identity DNA 去同脸规则。

@@ -10,10 +10,10 @@
 - Prompt / Negative Prompt / 标签
 - 图片级 **Prompt DNA**：人物、服装、环境、姿势、摄影、美学、生成参数
 - **Galaxy → Planet → Image DNA** 分类模型
-- 当前 42 个内容位：Forest 20；Hanfu 10；Snow / Ocean / Tokyo Night 各 4
-- Forest Muse 已完成 **20 / 20** 真实化；Hanfu Muse 已完成首批 **10 / 20** 真实化；Snow / Ocean / Tokyo Night 当前仍为可替换的 SVG 视觉占位
+- 当前 52 个内容位：Forest 20；Hanfu 20；Snow / Ocean / Tokyo Night 各 4
+- Forest Muse 已完成 **20 / 20** 真实化；Hanfu Muse 已完成 **20 / 20** 真实化；Snow / Ocean / Tokyo Night 当前仍为可替换的 SVG 视觉占位
 - 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程
-- 新增 **Identity DNA 去同脸机制**：当前 42 个内容位自动获得唯一身份编号，并系统变化脸型、五官、年龄感、肤色倾向、发型与辨识特征
+- 新增 **Identity DNA 去同脸机制**：当前 52 个内容位自动获得唯一身份编号，并系统变化脸型、五官、年龄感、肤色倾向、发型与辨识特征
 - Vite + React + TypeScript，可部署到 Vercel
 
 ## 分类架构
@@ -49,6 +49,8 @@ MuseForge Universe
 真实图片替换流程与 Forest 20 张进度见 [docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md)。
 
 人脸去同质化策略见 [docs/IDENTITY_DIVERSITY.md](docs/IDENTITY_DIVERSITY.md)。
+
+图片生成、二进制上传与 GitHub 提交流程见 [docs/IMAGE_ASSET_WORKFLOW.md](docs/IMAGE_ASSET_WORKFLOW.md)。
 
 ## 数据结构
 

@@ -82,6 +82,86 @@ const seeds = [
     scene: 'palace-lantern-corridor', season: 'autumn', weather: 'after-rain', time: 'dusk',
     colors: ['deep-crimson', 'black', 'gold'], accessories: ['gold-hairpin', 'hand-lantern'], action: 'leaning-on-railing', expression: 'seductive-calm',
     mood: ['glamorous', 'dramatic', 'sensual'], palette: ['crimson', 'black', 'warm-gold']
+  },
+  {
+    title: '雨夜青伞',
+    prompt: 'Adult Chinese woman in a rain-damp ancient alley under a paper umbrella, dark teal and ivory silk hanfu with semi-sheer sleeves, fitted waist and softly open neckline, elegant restrained sensuality, lantern glow, wet stone pavement, cinematic blue-green night atmosphere, realistic skin and fabric detail',
+    tags: ['汉服', '雨夜', '纸伞', '古巷', '青黛'],
+    scene: 'rainy-ancient-alley', season: 'summer', weather: 'rain', time: 'night',
+    colors: ['dark-teal', 'ivory'], accessories: ['paper-umbrella', 'pearl-hair-tassels'], action: 'holding-umbrella', expression: 'serene',
+    mood: ['moody', 'romantic', 'sensual'], palette: ['teal', 'ivory', 'lantern-gold']
+  },
+  {
+    title: '雪梅暗香',
+    prompt: 'Adult Chinese woman in a winter plum garden during light snowfall, wine-red and ivory embroidered hanfu with fur trim and graceful off-shoulder drape, holding a small incense burner, plum blossoms and stone path, mature luxurious sensuality, cinematic winter portrait, realistic skin texture',
+    tags: ['汉服', '雪梅', '暗香', '冬日', '酒红'],
+    scene: 'snowy-plum-garden', season: 'winter', weather: 'snow', time: 'day',
+    colors: ['wine-red', 'ivory'], accessories: ['plum-hair-ornament', 'incense-burner'], action: 'holding-incense-burner', expression: 'composed',
+    mood: ['quiet', 'luxurious', 'mature'], palette: ['wine-red', 'snow-white', 'plum-red']
+  },
+  {
+    title: '月下琵琶',
+    prompt: 'Adult Chinese woman seated by a carved lattice window playing pipa in a candlelit room, pale lilac hanfu with translucent layers and moon-flower embroidery, shaped bodice and exposed shoulder line, warm candlelight mixed with cool moonlight, intimate musical atmosphere, refined tasteful sensuality',
+    tags: ['汉服', '琵琶', '月夜', '烛光', '丁香紫'],
+    scene: 'candlelit-pipa-room', season: 'autumn', weather: 'clear', time: 'night',
+    colors: ['pale-lilac', 'silver'], accessories: ['jade-hair-tassel', 'pipa'], action: 'playing-pipa', expression: 'focused-soft',
+    mood: ['intimate', 'poetic', 'sensual'], palette: ['lilac', 'candle-gold', 'moon-blue']
+  },
+  {
+    title: '金阙夕照',
+    prompt: 'Adult Chinese woman with short textured hair standing on a palace terrace at sunset, saffron-gold and cream hanfu with layered gauze sleeves, fitted waist belt and elegant neckline, bold feminine confidence, billowing fabric, distant palace rooftops, warm golden backlight, cinematic editorial realism',
+    tags: ['汉服', '宫阙', '夕照', '金色', '短发'],
+    scene: 'sunset-palace-terrace', season: 'autumn', weather: 'clear', time: 'sunset',
+    colors: ['saffron-gold', 'cream'], accessories: ['gold-leaf-hair-ornament'], action: 'standing-in-wind', expression: 'confident',
+    mood: ['bold', 'regal', 'warm'], palette: ['gold', 'cream', 'sunset-orange']
+  },
+  {
+    title: '烟波湖亭',
+    prompt: 'Mature adult Chinese woman by a misty lakeside pavilion at dawn, soft aqua and pearl-white hanfu with translucent shawl draped off one shoulder, cinched waist, holding a round silk fan, willow branches and fog over the lake, grown-woman elegance and subtle sensuality, cinematic realism',
+    tags: ['汉服', '湖亭', '烟波', '团扇', '水色'],
+    scene: 'misty-lakeside-pavilion', season: 'spring', weather: 'mist', time: 'dawn',
+    colors: ['soft-aqua', 'pearl-white'], accessories: ['round-silk-fan', 'pearl-hair-ornament'], action: 'standing-with-fan', expression: 'warm-smile',
+    mood: ['serene', 'mature', 'feminine'], palette: ['aqua', 'pearl-white', 'mist-gray']
+  },
+  {
+    title: '灯市绯影',
+    prompt: 'Adult Chinese woman walking through a lantern festival street at twilight, black and crimson embroidered hanfu with sheer sleeves, fitted waist and high-slit layered skirt, carrying a floral lantern, glamorous tasteful sensuality, lively old-town atmosphere and wet reflections, cinematic night portrait',
+    tags: ['汉服', '灯市', '绯红', '夜游', '华灯'],
+    scene: 'lantern-festival-street', season: 'autumn', weather: 'after-rain', time: 'twilight',
+    colors: ['black', 'crimson'], accessories: ['floral-lantern', 'red-jeweled-hair-ornament'], action: 'walking-with-lantern', expression: 'poised',
+    mood: ['festive', 'glamorous', 'sensual'], palette: ['black', 'crimson', 'lantern-gold']
+  },
+  {
+    title: '丝路长风',
+    prompt: 'Mature Chinese woman on a Silk Road inspired desert watchtower terrace, sand-beige rust and indigo traveler layers with fitted leather belt and airy scarf, partially open shoulder drape, wind-blown fabric, distant dunes and mountains, amber sunset, adventurous mature sensuality and cinematic realism',
+    tags: ['汉服', '丝路', '风沙', '旅人', '大漠'],
+    scene: 'silk-road-watchtower', season: 'autumn', weather: 'windy', time: 'sunset',
+    colors: ['sand-beige', 'rust', 'indigo'], accessories: ['bronze-hair-ornament', 'leather-belt'], action: 'looking-back-in-wind', expression: 'stoic',
+    mood: ['adventurous', 'mature', 'epic'], palette: ['sand', 'rust', 'indigo']
+  },
+  {
+    title: '花月同春',
+    prompt: 'Adult Chinese woman standing in a moonlit peony garden, ink-blue and silver hanfu with peony embroidery, translucent robe layers, cinched waist and visible collarbone, round fan in hand, cool moonlight with warm lantern glow, poetic restrained sensuality, cinematic garden portrait',
+    tags: ['汉服', '牡丹', '月夜', '团扇', '墨蓝'],
+    scene: 'moonlit-peony-garden', season: 'spring', weather: 'clear', time: 'night',
+    colors: ['ink-blue', 'silver'], accessories: ['round-fan', 'white-blossom-hair-ornament'], action: 'standing-with-fan', expression: 'wistful',
+    mood: ['poetic', 'romantic', 'sensual'], palette: ['ink-blue', 'silver', 'peony-pink']
+  },
+  {
+    title: '翡翠浴阁',
+    prompt: 'Mature adult Chinese woman seated in a luxurious bathhouse-side dressing room, cream and emerald hanfu robe loosely draped over an embroidered inner dress, tasteful shoulder reveal and graceful neckline, carved screens, steam, bronze mirror, candles and jade accessories, sophisticated sensuality, photorealistic cinematic interior',
+    tags: ['汉服', '浴阁', '翡翠', '铜镜', '烛影'],
+    scene: 'luxury-bathhouse-dressing-room', season: 'winter', weather: 'indoor', time: 'night',
+    colors: ['cream', 'emerald'], accessories: ['jade-hair-ornament', 'bronze-mirror'], action: 'seated-at-vanity', expression: 'soft-smile',
+    mood: ['intimate', 'luxurious', 'mature'], palette: ['emerald', 'cream', 'candle-gold']
+  },
+  {
+    title: '凤仪宫灯',
+    prompt: 'Adult Chinese woman in a grand palace hall at night, black crimson and gold ceremonial hanfu with dramatic sheer outer robe, fitted waist and elegant low neckline, gold phoenix hair ornaments and black feather fan, powerful regal glamour, warm lantern rows and wet polished floor reflections, cinematic realism',
+    tags: ['汉服', '凤仪', '宫灯', '黑金', '华贵'],
+    scene: 'grand-palace-hall-night', season: 'autumn', weather: 'clear', time: 'night',
+    colors: ['black', 'crimson', 'gold'], accessories: ['phoenix-hair-ornament', 'feather-fan'], action: 'standing-with-fan', expression: 'regal',
+    mood: ['regal', 'powerful', 'glamorous'], palette: ['black', 'crimson', 'gold']
   }
 ] as const;
 
