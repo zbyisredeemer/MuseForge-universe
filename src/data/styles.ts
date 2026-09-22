@@ -7,14 +7,17 @@ import { oceanMuse } from './planets/ocean-muse';
 import { hanfuMuse } from './planets/hanfu-muse';
 import { tokyoNight } from './planets/tokyo-night';
 import type { MusePlanet } from './types';
+import { applyIdentityDiversity } from './identity-diversity';
 
-export const planets: MusePlanet[] = [
+const rawPlanets: MusePlanet[] = [
   forestMuse,
   snowMuse,
   oceanMuse,
   hanfuMuse,
   tokyoNight
 ];
+
+export const planets: MusePlanet[] = applyIdentityDiversity(rawPlanets);
 
 // Compatibility export for the current UI. Prefer planets in new code.
 export const styles = planets;
