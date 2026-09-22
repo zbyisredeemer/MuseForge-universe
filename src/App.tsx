@@ -1,5 +1,5 @@
 import { MouseEvent as ReactMouseEvent, PointerEvent, useMemo, useRef, useState } from 'react';
-import { MuseImage, MuseStyle, styles } from './data/styles';
+import { MuseImage, MuseStyle, getGalaxyById, styles } from './data/styles';
 
 type View = { kind: 'universe' } | { kind: 'style'; style: MuseStyle };
 
@@ -81,22 +81,25 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           >
             <span className="star-core" />
             <span className="star-pulse" />
-            <span className="star-tooltip"><b>{style.name}</b><small>{style.subtitle}</small></span>
+            <span className="star-tooltip"><b>{style.name}</b><small>{getGalaxyById(style.galaxyId)?.name ?? style.subtitle} · {style.subtitle}</small></span>
           </button>
         ))}
         <div className="hint-line"><span />第一个可探索星点</div>
       </div>
 
       <div className="universe-footer">
-        <span>01 STYLE ONLINE</span>
-        <span>8 FOREST MUSES</span>
-        <span>HD · PROMPT INCLUDED</span>
+        <span>{new Set(styles.map((style) => style.galaxyId)).size} GALAXY ONLINE</span>
+        <span>{styles.length} PLANET ONLINE</span>
+        <span>{styles.reduce((total, style) => total + style.images.length, 0)} MUSES · PROMPT DNA</span>
       </div>
     </section>
   );
 }
 
 function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () => void; onSelect: (image: MuseImage) => void }) {
+  const galaxy = getGalaxyById(style.galaxyId);
+  const generatedCount = style.images.filter((image) => image.dna.generation.assetType === 'generated').length;
+  const placeholderCount = style.images.length - generatedCount;
   const [rotation, setRotation] = useState({ x: -8, y: 0 });
   const drag = useRef({ active: false, x: 0, y: 0, startX: 0, startY: 0 });
 
@@ -116,10 +119,10 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     <section className="style-view">
       <div className="style-copy">
         <button className="back-button" onClick={onBack}>← 返回宇宙</button>
-        <div className="eyebrow">STYLE PLANET · 001</div>
+        <div className="eyebrow">{galaxy?.subtitle ?? 'UNIVERSE'} GALAXY · PLANET {String(style.sequence).padStart(3, '0')}</div>
         <h2>{style.name}</h2>
         <p>{style.description}</p>
-        <div className="style-stats"><b>{style.images.length}</b> 张首发图 · 前 4 张写实 WebP · 后 4 张 SVG 占位</div>
+        <div className="style-stats"><b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}</div>
         <div className="drag-hint">拖动球体旋转 · 点击图片查看高清图与 Prompt</div>
       </div>
 
@@ -142,7 +145,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
             );
           })}
         </div>
-        <div className="planet-core"><span>FOREST</span><small>MUSE 001</small></div>
+        <div className="planet-core"><span>{style.code}</span><small>PLANET {String(style.sequence).padStart(3, '0')}</small></div>
       </div>
     </section>
   );
@@ -175,7 +178,7 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
             <summary>Negative Prompt</summary>
             <p>{image.negativePrompt}</p>
           </details>
-          <div className="image-meta">{image.image.endsWith('.webp') ? '941 × 1672 WebP · AI 写实生成图' : '2160 × 3840 SVG · 矢量占位图'}</div>
+          <div className="image-meta">{image.dna.generation.resolution?.replace('x', ' × ') ?? '未知分辨率'} {image.dna.generation.format?.toUpperCase() ?? ''} · {image.dna.generation.assetType === 'generated' ? 'AI 生成图' : '视觉占位图'}</div>
         </aside>
       </div>
     </div>
