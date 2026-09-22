@@ -1,19 +1,73 @@
 # MuseForge Universe
 
-一个持续迭代的「美女图片提示词宇宙」。风格不是列表，而是宇宙中的星点；点击星点进入风格星球，通过可旋转的 3D 图片球浏览作品，并查看每张图的生成 Prompt。
+一个持续迭代的「美女图片提示词宇宙」。项目不把风格做成传统列表，而是把视觉主题组织成星系与星球；每张图片同时拥有可检索、可组合的 Prompt DNA。
 
-## 当前版本 v0.1
+## 当前版本 v0.2
 
-- 宇宙 / 星系首页
-- 风格星点悬浮名称
-- 首个风格：**森林系美女 / Forest Muse**
-- 点击星点进入 3D 图片球
-- 拖动旋转图片球
-- 点击图片查看高清大图
+- 宇宙 / 星球探索界面
+- 第一颗星球：**森林系美女 / Forest Muse**
+- 3D 图片球浏览与高清大图查看
 - Prompt / Negative Prompt / 标签
-- 一键复制 Prompt
-- 首批 8 张 2160×3840 SVG 视觉样图，可无损缩放至 4K 及以上
-- Vite + React + TypeScript，可直接部署到 Vercel
+- 图片级 **Prompt DNA**：人物、服装、环境、姿势、摄影、美学、生成参数
+- **Galaxy → Planet → Image DNA** 分类模型
+- 首批 8 张 Forest Muse：4 张 WebP 生成图 + 4 张 SVG 占位图
+- Vite + React + TypeScript，可部署到 Vercel
+
+## 分类架构
+
+```text
+MuseForge Universe
+└── Galaxy 星系
+    └── Planet 星球
+        └── Image 图片
+            └── Prompt DNA
+                ├── subject
+                ├── fashion
+                ├── environment
+                ├── pose
+                ├── photography
+                ├── aesthetics
+                └── generation
+```
+
+当前规划 8 个一级星系：
+
+- Nature / 自然
+- Urban / 城市
+- Eastern / 东方
+- Fashion / 时尚
+- Lifestyle / 生活
+- Fantasy / 梦幻
+- Future / 未来
+- Photography / 摄影
+
+完整分类规则、目录规范与扩展计划见 [docs/CLASSIFICATION.md](docs/CLASSIFICATION.md)。
+
+## 数据结构
+
+- `src/data/types.ts`：Galaxy、Planet、MuseImage、Image DNA 类型
+- `src/data/taxonomy.ts`：一级星系与受控词表
+- `src/data/planets/`：每颗星球的图片、Prompt 与 DNA 数据
+- `src/data/styles.ts`：聚合导出；保留 `styles` 兼容当前 UI
+
+## 图片目录
+
+新内容推荐使用：
+
+```text
+public/images/
+├── nature/
+│   ├── forest-muse/
+│   ├── snow-muse/
+│   └── ocean-muse/
+├── urban/
+├── eastern/
+├── fashion/
+├── fantasy/
+└── future/
+```
+
+当前 `public/images/forest/` 暂时保留，避免仅为目录调整造成不必要的二进制迁移；后续统一整理。
 
 ## 本地运行
 
@@ -28,27 +82,29 @@ npm run dev
 npm run build
 ```
 
-## Vercel
+## 如何新增一颗星球
 
-导入 GitHub 仓库即可。Vercel 会自动识别 Vite：
+1. 在 `src/data/planets/` 新建星球数据文件
+2. 为星球指定 `galaxyId`、`code`、`sequence` 与星点坐标
+3. 为每张图片补充 `galaxyId`、`planetId`、Prompt、标签和完整 DNA
+4. 在 `src/data/styles.ts` 的 `planets` 中注册
+5. 图片按 `public/images/{galaxy}/{planet}/` 规范存放
 
-- Build Command: `npm run build`
-- Output Directory: `dist`
+页面无需为每颗新星球单独编写展示逻辑。
 
-## 如何新增一个风格
+## 下一阶段
 
-1. 在 `src/data/styles.ts` 增加一条 `MuseStyle`
-2. 配置星点坐标 `star.x / star.y`
-3. 图片可以使用 `/public` 静态资源、CDN URL 或生成的 data URI
-4. 为每张图补充 `prompt`、`negativePrompt`、`tags`
+优先把少量星球做深，而不是创建大量空分类：
 
-页面本身不需要再改。
+- Forest Muse：扩展至 20 张
+- Snow Muse：12 张
+- Ocean Muse：12 张
+- Hanfu Muse：20 张
+- Jiangnan Muse：12 张
+- Tokyo Night：15 张
+- Hong Kong Neon：15 张
+- French Vintage：15 张
+- Quiet Luxury：15 张
+- Elf Muse：12 张
 
-## 下一阶段建议
-
-- 用真实 AI 生成的 4K 写实图片替换当前 SVG 首发视觉样图
-- 增加赛博朋克、东方古典、海岛、雪原、都市夜景、法式复古等风格星点
-- Prompt 参数结构化：人物 / 国家地区 / 发型 / 服装 / 光线 / 镜头 / 姿势 / 场景 / 色调
-- 搜索与风格筛选
-- 收藏与 Prompt 变体
-- 社区投稿与 PR 自动校验
+随后增加多维筛选、全局搜索、相似推荐和基于 DNA 的 Prompt 自动拼装。
