@@ -2,7 +2,7 @@
 
 一个持续迭代的「美女图片提示词宇宙」。项目不把风格做成传统列表，而是把视觉主题组织成星系与星球；每张图片同时拥有可检索、可组合的 Prompt DNA。
 
-## 当前版本 v0.5
+## 当前版本 v0.6
 
 - 宇宙 / 星球探索界面
 - 当前上线 5 颗星球：**Forest Muse / Snow Muse / Ocean Muse / Hanfu Muse / Tokyo Night**
@@ -12,8 +12,8 @@
 - **Galaxy → Planet → Image DNA** 分类模型
 - 当前 52 个内容位：Forest 20；Hanfu 20；Snow / Ocean / Tokyo Night 各 4
 - Forest Muse 已完成 **20 / 20** 真实化；Hanfu Muse 已完成 **20 / 20** 真实化；Snow / Ocean / Tokyo Night 当前仍为可替换的 SVG 视觉占位
-- 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程
-- 新增 **Identity DNA 去同脸机制**：当前 52 个内容位自动获得唯一身份编号，并系统变化脸型、五官、年龄感、肤色倾向、发型与辨识特征
+- 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程；可用 `npm run validate` 同时执行资产与身份多样性校验
+- **Identity DNA v2 去同脸机制**：当前 52 个内容位除脸型、五官、年龄感、肤色倾向与发型外，还系统变化脸宽、颧骨、下颌、下巴、眼距、鼻宽、唇比例与自然不对称\n- Forest Muse 005～020 已加入 **16 组不同地域的现代服装/材质风格参考**，只影响造型语言，不把地域标签硬绑定到固定面孔\n- 新增 `npm run validate:identities`，自动检查 52 个结构身份签名是否重复，并校验 Forest 005～020 的地域轮换完整性
 - Vite + React + TypeScript，可部署到 Vercel
 
 ## 分类架构
@@ -50,7 +50,7 @@ MuseForge Universe
 
 人脸去同质化策略见 [docs/IDENTITY_DIVERSITY.md](docs/IDENTITY_DIVERSITY.md)。
 
-图片生成、二进制上传与 GitHub 提交流程见 [docs/IMAGE_ASSET_WORKFLOW.md](docs/IMAGE_ASSET_WORKFLOW.md)。
+图片生成、二进制上传与 GitHub 提交流程见 [docs/IMAGE_ASSET_WORKFLOW.md](docs/IMAGE_ASSET_WORKFLOW.md)。\n\n照片长期迭代与二次重生成门槛见 [docs/PHOTO_ITERATION.md](docs/PHOTO_ITERATION.md)。
 
 ## 数据结构
 
