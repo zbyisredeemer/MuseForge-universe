@@ -25,7 +25,7 @@ function App() {
           <span className="brand-mark">✦</span>
           <span>MuseForge <b>Universe</b></span>
         </button>
-        <div className="topbar-meta">PROMPT CONSTELLATION · v0.4</div>
+        <div className="topbar-meta">PROMPT CONSTELLATION · v0.5</div>
       </header>
 
       {view.kind === 'universe' ? (
@@ -184,6 +184,22 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
             <summary>Negative Prompt</summary>
             <p>{image.negativePrompt}</p>
           </details>
+          {image.dna.subject.identityId && (
+            <details open>
+              <summary>Identity DNA · {image.dna.subject.identityId}</summary>
+              <p>
+                {[
+                  image.dna.subject.ageBand && `年龄 ${image.dna.subject.ageBand}`,
+                  image.dna.subject.face?.shape && `脸型 ${image.dna.subject.face.shape}`,
+                  image.dna.subject.face?.skinTone && `肤色 ${image.dna.subject.face.skinTone}`,
+                  image.dna.subject.face?.eyeShape && `眼型 ${image.dna.subject.face.eyeShape}`,
+                  image.dna.subject.face?.noseShape && `鼻型 ${image.dna.subject.face.noseShape}`,
+                  image.dna.subject.face?.lipShape && `唇型 ${image.dna.subject.face.lipShape}`,
+                  image.dna.subject.hair?.join(' / ')
+                ].filter(Boolean).join(' · ')}
+              </p>
+            </details>
+          )}
           <div className="image-meta">{image.dna.generation.resolution?.replace('x', ' × ') ?? '未知分辨率'} {image.dna.generation.format?.toUpperCase() ?? ''} · {image.dna.generation.assetType === 'generated' ? 'AI 生成图' : '视觉占位图'}</div>
         </aside>
       </div>
