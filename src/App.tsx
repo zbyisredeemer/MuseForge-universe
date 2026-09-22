@@ -25,7 +25,7 @@ function App() {
           <span className="brand-mark">✦</span>
           <span>MuseForge <b>Universe</b></span>
         </button>
-        <div className="topbar-meta">PROMPT CONSTELLATION · v0.3</div>
+        <div className="topbar-meta">PROMPT CONSTELLATION · v0.4</div>
       </header>
 
       {view.kind === 'universe' ? (
