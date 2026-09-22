@@ -167,7 +167,7 @@ export const forestMuse: MusePlanet = {
     {
       id: 'forest-01',
       title: '苔光晨雾',
-      image: '/images/forest/forest-01.webp',
+      image: '/images/nature/forest-muse/forest-muse-001.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
@@ -187,7 +187,7 @@ export const forestMuse: MusePlanet = {
     {
       id: 'forest-02',
       title: '蕨雨',
-      image: '/images/forest/forest-02.webp',
+      image: '/images/nature/forest-muse/forest-muse-002.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
@@ -207,7 +207,7 @@ export const forestMuse: MusePlanet = {
     {
       id: 'forest-03',
       title: '杉林斜阳',
-      image: '/images/forest/forest-03.webp',
+      image: '/images/nature/forest-muse/forest-muse-003.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
@@ -227,7 +227,7 @@ export const forestMuse: MusePlanet = {
     {
       id: 'forest-04',
       title: '翡翠溪谷',
-      image: '/images/forest/forest-04.webp',
+      image: '/images/nature/forest-muse/forest-muse-004.webp',
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
