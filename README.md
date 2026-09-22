@@ -2,15 +2,16 @@
 
 一个持续迭代的「美女图片提示词宇宙」。项目不把风格做成传统列表，而是把视觉主题组织成星系与星球；每张图片同时拥有可检索、可组合的 Prompt DNA。
 
-## 当前版本 v0.2
+## 当前版本 v0.3
 
 - 宇宙 / 星球探索界面
-- 第一颗星球：**森林系美女 / Forest Muse**
+- 当前上线 5 颗星球：**Forest Muse / Snow Muse / Ocean Muse / Hanfu Muse / Tokyo Night**
 - 3D 图片球浏览与高清大图查看
 - Prompt / Negative Prompt / 标签
 - 图片级 **Prompt DNA**：人物、服装、环境、姿势、摄影、美学、生成参数
 - **Galaxy → Planet → Image DNA** 分类模型
-- 首批 8 张 Forest Muse：4 张 WebP 生成图 + 4 张 SVG 占位图
+- 当前 36 个内容位：Forest 20；Snow / Ocean / Hanfu / Tokyo Night 各 4
+- Forest 前 4 张为 WebP 生成图，其余当前为可替换的 SVG 视觉占位
 - Vite + React + TypeScript，可部署到 Vercel
 
 ## 分类架构
@@ -94,7 +95,7 @@ npm run build
 
 ## 下一阶段
 
-优先把少量星球做深，而不是创建大量空分类：
+当前已完成第一轮星球铺设。下一步优先把视觉占位逐步替换成真实生成图，并继续把重点星球做深：
 
 - Forest Muse：扩展至 20 张
 - Snow Muse：12 张

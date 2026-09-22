@@ -4,9 +4,14 @@ import type { MuseImage, MuseStyle } from './data/styles';
 
 type View = { kind: 'universe' } | { kind: 'style'; style: MuseStyle };
 
-const placements = [
-  [-12, 0], [14, 46], [-18, 92], [12, 138], [-10, 184], [18, 230], [-16, 276], [10, 322]
-];
+function getSpherePlacement(index: number, total: number) {
+  if (total <= 1) return [0, 0] as const;
+  const goldenAngle = 137.508;
+  const y = 1 - (2 * (index + 0.5)) / total;
+  const pitch = Math.asin(y) * (180 / Math.PI) * 0.58;
+  const yaw = (index * goldenAngle) % 360;
+  return [pitch, yaw] as const;
+}
 
 function App() {
   const [view, setView] = useState<View>({ kind: 'universe' });
@@ -20,7 +25,7 @@ function App() {
           <span className="brand-mark">✦</span>
           <span>MuseForge <b>Universe</b></span>
         </button>
-        <div className="topbar-meta">PROMPT CONSTELLATION · v0.2</div>
+        <div className="topbar-meta">PROMPT CONSTELLATION · v0.3</div>
       </header>
 
       {view.kind === 'universe' ? (
@@ -85,7 +90,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
             <span className="star-tooltip"><b>{style.name}</b><small>{getGalaxyById(style.galaxyId)?.name ?? style.subtitle} · {style.subtitle}</small></span>
           </button>
         ))}
-        <div className="hint-line"><span />第一个可探索星点</div>
+        <div className="hint-line"><span />{styles.length} 颗可探索星球</div>
       </div>
 
       <div className="universe-footer">
@@ -131,7 +136,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         <div className="sphere-glow" />
         <div className="sphere" style={{ transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)` }}>
           {style.images.map((image, index) => {
-            const [pitch, yaw] = placements[index % placements.length];
+            const [pitch, yaw] = getSpherePlacement(index, style.images.length);
             return (
               <button
                 key={image.id}
