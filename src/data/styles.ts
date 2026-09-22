@@ -33,7 +33,7 @@ export const styles: MuseStyle[] = [
       {
         id: 'forest-01',
         title: '苔光晨雾',
-        image: forestArtwork(0),
+        image: '/images/forest/forest-01.webp',
         prompt:
           'Portrait of an elegant adult East Asian woman standing in a primeval moss forest at dawn, soft emerald mist, wet leaves, delicate natural makeup, long dark hair moved by a light breeze, dark green linen dress, cinematic volumetric sun rays through ancient trees, shallow depth of field, realistic skin texture, subtle film grain, editorial fashion photography, 85mm lens, f/1.8, ultra detailed, natural color grading, vertical composition, 4K',
         negativePrompt,
@@ -42,7 +42,7 @@ export const styles: MuseStyle[] = [
       {
         id: 'forest-02',
         title: '蕨雨',
-        image: forestArtwork(1),
+        image: '/images/forest/forest-02.webp',
         prompt:
           'Adult East Asian woman among giant fern leaves after a summer rain, translucent raindrops, soft overcast forest light, calm expression, wet black hair, muted olive dress, atmospheric green background, realistic pores and hair strands, luxury editorial portrait, cinematic composition, 85mm portrait lens, high dynamic range, ultra detailed, 4K',
         negativePrompt,
@@ -51,7 +51,7 @@ export const styles: MuseStyle[] = [
       {
         id: 'forest-03',
         title: '杉林斜阳',
-        image: forestArtwork(2),
+        image: '/images/forest/forest-03.webp',
         prompt:
           'Graceful adult East Asian woman in a cedar forest during late afternoon, warm diagonal sunlight cutting through cool green shadows, loose natural hair, elegant forest-green dress, serene cinematic portrait, realistic skin, subtle dust particles in light beams, fashion editorial photography, 50mm lens, filmic contrast, intricate details, 4K',
         negativePrompt,
@@ -60,7 +60,7 @@ export const styles: MuseStyle[] = [
       {
         id: 'forest-04',
         title: '翡翠溪谷',
-        image: forestArtwork(3),
+        image: '/images/forest/forest-04.webp',
         prompt:
           'Adult East Asian woman beside a clear emerald stream deep in a forest valley, smooth dark stones, reflected green light on skin, flowing dark green dress, quiet contemplative mood, cinematic natural light, photorealistic portrait, fine hair detail, realistic hands, 85mm lens, high-end magazine photography, ultra sharp subject, soft background, 4K',
         negativePrompt,
