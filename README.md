@@ -10,10 +10,10 @@
 - Prompt / Negative Prompt / 标签
 - 图片级 **Prompt DNA**：人物、服装、环境、姿势、摄影、美学、生成参数
 - **Galaxy → Planet → Image DNA** 分类模型
-- 当前 36 个内容位：Forest 20；Snow / Ocean / Hanfu / Tokyo Night 各 4
-- Forest Muse 已完成 **20 / 20** 真实化，全部使用标准目录下的 WebP 生成图；Snow / Ocean / Hanfu / Tokyo Night 当前仍为可替换的 SVG 视觉占位
+- 当前 42 个内容位：Forest 20；Hanfu 10；Snow / Ocean / Tokyo Night 各 4
+- Forest Muse 已完成 **20 / 20** 真实化；Hanfu Muse 已完成首批 **10 / 20** 真实化；Snow / Ocean / Tokyo Night 当前仍为可替换的 SVG 视觉占位
 - 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程
-- 新增 **Identity DNA 去同脸机制**：当前 36 个内容位自动获得唯一身份编号，并系统变化脸型、五官、年龄感、肤色倾向、发型与辨识特征
+- 新增 **Identity DNA 去同脸机制**：当前 42 个内容位自动获得唯一身份编号，并系统变化脸型、五官、年龄感、肤色倾向、发型与辨识特征
 - Vite + React + TypeScript，可部署到 Vercel
 
 ## 分类架构
@@ -75,7 +75,7 @@ public/images/
 └── future/
 ```
 
-现有 Forest 写实图片已迁移到 `public/images/nature/forest-muse/`；新增真实图片统一遵循 Galaxy / Planet 标准目录。
+Forest 写实图片位于 `public/images/nature/forest-muse/`；Hanfu 写实图片位于 `public/images/eastern/hanfu-muse/`；新增真实图片统一遵循 Galaxy / Planet 标准目录。
 
 ## 本地运行
 

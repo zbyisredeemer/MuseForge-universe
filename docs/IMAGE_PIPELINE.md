@@ -117,13 +117,33 @@ npm run validate:assets
 
 ## 下一批真实化顺序
 
-Forest Muse 已完成 **20 / 20** 真实化。下一阶段按以下顺序推进：
+Forest Muse 已完成 **20 / 20**；Hanfu Muse 已完成首批 **10 / 20**。下一阶段按以下顺序推进：
 
 ```text
-Hanfu Muse
+Hanfu Muse 011-020
 Tokyo Night
 Snow Muse
 Ocean Muse
 ```
 
 后续新增真实图片继续遵循 Identity DNA 去同脸规则与标准 WebP 资产目录。
+
+
+## Hanfu Muse 替换进度
+
+| 编号 | 标题 | 状态 | 标准文件 |
+| --- | --- | --- | --- |
+| 001 | 竹庭晨雾 | ✅ Generated | `hanfu-muse-001.webp` |
+| 002 | 锦鲤夕照 | ✅ Generated | `hanfu-muse-002.webp` |
+| 003 | 桃花春水 | ✅ Generated | `hanfu-muse-003.webp` |
+| 004 | 书斋兰影 | ✅ Generated | `hanfu-muse-004.webp` |
+| 005 | 长安夜市 | ✅ Generated | `hanfu-muse-005.webp` |
+| 006 | 雪宫红裳 | ✅ Generated | `hanfu-muse-006.webp` |
+| 007 | 荷风玉色 | ✅ Generated | `hanfu-muse-007.webp` |
+| 008 | 秋山旅人 | ✅ Generated | `hanfu-muse-008.webp` |
+| 009 | 月满江亭 | ✅ Generated | `hanfu-muse-009.webp` |
+| 010 | 宫阙灯影 | ✅ Generated | `hanfu-muse-010.webp` |
+
+当前 Hanfu Muse 真实化进度：**10 / 20（50%）**。
+
+本批次在保持成年人、东方古典审美和写实摄影质感的前提下，提高了服装剪裁、露肩、薄纱、腰线和姿态中的女性魅力表达，同时继续执行 Identity DNA 去同脸规则。
