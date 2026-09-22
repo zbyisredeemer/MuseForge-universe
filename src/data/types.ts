@@ -4,6 +4,17 @@ export type MuseImageDNA = {
   subject: {
     gender: 'female';
     ageGroup: 'adult';
+    ageBand?: string;
+    identityId?: string;
+    face?: {
+      shape?: string;
+      skinTone?: string;
+      eyeShape?: string;
+      browShape?: string;
+      noseShape?: string;
+      lipShape?: string;
+      distinctiveFeatures?: string[];
+    };
     region?: string;
     country?: string;
     appearance?: string[];
