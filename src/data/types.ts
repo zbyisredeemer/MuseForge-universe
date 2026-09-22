@@ -8,11 +8,19 @@ export type MuseImageDNA = {
     identityId?: string;
     face?: {
       shape?: string;
+      faceWidth?: string;
+      cheekbones?: string;
+      jawShape?: string;
+      chinShape?: string;
       skinTone?: string;
       eyeShape?: string;
+      eyeSpacing?: string;
       browShape?: string;
       noseShape?: string;
+      noseWidth?: string;
       lipShape?: string;
+      lipRatio?: string;
+      asymmetry?: string;
       distinctiveFeatures?: string[];
     };
     region?: string;
