@@ -2,7 +2,7 @@
 
 一个持续迭代的「美女图片提示词宇宙」。项目不把风格做成传统列表，而是把视觉主题组织成星系与星球；每张图片同时拥有可检索、可组合的 Prompt DNA。
 
-## 当前版本 v0.4
+## 当前版本 v0.5
 
 - 宇宙 / 星球探索界面
 - 当前上线 5 颗星球：**Forest Muse / Snow Muse / Ocean Muse / Hanfu Muse / Tokyo Night**
@@ -13,6 +13,7 @@
 - 当前 36 个内容位：Forest 20；Snow / Ocean / Hanfu / Tokyo Night 各 4
 - Forest 前 4 张为 WebP 生成图，其余当前为可替换的 SVG 视觉占位
 - 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程
+- 新增 **Identity DNA 去同脸机制**：当前 36 个内容位自动获得唯一身份编号，并系统变化脸型、五官、年龄感、肤色倾向、发型与辨识特征
 - Vite + React + TypeScript，可部署到 Vercel
 
 ## 分类架构
@@ -47,10 +48,13 @@ MuseForge Universe
 
 真实图片替换流程与 Forest 20 张进度见 [docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md)。
 
+人脸去同质化策略见 [docs/IDENTITY_DIVERSITY.md](docs/IDENTITY_DIVERSITY.md)。
+
 ## 数据结构
 
 - `src/data/types.ts`：Galaxy、Planet、MuseImage、Image DNA 类型
 - `src/data/taxonomy.ts`：一级星系与受控词表
+- `src/data/identity-diversity.ts`：全局 Identity DNA 分配与 Prompt 去同脸增强
 - `src/data/planets/`：每颗星球的图片、Prompt 与 DNA 数据
 - `src/data/styles.ts`：聚合导出；保留 `styles` 兼容当前 UI
 
