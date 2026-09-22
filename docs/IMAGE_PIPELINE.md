@@ -39,6 +39,9 @@ public/images/
 
 ## 推荐生成规格
 
+> v0.5 起，生成真实图时必须保留最终 Prompt 中自动注入的 Identity DNA，不要只复制原始场景描述。详见 `docs/IDENTITY_DIVERSITY.md`。
+
+
 - 主体：明确成年人
 - 默认比例：9:16 竖版
 - 长边建议至少 2048 px
