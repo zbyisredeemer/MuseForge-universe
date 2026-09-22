@@ -2,7 +2,7 @@
 
 一个持续迭代的「美女图片提示词宇宙」。项目不把风格做成传统列表，而是把视觉主题组织成星系与星球；每张图片同时拥有可检索、可组合的 Prompt DNA。
 
-## 当前版本 v0.3
+## 当前版本 v0.4
 
 - 宇宙 / 星球探索界面
 - 当前上线 5 颗星球：**Forest Muse / Snow Muse / Ocean Muse / Hanfu Muse / Tokyo Night**
@@ -12,6 +12,7 @@
 - **Galaxy → Planet → Image DNA** 分类模型
 - 当前 36 个内容位：Forest 20；Snow / Ocean / Hanfu / Tokyo Night 各 4
 - Forest 前 4 张为 WebP 生成图，其余当前为可替换的 SVG 视觉占位
+- 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程
 - Vite + React + TypeScript，可部署到 Vercel
 
 ## 分类架构
@@ -44,6 +45,8 @@ MuseForge Universe
 
 完整分类规则、目录规范与扩展计划见 [docs/CLASSIFICATION.md](docs/CLASSIFICATION.md)。
 
+真实图片替换流程与 Forest 20 张进度见 [docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md)。
+
 ## 数据结构
 
 - `src/data/types.ts`：Galaxy、Planet、MuseImage、Image DNA 类型
@@ -68,7 +71,7 @@ public/images/
 └── future/
 ```
 
-当前 `public/images/forest/` 暂时保留，避免仅为目录调整造成不必要的二进制迁移；后续统一整理。
+现有 Forest 写实图片已迁移到 `public/images/nature/forest-muse/`；新增真实图片统一遵循 Galaxy / Planet 标准目录。
 
 ## 本地运行
 
