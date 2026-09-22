@@ -68,9 +68,9 @@ export const getGalaxyById = (id: string) => galaxies.find((galaxy) => galaxy.id
 export const taxonomyOptions = {
   region: ['east-asia', 'south-asia', 'southeast-asia', 'europe', 'north-america', 'latin-america', 'africa', 'middle-east'],
   season: ['spring', 'summer', 'autumn', 'winter'],
-  weather: ['sunny', 'cloudy', 'rain', 'snow', 'fog', 'mist'],
+  weather: ['clear', 'sunny', 'cloudy', 'rain', 'snow', 'fog', 'mist'],
   time: ['dawn', 'morning', 'day', 'golden-hour', 'sunset', 'blue-hour', 'night'],
   composition: ['close-up', 'headshot', 'half-body', 'three-quarter', 'full-body', 'environmental-portrait'],
-  visualStyle: ['photorealistic', 'cinematic', 'editorial', 'film', 'minimalist', 'fantasy-realism'],
+  visualStyle: ['photorealistic', 'cinematic', 'editorial', 'film', 'minimalist', 'street', 'fantasy-realism'],
   mood: ['serene', 'fresh', 'romantic', 'mysterious', 'elegant', 'dreamy', 'cool', 'warm']
 } as const;
