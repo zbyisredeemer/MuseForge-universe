@@ -250,15 +250,15 @@ export const forestMuse: MusePlanet = {
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
-        'Beautiful adult East Asian woman in a quiet woodland glade filled with tiny wildflowers, soft golden morning light, gentle breeze, natural expression, cream and moss green dress, dreamy but photorealistic editorial portrait, realistic skin texture, balanced composition, 85mm lens, soft bokeh, premium color grading, ultra detailed 4K',
+        'Adult woman kneeling naturally at the edge of a quiet woodland glade filled with tiny wildflowers, body turned three-quarters away from camera and face returning softly toward the light, cream and moss-green natural-fabric dress, hands resting naturally near one knee, soft golden morning light, believable skin pores and fine facial texture, individual flyaway hairs, 35mm environmental portrait, eye-level camera, subject occupying less than half the frame, realistic forest depth, restrained editorial color grading, photorealistic 4K',
       negativePrompt,
       tags: ['野花', '林隙', '柔光', '清新'],
       dna: {
         subject: { ...baseIdentity, hair: ['long', 'natural'] },
         fashion: { outfit: ['dress'], colors: ['cream', 'moss-green'] },
         environment: { scene: 'woodland-glade', season: 'spring', weather: 'sunny', time: 'morning' },
-        pose: { action: 'standing', expression: 'natural' },
-        photography: { composition: 'environmental-portrait', lens: '85mm', lighting: ['soft-light', 'golden-light'] },
+        pose: { action: 'kneeling', expression: 'natural' },
+        photography: { composition: 'environmental-portrait', lens: '35mm', aperture: 'f/2.8', angle: 'eye-level-three-quarter', lighting: ['soft-light', 'golden-light', 'reflected-fill'] },
         aesthetics: { styles: ['photorealistic', 'editorial'], mood: ['fresh', 'dreamy'], palette: ['cream', 'moss-green', 'warm-gold'] },
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
@@ -270,15 +270,15 @@ export const forestMuse: MusePlanet = {
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
-        'Adult East Asian woman in a highland pine forest wrapped in silver mist, minimalist dark green coat dress, soft diffused light, quiet eyes, cool cinematic palette, photorealistic fashion portrait, subtle moisture on hair, layered fog depth, 85mm lens, fine skin texture, elegant composition, 4K',
+        'Adult woman walking slowly between tall highland pines wrapped in silver mist, charcoal and dark-green structured coat dress with practical natural-fiber layers, one hand lightly touching the coat collar, full body visible, slightly low camera angle, 50mm lens, soft diffused morning light, moisture on hair and fabric, realistic mature skin texture, layered fog depth, quiet focused gaze away from the lens, cinematic but documentary-real forest portrait, restrained cool grading, 4K',
       negativePrompt,
       tags: ['松林', '银雾', '冷调', '极简'],
       dna: {
         subject: { ...baseIdentity, hair: ['dark', 'slightly-wet'] },
         fashion: { outfit: ['coat-dress'], colors: ['dark-green'] },
         environment: { scene: 'pine-forest', season: 'autumn', weather: 'fog', time: 'morning' },
-        pose: { action: 'standing', expression: 'quiet' },
-        photography: { composition: 'half-body', lens: '85mm', lighting: ['diffused-light'] },
+        pose: { action: 'walking', expression: 'quiet-focused-away' },
+        photography: { composition: 'full-body', lens: '50mm', aperture: 'f/2.8', angle: 'slightly-low', lighting: ['diffused-light', 'fog-ambient-light'] },
         aesthetics: { styles: ['photorealistic', 'cinematic', 'minimalist'], mood: ['cool', 'serene'], palette: ['silver', 'deep-green'] },
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
@@ -290,15 +290,15 @@ export const forestMuse: MusePlanet = {
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
-        'Adult East Asian woman in a moonlit forest, blue-black trees, soft moon rim light outlining long dark hair, deep teal velvet dress, faint fireflies, mysterious calm expression, cinematic night portrait, realistic skin and fabric, controlled highlights, 85mm lens, high detail, premium fantasy realism, 4K',
+        'Adult woman seated sideways on a moss-covered boulder in a moonlit forest, shoulders relaxed and face shown in a soft three-quarter profile rather than a centered beauty pose, deep teal wool-and-velvet layered dress, faint fireflies and blue-black trees, soft moon rim light with subtle cool fill on the face, realistic mature skin with pores and under-eye texture, natural hands visible, 85mm lens, controlled highlights, shallow but believable depth of field, cinematic night realism without fantasy-glow skin, 4K',
       negativePrompt,
       tags: ['月夜', '萤火', '蓝绿调', '神秘'],
       dna: {
         subject: { ...baseIdentity, hair: ['long', 'dark'] },
         fashion: { outfit: ['velvet-dress'], colors: ['deep-teal'] },
         environment: { scene: 'moonlit-forest', season: 'summer', weather: 'clear', time: 'night' },
-        pose: { action: 'standing', expression: 'mysterious-calm' },
-        photography: { composition: 'half-body', lens: '85mm', lighting: ['moonlight', 'rim-light'] },
+        pose: { action: 'sitting-sideways', expression: 'mysterious-calm' },
+        photography: { composition: 'three-quarter', lens: '85mm', aperture: 'f/2', angle: 'three-quarter-profile', lighting: ['moonlight', 'rim-light', 'cool-fill'] },
         aesthetics: { styles: ['photorealistic', 'cinematic', 'fantasy-realism'], mood: ['mysterious', 'serene'], palette: ['blue-black', 'teal'] },
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
@@ -310,7 +310,7 @@ export const forestMuse: MusePlanet = {
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
-        'Elegant adult East Asian woman walking through a forest at golden hour in early autumn, green and amber leaves, warm backlight, natural long hair, understated olive dress, cinematic fashion photography, realistic skin, soft lens bloom, layered woodland depth, 50mm lens, editorial composition, ultra detailed, 4K',
+        'Adult woman walking across the frame through an early-autumn forest at golden hour, captured mid-step from a three-quarter side angle rather than facing camera, tailored olive natural-fabric dress with a clean long silhouette, green and amber leaves moving in a light breeze, warm backlight balanced by soft reflected fill, realistic skin texture and hair strands, 50mm lens, full-body composition with generous environmental space, subtle film bloom, layered woodland depth, understated fashion editorial realism, 4K',
       negativePrompt,
       tags: ['秋林', '金叶', '暮光', '时尚'],
       dna: {
@@ -318,7 +318,7 @@ export const forestMuse: MusePlanet = {
         fashion: { outfit: ['dress'], colors: ['olive'] },
         environment: { scene: 'autumn-forest', season: 'autumn', weather: 'sunny', time: 'golden-hour' },
         pose: { action: 'walking', expression: 'calm' },
-        photography: { composition: 'full-body', lens: '50mm', lighting: ['warm-backlight', 'natural-light'] },
+        photography: { composition: 'full-body', lens: '50mm', aperture: 'f/2.8', angle: 'three-quarter-side', lighting: ['warm-backlight', 'natural-light', 'reflected-fill'] },
         aesthetics: { styles: ['photorealistic', 'cinematic', 'editorial'], mood: ['warm', 'elegant'], palette: ['amber', 'olive', 'warm-gold'] },
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
