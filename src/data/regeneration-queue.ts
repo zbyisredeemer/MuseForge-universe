@@ -7,15 +7,19 @@ export type RegenerationTarget = {
   stage: RegenerationStage;
   reasons: string[];
   targetChanges: string[];
+  candidateAssets?: string[];
+  candidateNotes?: string[];
 };
 
 export const regenerationQueue: RegenerationTarget[] = [
   {
     imageId: 'forest-05',
     priority: 'high',
-    stage: 'candidate-needed',
+    stage: 'candidate-review',
     reasons: ['face-similarity', 'needs-stronger-young-sexy-editorial-style'],
-    targetChanges: ['age-23-24', 'young-attractive', 'subtly-sensual', '35mm-kneeling-flower-glade', 'cream-fitted-dress']
+    targetChanges: ['age-23-24', 'young-attractive', 'subtly-sensual', '35mm-kneeling-flower-glade', 'cream-fitted-dress'],
+    candidateAssets: ['/images/nature/forest-muse/candidates/forest-muse-005-candidate-a.webp'],
+    candidateNotes: ['generated candidate uploaded for review; do not replace published asset until approved']
   },
   {
     imageId: 'forest-06',
