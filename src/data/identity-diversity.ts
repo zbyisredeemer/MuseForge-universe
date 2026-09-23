@@ -29,7 +29,7 @@ type RegionalStyleProfile = {
   appearance: string[];
 };
 
-const AGE_BANDS = ['21-24', '25-28', '29-32', '33-36', '37-40', '41-45', '46-50', '51-56'] as const;
+const AGE_BANDS = ['20-21', '21-22', '22-23', '23-24', '24-25', '25-26', '26-27', '27-28'] as const;
 const FACE_SHAPES = ['oval', 'round', 'heart-shaped', 'long-oval', 'soft-square', 'diamond', 'pear-shaped', 'angular-oval', 'broad-oval', 'narrow-oblong'] as const;
 const FACE_WIDTHS = ['narrow', 'slim-medium', 'balanced-medium', 'soft-wide', 'broad-cheeked', 'narrow-cheeked', 'medium-wide'] as const;
 const CHEEKBONES = ['low-soft', 'medium-rounded', 'high-defined', 'broad-soft', 'high-subtle', 'flat-gentle', 'prominent-natural'] as const;
@@ -89,7 +89,7 @@ const HAIR_PROFILES = [
 
 const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> = {
   'forest-05': {
-    ageBand: '33-36',
+    ageBand: '23-24',
     faceShape: 'broad-oval',
     faceWidth: 'soft-wide',
     cheekbones: 'high-defined',
@@ -108,7 +108,7 @@ const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> 
     hair: ['collarbone-length', 'soft-waves', 'dark-brown']
   },
   'forest-06': {
-    ageBand: '46-50',
+    ageBand: '25-26',
     faceShape: 'soft-square',
     faceWidth: 'broad-cheeked',
     cheekbones: 'low-soft',
@@ -127,7 +127,7 @@ const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> 
     hair: ['short-bob', 'straight', 'espresso-brown']
   },
   'forest-07': {
-    ageBand: '37-40',
+    ageBand: '21-22',
     faceShape: 'diamond',
     faceWidth: 'narrow-cheeked',
     cheekbones: 'prominent-natural',
@@ -146,7 +146,7 @@ const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> 
     hair: ['long', 'soft-curls', 'black']
   },
   'forest-10': {
-    ageBand: '51-56',
+    ageBand: '27-28',
     faceShape: 'round',
     faceWidth: 'medium-wide',
     cheekbones: 'broad-soft',
@@ -165,7 +165,7 @@ const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> 
     hair: ['jaw-length-bob', 'slightly-wavy', 'dark-brown']
   },
   'forest-13': {
-    ageBand: '41-45',
+    ageBand: '24-25',
     faceShape: 'angular-oval',
     faceWidth: 'slim-medium',
     cheekbones: 'high-subtle',
@@ -184,7 +184,7 @@ const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> 
     hair: ['mid-length', 'layered', 'dark-brown']
   },
   'forest-15': {
-    ageBand: '46-50',
+    ageBand: '22-23',
     faceShape: 'pear-shaped',
     faceWidth: 'soft-wide',
     cheekbones: 'broad-soft',
@@ -203,7 +203,7 @@ const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> 
     hair: ['chin-length', 'straight', 'black']
   },
   'forest-17': {
-    ageBand: '29-32',
+    ageBand: '20-21',
     faceShape: 'soft-square',
     faceWidth: 'medium-wide',
     cheekbones: 'medium-rounded',
@@ -222,7 +222,7 @@ const FOREST_REGEN_IDENTITY_OVERRIDES: Record<string, Partial<IdentityProfile>> 
     hair: ['short-pixie', 'textured', 'black']
   },
   'forest-20': {
-    ageBand: '37-40',
+    ageBand: '26-27',
     faceShape: 'long-oval',
     faceWidth: 'narrow',
     cheekbones: 'low-soft',
@@ -315,7 +315,8 @@ function identityPrompt(profile: IdentityProfile) {
     profile.asymmetry,
     profile.distinctiveFeature,
     `${profile.hair.join(' ')} hair`,
-    'natural pores, subtle skin tone variation, believable under-eye texture, realistic hairline and baby hairs',
+    'clearly adult age 20 to 28, youthful attractive feminine appearance, subtly sensual high-end beauty editorial, flattering facial expression and body line',
+    'natural smooth skin with believable pores, subtle skin tone variation, realistic hairline and baby hairs',
     'facial bone structure, eye spacing, nose geometry, jaw, chin and lip proportions must be clearly different from every other portrait in this collection',
     'avoid generic influencer face, beauty-template face and recurring model identity'
   ].join(', ');
