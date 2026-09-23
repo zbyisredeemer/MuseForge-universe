@@ -1,6 +1,7 @@
 export * from './types';
 export { galaxies, getGalaxyById, taxonomyOptions } from './taxonomy';
 export { regenerationQueue, forestKeepBaselines, getRegenerationTarget } from './regeneration-queue';
+export { globalYoungSexyBeautyPreset, forestMuseStylePreset, forestMuseBatch01 } from './generation-presets';
 
 import { forestMuse } from './planets/forest-muse';
 import { snowMuse } from './planets/snow-muse';
@@ -9,6 +10,7 @@ import { hanfuMuse } from './planets/hanfu-muse';
 import { tokyoNight } from './planets/tokyo-night';
 import type { MusePlanet } from './types';
 import { applyIdentityDiversity } from './identity-diversity';
+import { applyProjectImageStyle } from './generation-presets';
 
 const rawPlanets: MusePlanet[] = [
   forestMuse,
@@ -18,7 +20,7 @@ const rawPlanets: MusePlanet[] = [
   tokyoNight
 ];
 
-export const planets: MusePlanet[] = applyIdentityDiversity(rawPlanets);
+export const planets: MusePlanet[] = applyProjectImageStyle(applyIdentityDiversity(rawPlanets));
 
 // Compatibility export for the current UI. Prefer planets in new code.
 export const styles = planets;
