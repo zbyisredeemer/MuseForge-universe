@@ -16,25 +16,21 @@ if (ids.length === 0) errors.push('regeneration queue is empty');
 if (uniqueIds.size !== ids.length) errors.push('regeneration queue contains duplicate imageId values');
 
 const expectedHighPriority = [
+  'hanfu-004',
   'forest-05',
   'forest-06',
-  'forest-07',
   'forest-10',
-  'forest-12',
   'forest-13',
   'forest-15',
-  'forest-16',
   'forest-17',
-  'forest-18',
-  'forest-19',
   'forest-20'
 ];
 
 for (const id of expectedHighPriority) {
-  if (!uniqueIds.has(id)) errors.push(`missing expected Forest high-priority target: ${id}`);
+  if (!uniqueIds.has(id)) errors.push(`missing expected high-priority target: ${id}`);
 }
 
-const lockedIdentityTargets = ['forest-05', 'forest-06', 'forest-07', 'forest-10', 'forest-13', 'forest-15', 'forest-17', 'forest-20'];
+const lockedIdentityTargets = ['forest-05', 'forest-06', 'forest-10', 'forest-13', 'forest-15', 'forest-17', 'forest-20'];
 for (const id of lockedIdentityTargets) {
   const pattern = new RegExp(`'${id.replace('-', '\\-')}':\\s*\\{`);
   if (!pattern.test(identitySource)) {
@@ -52,7 +48,7 @@ if (!keepBaselinesMatch) {
   errors.push('missing forestKeepBaselines');
 } else {
   const keepIds = [...keepBaselinesMatch[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
-  const expectedKeep = ['forest-08', 'forest-09', 'forest-11', 'forest-14'];
+  const expectedKeep = ['forest-07', 'forest-08', 'forest-09', 'forest-11', 'forest-12', 'forest-14', 'forest-16', 'forest-18', 'forest-19'];
   for (const id of expectedKeep) {
     if (!keepIds.includes(id)) errors.push(`missing keep baseline ${id}`);
   }
