@@ -220,7 +220,7 @@ const images: MuseImage[] = seeds.map((seed, index) => {
       }
     }
   };
-}).filter((image) => image.id !== 'hanfu-004');
+});
 
 export const hanfuMuse: MusePlanet = {
   id: 'hanfu-muse',

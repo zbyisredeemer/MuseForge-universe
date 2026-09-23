@@ -16,7 +16,7 @@
 - 3D 图片球与高清大图
 - Prompt / Negative Prompt / Tags
 - Image DNA
-- Forest Muse / Hanfu Muse 已有真实 WebP；损坏资产会自动下线并进入 regeneration queue
+- Forest Muse / Hanfu Muse 已有真实 WebP；Hanfu 004 损坏资产已修复并恢复展示
 - Snow / Ocean / Tokyo Night 可继续真实化
 - Identity DNA 去同脸
 - 结构化 regeneration queue
@@ -82,7 +82,7 @@ npm run build
 
 ## 默认持续迭代顺序
 
-1. Forest 中不符合 Style Bible 的旧图
+1. Forest 中不符合 Style Bible 的旧图（当前 006 / 010 / 013 / 015 / 017 / 020）
 2. Tokyo Night 真实化
 3. Snow Muse 真实化
 4. Ocean Muse 真实化

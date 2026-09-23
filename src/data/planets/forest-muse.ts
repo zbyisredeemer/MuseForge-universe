@@ -252,16 +252,16 @@ export const forestMuse: MusePlanet = {
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
-        'Adult woman kneeling naturally at the edge of a quiet woodland glade filled with tiny wildflowers, body turned three-quarters away from camera and face returning softly toward the light, cream and moss-green natural-fabric dress, hands resting naturally near one knee, soft golden morning light, believable skin pores and fine facial texture, individual flyaway hairs, 35mm environmental portrait, eye-level camera, subject occupying less than half the frame, realistic forest depth, restrained editorial color grading, photorealistic 4K',
+        'Clearly adult young East Asian woman around 23 to 24 kneeling naturally in a sunlit forest wildflower glade beside a shallow stream, long dark softly wavy hair, distinct youthful face, fitted cream embroidered slip dress with delicate botanical details, tasteful open neckline and visible leg line, both hands resting naturally near her knees, warm golden backlight through trees, realistic skin texture and hair strands, premium romantic outdoor fashion editorial, 35mm environmental portrait, photorealistic high detail',
       negativePrompt,
-      tags: ['野花', '林隙', '柔光', '清新'],
+      tags: ['野花', '林隙', '奶油吊带裙', '暖光'],
       dna: {
-        subject: { ...baseIdentity, hair: ['long', 'natural'] },
-        fashion: { outfit: ['dress'], colors: ['cream', 'moss-green'] },
-        environment: { scene: 'woodland-glade', season: 'spring', weather: 'sunny', time: 'morning' },
-        pose: { action: 'kneeling', expression: 'natural' },
-        photography: { composition: 'environmental-portrait', lens: '35mm', aperture: 'f/2.8', angle: 'eye-level-three-quarter', lighting: ['soft-light', 'golden-light', 'reflected-fill'] },
-        aesthetics: { styles: ['photorealistic', 'editorial'], mood: ['fresh', 'dreamy'], palette: ['cream', 'moss-green', 'warm-gold'] },
+        subject: { ...baseIdentity, hair: ['long', 'dark', 'soft-waves'] },
+        fashion: { outfit: ['fitted-floral-slip-dress'], colors: ['cream', 'soft-sage'] },
+        environment: { scene: 'woodland-wildflower-glade', season: 'spring', weather: 'sunny', time: 'morning' },
+        pose: { action: 'kneeling', expression: 'soft-confident' },
+        photography: { composition: 'environmental-fashion-portrait', lens: '35mm', aperture: 'f/2.8', angle: 'eye-level-three-quarter', lighting: ['warm-backlight', 'golden-light', 'reflected-fill'] },
+        aesthetics: { styles: ['photorealistic', 'cinematic', 'editorial'], mood: ['young', 'romantic', 'sensual'], palette: ['cream', 'soft-sage', 'warm-gold'] },
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },

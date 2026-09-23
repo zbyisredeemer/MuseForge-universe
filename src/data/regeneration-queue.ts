@@ -13,32 +13,6 @@ export type RegenerationTarget = {
 
 export const regenerationQueue: RegenerationTarget[] = [
   {
-    imageId: 'hanfu-004',
-    priority: 'high',
-    stage: 'candidate-needed',
-    reasons: ['published-asset-corrupt', 'asset-was-only-93-bytes', 'must-restore-gallery-slot'],
-    targetChanges: [
-      'age-23-25',
-      'clearly-adult-young-chinese-woman',
-      'young-intellectual-sexy',
-      'distinct-face-from-other-hanfu-muses',
-      'scholar-studio-calligraphy',
-      'slate-blue-and-cream-hanfu',
-      'elegant-open-neckline',
-      'fitted-waist',
-      '50mm-or-70mm-editorial'
-    ],
-    candidateNotes: ['corrupt published asset removed and slot temporarily unpublished until a valid candidate is generated']
-  },
-  {
-    imageId: 'forest-05',
-    priority: 'high',
-    stage: 'candidate-needed',
-    reasons: ['face-similarity', 'needs-stronger-young-sexy-editorial-style', 'previous-candidate-corrupt'],
-    targetChanges: ['age-23-24', 'young-attractive', 'subtly-sensual', 'distinct-bone-structure', '35mm-kneeling-flower-glade', 'cream-fitted-dress'],
-    candidateNotes: ['candidate-a was not a valid WebP and was removed; generate a fresh candidate before replacement']
-  },
-  {
     imageId: 'forest-06',
     priority: 'high',
     stage: 'candidate-needed',
@@ -83,6 +57,7 @@ export const regenerationQueue: RegenerationTarget[] = [
 ];
 
 export const forestKeepBaselines = [
+  'forest-05',
   'forest-07',
   'forest-08',
   'forest-09',
