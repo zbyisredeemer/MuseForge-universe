@@ -2,7 +2,7 @@
 
 一个持续迭代的「美女图片宇宙」：用 Galaxy → Planet → Image DNA 管理不同场景的高质量 AI 美女写真。
 
-## 当前版本 v0.7
+## 当前版本 v0.8
 
 项目核心风格已经固定：
 
@@ -17,6 +17,7 @@
 - Prompt / Negative Prompt / Tags
 - Image DNA
 - Forest Muse / Hanfu Muse 已有真实 WebP；Forest Muse 已扩展到 21 张真实图片
+- 新增 Photography / Editorial Portrait，首批 10 张真实 WebP，作为跨场景高级人像星球
 - Snow / Ocean / Tokyo Night 可继续真实化
 - Identity DNA 去同脸
 - 结构化 regeneration queue
@@ -50,7 +51,9 @@ public/images/
 │   └── ocean-muse/
 ├── eastern/
 │   └── hanfu-muse/
-└── urban/
+├── urban/
+└── photography/
+    └── editorial-portrait/
 ```
 
 统一命名：

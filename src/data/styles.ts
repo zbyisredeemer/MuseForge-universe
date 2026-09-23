@@ -8,6 +8,7 @@ import { snowMuse } from './planets/snow-muse';
 import { oceanMuse } from './planets/ocean-muse';
 import { hanfuMuse } from './planets/hanfu-muse';
 import { tokyoNight } from './planets/tokyo-night';
+import { editorialPortrait } from './planets/editorial-portrait';
 import type { MusePlanet } from './types';
 import { applyIdentityDiversity } from './identity-diversity';
 import { applyProjectImageStyle } from './generation-presets';
@@ -17,7 +18,8 @@ const rawPlanets: MusePlanet[] = [
   snowMuse,
   oceanMuse,
   hanfuMuse,
-  tokyoNight
+  tokyoNight,
+  editorialPortrait
 ];
 
 export const planets: MusePlanet[] = applyProjectImageStyle(applyIdentityDiversity(rawPlanets));

@@ -174,3 +174,12 @@ Ocean Muse
 - 用户确认成片后直接入库；
 - 实际分辨率：1448x1086，4:3；
 - 该图作为新增资产，不覆盖语义仍需重做的 Forest 006「雾松」。
+
+
+## Editorial Portrait Batch 01
+
+- 新增 Planet：`photography / editorial-portrait`；
+- 本批按“每批 10 张”规则新增 `editorial-portrait-001.webp` ～ `editorial-portrait-010.webp`；
+- 所有图片统一转换为 941x1672 WebP，并写入真实静态路径；
+- 该 Planet 以“年轻成年女性 + 高颜值 + 高级写真 + 跨场景编辑人像”为统一摄影语言，场景允许居家、城市夜景、未来感、书店、泳池、雪景、花田与运动空间变化；
+- 后续继续以 10 张为一个批次顺延编号，优先避免近似脸型、近似构图和近似服装。
