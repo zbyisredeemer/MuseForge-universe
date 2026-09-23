@@ -43,7 +43,7 @@ const forestExpansion: ForestExpansion[] = [
   },
   {
     title: '溪边白衫',
-    prompt: 'Adult woman seated naturally on a broad stone beside a shallow forest stream, torso angled away from camera and gaze following the water, soft white textured blouse with understated layered tailoring and a long olive skirt, both hands relaxed and visible instead of a beauty-pose hand-to-face gesture, scattered leaf light across fabric and stones, 85mm lens from a slightly high three-quarter angle, realistic mature skin texture, restrained smile lines, delicate background bokeh, candid editorial realism',
+    prompt: 'Adult woman seated naturally on a broad stone beside a shallow forest stream, torso angled away from camera and gaze following the water, soft white textured blouse with understated layered tailoring and a long olive skirt, both hands relaxed and visible instead of a beauty-pose hand-to-face gesture, scattered leaf light across fabric and stones, 85mm lens from a slightly high three-quarter angle, realistic youthful adult skin texture, natural soft expression, delicate background bokeh, candid editorial realism',
     tags: ['溪边', '白衫', '坐姿', '斑驳光'],
     scene: 'forest-stream-bank', season: 'summer', weather: 'sunny', time: 'morning', action: 'sitting-on-stone', expression: 'thoughtful-away',
     outfit: ['white-blouse', 'long-skirt'], colors: ['white', 'olive'], composition: 'three-quarter-candid', lens: '85mm', aperture: 'f/2.2', angle: 'slightly-high-three-quarter',
@@ -67,7 +67,7 @@ const forestExpansion: ForestExpansion[] = [
   },
   {
     title: '林间逆光',
-    prompt: 'Mature adult woman beside a tall tree in a sunlit forest at golden hour, body turned almost in profile and one hand resting naturally against the bark, cream long dress with restrained natural-fabric tailoring, gaze directed past the camera instead of a centered beauty pose, warm rim light outlining the face and hair with soft reflected fill from the forest floor, realistic pores and age texture, 70mm lens, three-quarter environmental portrait, subtle film bloom, photorealistic editorial color grading',
+    prompt: 'Clearly adult young woman beside a tall tree in a sunlit forest at golden hour, body turned almost in profile and one hand resting naturally against the bark, cream long dress with restrained natural-fabric tailoring, gaze directed past the camera instead of a centered beauty pose, warm rim light outlining the face and hair with soft reflected fill from the forest floor, realistic pores and age texture, 70mm lens, three-quarter environmental portrait, subtle film bloom, photorealistic editorial color grading',
     tags: ['逆光', '金色', '侧身', '成熟感'],
     scene: 'sunlit-forest', season: 'summer', weather: 'sunny', time: 'golden-hour', action: 'leaning-on-tree', expression: 'calm-away',
     outfit: ['long-dress'], colors: ['cream'], composition: 'three-quarter-profile', lens: '70mm', aperture: 'f/2.5', angle: 'side-three-quarter',
@@ -83,7 +83,7 @@ const forestExpansion: ForestExpansion[] = [
   },
   {
     title: '古树根系',
-    prompt: 'Mature adult woman crouching beside the exposed roots of an ancient tree in a deep forest, one hand resting on a massive root for scale, broad environmental composition that shows bark, roots, moss and forest floor, dark olive structured dress with practical layered texture, strong natural facial structure and visible mature skin texture, composed expression looking toward the roots rather than directly at camera, 28mm lens from a slightly low angle, soft side light, photorealistic cinematic environmental portrait',
+    prompt: 'Clearly adult young woman crouching beside the exposed roots of an ancient tree in a deep forest, one hand resting on a massive root for scale, broad environmental composition that shows bark, roots, moss and forest floor, dark olive structured dress with practical layered texture, strong natural facial structure and visible realistic youthful adult skin texture, composed expression looking toward the roots rather than directly at camera, 28mm lens from a slightly low angle, soft side light, photorealistic cinematic environmental portrait',
     tags: ['古树', '根系', '深林', '低机位'],
     scene: 'ancient-tree-roots', season: 'summer', weather: 'cloudy', time: 'day', action: 'crouching-by-roots', expression: 'composed-away',
     outfit: ['structured-dress'], colors: ['dark-olive'], composition: 'wide-environmental-portrait', lens: '28mm', aperture: 'f/4', angle: 'slightly-low',
@@ -91,7 +91,7 @@ const forestExpansion: ForestExpansion[] = [
   },
   {
     title: '雾林读书',
-    prompt: 'Adult woman with a short dark bob seated on a moss-covered fallen log in a quiet misty forest, reading an open book with her attention on the page, dark olive wool coat over a charcoal knit top and long textured skirt, practical lace-up boots, full body visible, soft fog layering between tall trees, realistic mature skin and hands, 50mm environmental portrait at eye level, cool diffused morning light, restrained cinematic realism',
+    prompt: 'Adult woman with a short dark bob seated on a moss-covered fallen log in a quiet misty forest, reading an open book with her attention on the page, dark olive wool coat over a charcoal knit top and long textured skirt, practical lace-up boots, full body visible, soft fog layering between tall trees, realistic youthful adult skin and hands, 50mm environmental portrait at eye level, cool diffused morning light, restrained cinematic realism',
     tags: ['雾林', '读书', '短发', '沉静'],
     scene: 'misty-forest-reading', season: 'autumn', weather: 'fog', time: 'morning', action: 'seated-reading', expression: 'absorbed',
     outfit: ['wool-coat', 'knit-top', 'long-skirt'], colors: ['dark-olive', 'charcoal'], composition: 'full-body-environmental', lens: '50mm', aperture: 'f/2.8', angle: 'eye-level',
@@ -107,7 +107,7 @@ const forestExpansion: ForestExpansion[] = [
   },
   {
     title: '溪畔采花',
-    prompt: 'Mature adult woman gathering small wildflowers beside a shallow forest stream at golden hour, shoulder-length natural waves, rust cardigan over a dark floral dress, one hand holding a loose bouquet while the other reaches toward plants in the foreground, warm expression with visible freckles and natural mature skin texture, 50mm three-quarter environmental portrait, warm backlight and stream-reflected fill, photorealistic lifestyle editorial',
+    prompt: 'Clearly adult young woman gathering small wildflowers beside a shallow forest stream at golden hour, shoulder-length natural waves, rust cardigan over a dark floral dress, one hand holding a loose bouquet while the other reaches toward plants in the foreground, warm expression with visible freckles and natural youthful adult skin texture, 50mm three-quarter environmental portrait, warm backlight and stream-reflected fill, photorealistic lifestyle editorial',
     tags: ['溪畔', '采花', '雀斑', '暖光'],
     scene: 'streamside-wildflowers', season: 'summer', weather: 'sunny', time: 'golden-hour', action: 'gathering-wildflowers', expression: 'warm-natural',
     outfit: ['cardigan', 'floral-dress'], colors: ['rust', 'dark-floral'], composition: 'three-quarter-environmental', lens: '50mm', aperture: 'f/2.8', angle: 'eye-level',
@@ -272,7 +272,7 @@ export const forestMuse: MusePlanet = {
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
-        'Adult woman walking slowly between tall highland pines wrapped in silver mist, charcoal and dark-green structured coat dress with practical natural-fiber layers, one hand lightly touching the coat collar, full body visible, slightly low camera angle, 50mm lens, soft diffused morning light, moisture on hair and fabric, realistic mature skin texture, layered fog depth, quiet focused gaze away from the lens, cinematic but documentary-real forest portrait, restrained cool grading, 4K',
+        'Adult woman walking slowly between tall highland pines wrapped in silver mist, charcoal and dark-green structured coat dress with practical natural-fiber layers, one hand lightly touching the coat collar, full body visible, slightly low camera angle, 50mm lens, soft diffused morning light, moisture on hair and fabric, realistic youthful adult skin texture, layered fog depth, quiet focused gaze away from the lens, cinematic but documentary-real forest portrait, restrained cool grading, 4K',
       negativePrompt,
       tags: ['松林', '银雾', '冷调', '极简'],
       dna: {
@@ -292,7 +292,7 @@ export const forestMuse: MusePlanet = {
       galaxyId: 'nature',
       planetId: 'forest-muse',
       prompt:
-        'Adult woman seated sideways on a moss-covered boulder in a moonlit forest, shoulders relaxed and face shown in a soft three-quarter profile rather than a centered beauty pose, deep teal wool-and-velvet layered dress, faint fireflies and blue-black trees, soft moon rim light with subtle cool fill on the face, realistic mature skin with pores and under-eye texture, natural hands visible, 85mm lens, controlled highlights, shallow but believable depth of field, cinematic night realism without fantasy-glow skin, 4K',
+        'Adult woman seated sideways on a moss-covered boulder in a moonlit forest, shoulders relaxed and face shown in a soft three-quarter profile rather than a centered beauty pose, deep teal wool-and-velvet layered dress, faint fireflies and blue-black trees, soft moon rim light with subtle cool fill on the face, realistic youthful adult skin with pores and under-eye texture, natural hands visible, 85mm lens, controlled highlights, shallow but believable depth of field, cinematic night realism without fantasy-glow skin, 4K',
       negativePrompt,
       tags: ['月夜', '萤火', '蓝绿调', '神秘'],
       dna: {
