@@ -45,11 +45,11 @@ const seeds = [
   },
   {
     title: '雪宫红裳',
-    prompt: 'Mature adult Chinese woman in a snowy palace courtyard holding a traditional paper umbrella, ivory fur-lined cloak over burgundy embroidered winter hanfu, fitted silhouette, ornate jeweled updo, poised over-the-shoulder look, luxurious mature sensuality, falling snow and vermilion walls, cinematic realism',
+    prompt: 'Clearly adult young Chinese woman around 24 to 27 in a snowy palace courtyard holding a traditional paper umbrella, ivory fur-lined cloak over burgundy embroidered winter hanfu, fitted silhouette, ornate jeweled updo, poised over-the-shoulder look, luxurious young refined sensuality, falling snow and vermilion walls, cinematic realism',
     tags: ['汉服', '冬雪', '朱墙', '纸伞', '贵气'],
     scene: 'snow-palace-courtyard', season: 'winter', weather: 'snow', time: 'day',
     colors: ['ivory', 'burgundy'], accessories: ['paper-umbrella', 'jeweled-hairpin'], action: 'holding-umbrella', expression: 'poised',
-    mood: ['luxurious', 'mature', 'serene'], palette: ['snow-white', 'burgundy', 'vermilion']
+    mood: ['luxurious', 'young', 'serene'], palette: ['snow-white', 'burgundy', 'vermilion']
   },
   {
     title: '荷风玉色',
@@ -77,7 +77,7 @@ const seeds = [
   },
   {
     title: '宫阙灯影',
-    prompt: 'Adult Chinese woman leaning lightly on a carved palace corridor railing at dusk, deep crimson and black hanfu with ornate gold embroidery, semi-sheer layers, shaped waist, dramatic sleeves and tasteful low neckline, holding a glowing lantern, mature glamorous sensuality, wet corridor and repeating lanterns, cinematic realism',
+    prompt: 'Adult Chinese woman leaning lightly on a carved palace corridor railing at dusk, deep crimson and black hanfu with ornate gold embroidery, semi-sheer layers, shaped waist, dramatic sleeves and tasteful low neckline, holding a glowing lantern, young glamorous sensuality, wet corridor and repeating lanterns, cinematic realism',
     tags: ['汉服', '宫阙', '灯影', '绯红', '华丽'],
     scene: 'palace-lantern-corridor', season: 'autumn', weather: 'after-rain', time: 'dusk',
     colors: ['deep-crimson', 'black', 'gold'], accessories: ['gold-hairpin', 'hand-lantern'], action: 'leaning-on-railing', expression: 'seductive-calm',
@@ -93,11 +93,11 @@ const seeds = [
   },
   {
     title: '雪梅暗香',
-    prompt: 'Adult Chinese woman in a winter plum garden during light snowfall, wine-red and ivory embroidered hanfu with fur trim and graceful off-shoulder drape, holding a small incense burner, plum blossoms and stone path, mature luxurious sensuality, cinematic winter portrait, realistic skin texture',
+    prompt: 'Adult Chinese woman in a winter plum garden during light snowfall, wine-red and ivory embroidered hanfu with fur trim and graceful off-shoulder drape, holding a small incense burner, plum blossoms and stone path, young luxurious sensuality, cinematic winter portrait, realistic skin texture',
     tags: ['汉服', '雪梅', '暗香', '冬日', '酒红'],
     scene: 'snowy-plum-garden', season: 'winter', weather: 'snow', time: 'day',
     colors: ['wine-red', 'ivory'], accessories: ['plum-hair-ornament', 'incense-burner'], action: 'holding-incense-burner', expression: 'composed',
-    mood: ['quiet', 'luxurious', 'mature'], palette: ['wine-red', 'snow-white', 'plum-red']
+    mood: ['quiet', 'luxurious', 'young'], palette: ['wine-red', 'snow-white', 'plum-red']
   },
   {
     title: '月下琵琶',
@@ -117,11 +117,11 @@ const seeds = [
   },
   {
     title: '烟波湖亭',
-    prompt: 'Mature adult Chinese woman by a misty lakeside pavilion at dawn, soft aqua and pearl-white hanfu with translucent shawl draped off one shoulder, cinched waist, holding a round silk fan, willow branches and fog over the lake, grown-woman elegance and subtle sensuality, cinematic realism',
+    prompt: 'Clearly adult young Chinese woman around 24 to 27 by a misty lakeside pavilion at dawn, soft aqua and pearl-white hanfu with translucent shawl draped off one shoulder, cinched waist, holding a round silk fan, willow branches and fog over the lake, youthful adult elegance and subtle sensuality, cinematic realism',
     tags: ['汉服', '湖亭', '烟波', '团扇', '水色'],
     scene: 'misty-lakeside-pavilion', season: 'spring', weather: 'mist', time: 'dawn',
     colors: ['soft-aqua', 'pearl-white'], accessories: ['round-silk-fan', 'pearl-hair-ornament'], action: 'standing-with-fan', expression: 'warm-smile',
-    mood: ['serene', 'mature', 'feminine'], palette: ['aqua', 'pearl-white', 'mist-gray']
+    mood: ['serene', 'young', 'feminine'], palette: ['aqua', 'pearl-white', 'mist-gray']
   },
   {
     title: '灯市绯影',
@@ -133,11 +133,11 @@ const seeds = [
   },
   {
     title: '丝路长风',
-    prompt: 'Mature Chinese woman on a Silk Road inspired desert watchtower terrace, sand-beige rust and indigo traveler layers with fitted leather belt and airy scarf, partially open shoulder drape, wind-blown fabric, distant dunes and mountains, amber sunset, adventurous mature sensuality and cinematic realism',
+    prompt: 'Clearly adult young Chinese woman around 24 to 27 on a Silk Road inspired desert watchtower terrace, sand-beige rust and indigo traveler layers with fitted leather belt and airy scarf, partially open shoulder drape, wind-blown fabric, distant dunes and mountains, amber sunset, adventurous youthful sensuality and cinematic realism',
     tags: ['汉服', '丝路', '风沙', '旅人', '大漠'],
     scene: 'silk-road-watchtower', season: 'autumn', weather: 'windy', time: 'sunset',
     colors: ['sand-beige', 'rust', 'indigo'], accessories: ['bronze-hair-ornament', 'leather-belt'], action: 'looking-back-in-wind', expression: 'stoic',
-    mood: ['adventurous', 'mature', 'epic'], palette: ['sand', 'rust', 'indigo']
+    mood: ['adventurous', 'young', 'epic'], palette: ['sand', 'rust', 'indigo']
   },
   {
     title: '花月同春',
@@ -149,11 +149,11 @@ const seeds = [
   },
   {
     title: '翡翠浴阁',
-    prompt: 'Mature adult Chinese woman seated in a luxurious bathhouse-side dressing room, cream and emerald hanfu robe loosely draped over an embroidered inner dress, tasteful shoulder reveal and graceful neckline, carved screens, steam, bronze mirror, candles and jade accessories, sophisticated sensuality, photorealistic cinematic interior',
+    prompt: 'Clearly adult young Chinese woman around 24 to 27 seated in a luxurious bathhouse-side dressing room, cream and emerald hanfu robe loosely draped over an embroidered inner dress, tasteful shoulder reveal and graceful neckline, carved screens, steam, bronze mirror, candles and jade accessories, young sophisticated sensuality, photorealistic cinematic interior',
     tags: ['汉服', '浴阁', '翡翠', '铜镜', '烛影'],
     scene: 'luxury-bathhouse-dressing-room', season: 'winter', weather: 'indoor', time: 'night',
     colors: ['cream', 'emerald'], accessories: ['jade-hair-ornament', 'bronze-mirror'], action: 'seated-at-vanity', expression: 'soft-smile',
-    mood: ['intimate', 'luxurious', 'mature'], palette: ['emerald', 'cream', 'candle-gold']
+    mood: ['intimate', 'luxurious', 'young'], palette: ['emerald', 'cream', 'candle-gold']
   },
   {
     title: '凤仪宫灯',
@@ -165,7 +165,8 @@ const seeds = [
   }
 ] as const;
 
-// hanfu-004 is temporarily unpublished because its binary asset was corrupt and is queued for regeneration.
+const removedHanfuSlots = new Set([6, 15, 17]);
+
 const images: MuseImage[] = seeds.map((seed, index) => {
   const number = String(index + 1).padStart(3, '0');
   return {
@@ -220,7 +221,7 @@ const images: MuseImage[] = seeds.map((seed, index) => {
       }
     }
   };
-});
+}).filter((_, index) => !removedHanfuSlots.has(index + 1));
 
 export const hanfuMuse: MusePlanet = {
   id: 'hanfu-muse',

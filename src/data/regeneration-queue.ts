@@ -53,6 +53,27 @@ export const regenerationQueue: RegenerationTarget[] = [
     stage: 'candidate-needed',
     reasons: ['metadata-image-semantic-mismatch', 'too-similar-to-forest-05'],
     targetChanges: ['age-26-27', 'young-elegant-sexy', 'blue-hour-forest-edge', 'deep-teal-slit-dress', '35mm-distant-full-body']
+  },
+  {
+    imageId: 'hanfu-06',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['visual-age-too-mature', 'winter-fur-styling-too-heavy', 'does-not-fit-young-sexy-style-bible'],
+    targetChanges: ['age-23-25', 'clearly-adult-young', 'burgundy-fitted-winter-hanfu', 'lighter-fur-trim', 'visible-neckline-and-waist', 'snow-palace-editorial']
+  },
+  {
+    imageId: 'hanfu-15',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['visual-age-too-mature', 'face-and-expression-too-mature', 'does-not-fit-young-sexy-style-bible'],
+    targetChanges: ['age-22-24', 'clearly-adult-young', 'aqua-off-shoulder-hanfu', 'defined-waist', 'misty-lake-pavilion', 'romantic-editorial']
+  },
+  {
+    imageId: 'hanfu-17',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['visual-age-too-mature', 'styling-too-rustic-documentary', 'does-not-fit-young-sexy-style-bible'],
+    targetChanges: ['age-24-26', 'clearly-adult-young', 'silk-road-fashion-hanfu', 'open-shoulder-drape', 'defined-waist', 'windblown-sunset-editorial']
   }
 ];
 

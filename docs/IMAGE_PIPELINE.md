@@ -140,7 +140,7 @@ Ocean Muse
 | 003 | 桃花春水 | ✅ Generated | `hanfu-muse-003.webp` |
 | 004 | 书斋兰影 | ✅ Generated | `hanfu-muse-004.webp` |
 | 005 | 长安夜市 | ✅ Generated | `hanfu-muse-005.webp` |
-| 006 | 雪宫红裳 | ✅ Generated | `hanfu-muse-006.webp` |
+| 006 | 雪宫红裳 | 🗑 Removed · 待年轻化重生成 | — |
 | 007 | 荷风玉色 | ✅ Generated | `hanfu-muse-007.webp` |
 | 008 | 秋山旅人 | ✅ Generated | `hanfu-muse-008.webp` |
 | 009 | 月满江亭 | ✅ Generated | `hanfu-muse-009.webp` |
@@ -149,16 +149,16 @@ Ocean Muse
 | 012 | 雪梅暗香 | ✅ Generated | `hanfu-muse-012.webp` |
 | 013 | 月下琵琶 | ✅ Generated | `hanfu-muse-013.webp` |
 | 014 | 金阙夕照 | ✅ Generated | `hanfu-muse-014.webp` |
-| 015 | 烟波湖亭 | ✅ Generated | `hanfu-muse-015.webp` |
+| 015 | 烟波湖亭 | 🗑 Removed · 待年轻化重生成 | — |
 | 016 | 灯市绯影 | ✅ Generated | `hanfu-muse-016.webp` |
-| 017 | 丝路长风 | ✅ Generated | `hanfu-muse-017.webp` |
+| 017 | 丝路长风 | 🗑 Removed · 待年轻化重生成 | — |
 | 018 | 花月同春 | ✅ Generated | `hanfu-muse-018.webp` |
 | 019 | 翡翠浴阁 | ✅ Generated | `hanfu-muse-019.webp` |
 | 020 | 凤仪宫灯 | ✅ Generated | `hanfu-muse-020.webp` |
 
-当前 Hanfu Muse 真实化进度：**20 / 20（100%）**。
+当前 Hanfu Muse active 真实图片：**17 张**。006 / 015 / 017 已删除并保留编号等待年轻化重生成。
 
-本批次在保持成年人、东方古典审美和写实摄影质感的前提下，提高了服装剪裁、露肩、薄纱、腰线和姿态中的女性魅力表达，同时继续执行 Identity DNA 去同脸规则。
+当前保留成片继续保持成年人、东方古典审美和写实摄影质感，并强调服装剪裁、露肩、薄纱、腰线和姿态中的女性魅力表达；后续补图继续执行年轻成年基线与 Identity DNA 去同脸规则。
 
 
 ## 2026-09-23 修复记录
@@ -190,3 +190,11 @@ Ocean Muse
 - 所有图片统一转换为 941x1672 WebP，并写入真实静态路径；
 - 该 Planet 以“年轻成年女性 + 高颜值 + 高级写真 + 跨场景编辑人像”为统一摄影语言，场景允许居家、城市夜景、未来感、书店、泳池、雪景、花田与运动空间变化；
 - 后续继续以 10 张为一个批次顺延编号，优先避免近似脸型、近似构图和近似服装。
+
+
+## 2026-09-23 其他 Planet 清洗记录
+
+- Hanfu Muse：逐张复核 001～020，删除 006 / 015 / 017 三张偏成熟成片；当前 active 17 张；
+- Editorial Portrait：逐张复核 001～010，当前全部符合年轻、高颜值、高级性感方向，保留 10 张；
+- Snow Muse / Ocean Muse / Tokyo Night：当前仍为 SVG placeholder，无真实 WebP 需要删除；后续真实化继续严格按 Style Bible 生成；
+- Hanfu 006 / 015 / 017 已加入 regeneration queue，按原编号补回。
