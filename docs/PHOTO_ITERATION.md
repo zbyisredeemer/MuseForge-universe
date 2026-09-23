@@ -44,10 +44,12 @@
 - 005 / 007 / 008 / 009 / 011
 - 012 / 014 / 016 / 018 / 019
 
-当前优先重生成：
+当前已删除并等待重生成：
 
 - 006 / 010
 - 013 / 015 / 017 / 020
+
+这 6 个槽位已从前台 active images 与 `public/images/nature/forest-muse/` 删除；`regenerationQueue` 保留为 `candidate-needed`，用于后续按 Style Bible 补回。
 
 其中：
 

@@ -84,24 +84,24 @@ public/images/
 | 003 | 杉林斜阳 | ✅ Generated | `forest-muse-003.webp` |
 | 004 | 翡翠溪谷 | ✅ Generated | `forest-muse-004.webp` |
 | 005 | 野花林隙 | ✅ Generated | `forest-muse-005.webp` |
-| 006 | 雾松 | ✅ Generated | `forest-muse-006.webp` |
+| 006 | 雾松 | 🗑 Removed · 待重生成 | — |
 | 007 | 月夜森林 | ✅ Generated | `forest-muse-007.webp` |
 | 008 | 金叶暮光 | ✅ Generated | `forest-muse-008.webp` |
 | 009 | 雨后木桥 | ✅ Generated | `forest-muse-009.webp` |
-| 010 | 溪边白衫 | ✅ Generated | `forest-muse-010.webp` |
+| 010 | 溪边白衫 | 🗑 Removed · 待重生成 | — |
 | 011 | 秋林风衣 | ✅ Generated | `forest-muse-011.webp` |
 | 012 | 薄雾针叶林 | ✅ Generated | `forest-muse-012.webp` |
-| 013 | 林间逆光 | ✅ Generated | `forest-muse-013.webp` |
+| 013 | 林间逆光 | 🗑 Removed · 待重生成 | — |
 | 014 | 野莓灌木 | ✅ Generated | `forest-muse-014.webp` |
-| 015 | 古树根系 | ✅ Generated | `forest-muse-015.webp` |
+| 015 | 古树根系 | 🗑 Removed · 待重生成 | — |
 | 016 | 雾林读书 | ✅ Generated | `forest-muse-016.webp` |
-| 017 | 林中长椅 | ✅ Generated | `forest-muse-017.webp` |
+| 017 | 林中长椅 | 🗑 Removed · 待重生成 | — |
 | 018 | 溪畔采花 | ✅ Generated | `forest-muse-018.webp` |
 | 019 | 暮林灯影 | ✅ Generated | `forest-muse-019.webp` |
-| 020 | 暮色林缘 | ✅ Generated | `forest-muse-020.webp` |
+| 020 | 暮色林缘 | 🗑 Removed · 待重生成 | — |
 | 021 | 溪光花影 | ✅ Generated | `forest-muse-021.webp` |
 
-当前 Forest Muse 已有真实图片：**21 张**。001～020 保持原有编号，021 为持续迭代新增图。
+当前 Forest Muse 前台保留真实图片：**15 张**。006 / 010 / 013 / 015 / 017 / 020 已删除，编号保留为空槽位等待重生成；021 为持续迭代新增图。
 
 ## 校验工具
 
@@ -120,7 +120,7 @@ npm run validate:assets
 
 ## 下一批真实化顺序
 
-Forest Muse 与 Hanfu Muse 均已完成 **20 / 20**。下一阶段按以下顺序推进：
+Hanfu Muse 已完成 **20 / 20**。Forest Muse 当前优先补回已删除的 006 / 010 / 013 / 015 / 017 / 020 六个槽位，全部满足 Style Bible 后再继续扩量。之后按以下顺序推进：
 
 ```text
 Tokyo Night
@@ -167,6 +167,13 @@ Ocean Muse
 - `hanfu-muse-004.webp` 原损坏文件已用新的 941x1672 WebP 恢复；
 - 两张资产都重新纳入正常静态资源校验。
 
+
+## 2026-09-23 Forest 清理记录
+
+- 删除不符合当前“年轻 + 高级性感”基线的 6 张旧图：006 / 010 / 013 / 015 / 017 / 020；
+- 同步从 Forest Muse active images 中移除，前台不再展示；
+- 保留 regeneration queue 与 Identity DNA 目标，后续按原编号重新生成更符合 Style Bible 的版本；
+- 清理后 Forest Muse 当前 active 真实图片为 15 张。
 
 ## Forest 021 新增记录
 

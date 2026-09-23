@@ -265,27 +265,7 @@ export const forestMuse: MusePlanet = {
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
-    {
-      id: 'forest-06',
-      title: '雾松',
-      image: '/images/nature/forest-muse/forest-muse-006.webp',
-      galaxyId: 'nature',
-      planetId: 'forest-muse',
-      prompt:
-        'Adult woman walking slowly between tall highland pines wrapped in silver mist, charcoal and dark-green structured coat dress with practical natural-fiber layers, one hand lightly touching the coat collar, full body visible, slightly low camera angle, 50mm lens, soft diffused morning light, moisture on hair and fabric, realistic youthful adult skin texture, layered fog depth, quiet focused gaze away from the lens, cinematic but documentary-real forest portrait, restrained cool grading, 4K',
-      negativePrompt,
-      tags: ['松林', '银雾', '冷调', '极简'],
-      dna: {
-        subject: { ...baseIdentity, hair: ['dark', 'slightly-wet'] },
-        fashion: { outfit: ['coat-dress'], colors: ['dark-green'] },
-        environment: { scene: 'pine-forest', season: 'autumn', weather: 'fog', time: 'morning' },
-        pose: { action: 'walking', expression: 'quiet-focused-away' },
-        photography: { composition: 'full-body', lens: '50mm', aperture: 'f/2.8', angle: 'slightly-low', lighting: ['diffused-light', 'fog-ambient-light'] },
-        aesthetics: { styles: ['photorealistic', 'cinematic', 'minimalist'], mood: ['cool', 'serene'], palette: ['silver', 'deep-green'] },
-        generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
-      }
-    },
-    {
+        {
       id: 'forest-07',
       title: '月夜森林',
       image: '/images/nature/forest-muse/forest-muse-007.webp',
@@ -325,7 +305,9 @@ export const forestMuse: MusePlanet = {
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
-    ...forestExpansion.map(createForestExpansionImage),
+    ...forestExpansion
+      .map(createForestExpansionImage)
+      .filter((image) => !['forest-10', 'forest-13', 'forest-15', 'forest-17', 'forest-20'].includes(image.id)),
     {
       id: 'forest-21',
       title: '溪光花影',

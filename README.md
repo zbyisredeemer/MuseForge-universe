@@ -16,7 +16,7 @@
 - 3D 图片球与高清大图
 - Prompt / Negative Prompt / Tags
 - Image DNA
-- Forest Muse / Hanfu Muse 已有真实 WebP；Forest Muse 已扩展到 21 张真实图片
+- Forest Muse 当前保留 15 张符合 Style Bible 的真实 WebP；006 / 010 / 013 / 015 / 017 / 020 已删除并等待重生成；Hanfu Muse 已有真实 WebP
 - 新增 Photography / Editorial Portrait，首批 10 张真实 WebP，作为跨场景高级人像星球
 - Snow / Ocean / Tokyo Night 可继续真实化
 - Identity DNA 去同脸
@@ -85,7 +85,7 @@ npm run build
 
 ## 默认持续迭代顺序
 
-1. Forest 中不符合 Style Bible 的旧图（当前 006 / 010 / 013 / 015 / 017 / 020）
+1. 补回已删除的 Forest 槽位（006 / 010 / 013 / 015 / 017 / 020），按当前 Style Bible 重生成
 2. Tokyo Night 真实化
 3. Snow Muse 真实化
 4. Ocean Muse 真实化
