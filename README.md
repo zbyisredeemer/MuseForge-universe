@@ -13,7 +13,8 @@
 - 当前 52 个内容位：Forest 20；Hanfu 20；Snow / Ocean / Tokyo Night 各 4
 - Forest Muse 已完成 **20 / 20** 真实化；Hanfu Muse 已完成 **20 / 20** 真实化；Snow / Ocean / Tokyo Night 当前仍为可替换的 SVG 视觉占位
 - 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程；可用 `npm run validate` 同时执行资产与身份多样性校验
-- **Identity DNA v2 去同脸机制**：当前 52 个内容位除脸型、五官、年龄感、肤色倾向与发型外，还系统变化脸宽、颧骨、下颌、下巴、眼距、鼻宽、唇比例与自然不对称\n- Forest Muse 005～020 已加入 **16 组不同地域的现代服装/材质风格参考**，只影响造型语言，不把地域标签硬绑定到固定面孔\n- 新增 `npm run validate:identities`，自动检查 52 个结构身份签名是否重复，并校验 Forest 005～020 的地域轮换完整性
+- **Identity DNA v2 去同脸机制**：当前 52 个内容位除脸型、五官、年龄感、肤色倾向与发型外，还系统变化脸宽、颧骨、下颌、下巴、眼距、鼻宽、唇比例与自然不对称\n- Forest Muse 005～020 已加入 **16 组不同地域的现代服装/材质风格参考**，只影响造型语言，不把地域标签硬绑定到固定面孔
+- Forest Muse **005～008 已完成 second-pass Prompt / 构图重构**：跪姿环境人像、雾林行走、月夜侧坐、秋林侧向运动四种不同镜头语言\n- 新增 `npm run validate:identities`，自动检查 52 个结构身份签名是否重复，并校验 Forest 005～020 的地域轮换完整性
 - Vite + React + TypeScript，可部署到 Vercel
 
 ## 分类架构
