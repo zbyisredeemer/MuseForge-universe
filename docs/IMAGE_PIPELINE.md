@@ -99,8 +99,9 @@ public/images/
 | 018 | 溪畔采花 | ✅ Generated | `forest-muse-018.webp` |
 | 019 | 暮林灯影 | ✅ Generated | `forest-muse-019.webp` |
 | 020 | 暮色林缘 | ✅ Generated | `forest-muse-020.webp` |
+| 021 | 溪光花影 | ✅ Generated | `forest-muse-021.webp` |
 
-当前 Forest Muse 真实化进度：**20 / 20（100%）**。
+当前 Forest Muse 已有真实图片：**21 张**。001～020 保持原有编号，021 为持续迭代新增图。
 
 ## 校验工具
 
@@ -165,3 +166,11 @@ Ocean Muse
 - `forest-muse-005.webp` 已用新生成的 941x1672 WebP 替换，并同步 Prompt / DNA；
 - `hanfu-muse-004.webp` 原损坏文件已用新的 941x1672 WebP 恢复；
 - 两张资产都重新纳入正常静态资源校验。
+
+
+## Forest 021 新增记录
+
+- 新增 `forest-muse-021.webp`：溪光花影；
+- 用户确认成片后直接入库；
+- 实际分辨率：1448x1086，4:3；
+- 该图作为新增资产，不覆盖语义仍需重做的 Forest 006「雾松」。

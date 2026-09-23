@@ -16,7 +16,7 @@
 - 3D 图片球与高清大图
 - Prompt / Negative Prompt / Tags
 - Image DNA
-- Forest Muse / Hanfu Muse 已有真实 WebP；Hanfu 004 损坏资产已修复并恢复展示
+- Forest Muse / Hanfu Muse 已有真实 WebP；Forest Muse 已扩展到 21 张真实图片
 - Snow / Ocean / Tokyo Night 可继续真实化
 - Identity DNA 去同脸
 - 结构化 regeneration queue

@@ -325,6 +325,26 @@ export const forestMuse: MusePlanet = {
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
-    ...forestExpansion.map(createForestExpansionImage)
+    ...forestExpansion.map(createForestExpansionImage),
+    {
+      id: 'forest-21',
+      title: '溪光花影',
+      image: '/images/nature/forest-muse/forest-muse-021.webp',
+      galaxyId: 'nature',
+      planetId: 'forest-muse',
+      prompt:
+        'Clearly adult young East Asian woman reclining naturally on moss-covered stones beside a sunlit forest stream, long dark slightly damp hair with a small white floral hairpiece, fitted cream botanical lace dress with translucent embroidered layers and a tasteful open neckline, warm dappled golden light through dense green foliage, soft waterfall bokeh in the background, realistic skin texture and individual hair strands, elegant sensual outdoor fashion portrait, intimate eye-level composition, photorealistic cinematic editorial detail',
+      negativePrompt,
+      tags: ['溪流', '花影', '奶油蕾丝裙', '暖光'],
+      dna: {
+        subject: { ...baseIdentity, hair: ['long', 'dark', 'slightly-damp'], appearance: ['natural-makeup', 'floral-hairpiece'] },
+        fashion: { outfit: ['botanical-lace-dress'], colors: ['cream', 'soft-sage'] },
+        environment: { scene: 'sunlit-forest-stream', season: 'summer', weather: 'clear', time: 'golden-hour' },
+        pose: { action: 'reclining-by-stream', expression: 'soft-direct-gaze' },
+        photography: { composition: 'intimate-environmental-portrait', lens: '50mm', aperture: 'f/2.2', angle: 'eye-level', lighting: ['dappled-sunlight', 'warm-backlight', 'stream-reflected-fill'] },
+        aesthetics: { styles: ['photorealistic', 'cinematic', 'editorial'], mood: ['young', 'romantic', 'sensual'], palette: ['cream', 'forest-green', 'warm-gold'] },
+        generation: { aspectRatio: '4:3', resolution: '1448x1086', format: 'webp', assetType: 'generated' }
+      }
+    }
   ]
 };
