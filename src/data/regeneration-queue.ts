@@ -14,61 +14,89 @@ export const regenerationQueue: RegenerationTarget[] = [
     imageId: 'forest-05',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['young-narrow-face-template', 'similar-to-forest-06-and-07', 'front-facing-beauty-language'],
-    targetChanges: ['age-33-36', 'soft-wide-face', '35mm-kneeling-environmental', 'japanese-minimal-natural-fabric']
+    reasons: ['face-similarity', 'needs-stronger-young-sexy-editorial-style'],
+    targetChanges: ['age-23-24', 'young-attractive', 'subtly-sensual', '35mm-kneeling-flower-glade', 'cream-fitted-dress']
   },
   {
     imageId: 'forest-06',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['face-proportions-too-close-to-005-and-007', 'youthful-template'],
-    targetChanges: ['age-46-50', 'soft-square-broad-face', 'short-bob', 'full-body-walking-low-angle', 'kazakh-woven-detail']
+    reasons: ['current-look-too-serious', 'needs-more-feminine-fashion-energy'],
+    targetChanges: ['age-25-26', 'young-attractive', 'short-bob', 'misty-pine-fashion-walk', 'fitted-dark-green-coat-dress']
   },
   {
     imageId: 'forest-07',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['young-refined-face-template', 'face-similarity-to-005-and-006'],
-    targetChanges: ['age-37-40', 'diamond-face', 'deep-set-eyes', 'side-seated-night-portrait', 'finnish-wool-minimalism']
+    reasons: ['face-similarity', 'needs-more-glamorous-night-beauty-language'],
+    targetChanges: ['age-21-22', 'young-glamorous', 'diamond-face', 'moonlit-side-seated', 'deep-teal-sensual-dress']
   },
   {
     imageId: 'forest-10',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['young-soft-face-template', 'similar-to-forest-05-and-06', 'common-hand-to-face-pose-in-current-asset'],
-    targetChanges: ['age-51-56', 'round-medium-wide-face', 'jaw-length-wavy-bob', 'candid-streamside-seated', 'french-quiet-luxury']
+    reasons: ['face-similarity', 'pose-template'],
+    targetChanges: ['age-27-28', 'young-elegant', 'wavy-bob', 'streamside-seated', 'white-blouse-low-neckline-olive-skirt']
+  },
+  {
+    imageId: 'forest-12',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['current-age-impression-outside-core-style', 'too-conservative'],
+    targetChanges: ['age-22-24', 'young-sexy-minimalist', 'short-hair', 'misty-conifer', 'charcoal-knit-mini-or-fitted-dress']
   },
   {
     imageId: 'forest-13',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['young-long-hair-narrow-face-template', 'front-centered-beauty-language'],
-    targetChanges: ['mature-profile', 'tree-contact-pose', '70mm-side-three-quarter']
+    reasons: ['needs-more-distinct-face', 'needs-stronger-fashion-sensuality'],
+    targetChanges: ['age-24-25', 'young-attractive', 'warm-backlight', 'cream-slip-dress', '70mm-three-quarter']
   },
   {
     imageId: 'forest-15',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['metadata-image-semantic-mismatch', 'face-too-close-to-forest-10'],
-    targetChanges: ['ancient-tree-root-scene', '28mm-wide-environment', 'mature-strong-bone-structure']
+    reasons: ['metadata-image-semantic-mismatch', 'current-look-too-rustic'],
+    targetChanges: ['age-22-23', 'young-feminine', 'ancient-tree-roots', 'dark-olive-fitted-dress', '28mm-environmental']
+  },
+  {
+    imageId: 'forest-16',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['current-scene-too-conservative', 'not-sexy-enough-for-project-core'],
+    targetChanges: ['age-23-25', 'young-intellectual-sexy', 'misty-forest-reading', 'short-skirt-layering-or-fitted-knit', '50mm']
   },
   {
     imageId: 'forest-17',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['metadata-image-semantic-mismatch', 'young-refined-face-template'],
-    targetChanges: ['visible-wooden-bench', 'short-textured-hair', '35mm-wide-negative-space']
+    reasons: ['metadata-image-semantic-mismatch', 'needs-younger-fashion-language'],
+    targetChanges: ['age-20-21', 'young-attractive', 'short-pixie', 'forest-bench', 'fitted-coat-dress', '35mm']
+  },
+  {
+    imageId: 'forest-18',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['current-age-impression-outside-core-style', 'too-lifestyle-mature'],
+    targetChanges: ['age-22-24', 'young-sweet-sexy', 'streamside-flowers', 'cropped-cardigan-floral-dress', '50mm']
+  },
+  {
+    imageId: 'forest-19',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['current-look-too-serious', 'needs-young-sexy-night-language'],
+    targetChanges: ['age-23-25', 'young-mysterious', 'short-hair', 'lantern-blue-hour', 'fitted-charcoal-dress-or-coat-dress']
   },
   {
     imageId: 'forest-20',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['metadata-image-semantic-mismatch', 'high-similarity-to-forest-05', 'white-dress-stream-template'],
-    targetChanges: ['blue-hour-forest-edge', 'distant-full-body', '35mm-environmental', 'mid-length-layered-hair']
+    reasons: ['metadata-image-semantic-mismatch', 'too-similar-to-forest-05'],
+    targetChanges: ['age-26-27', 'young-elegant-sexy', 'blue-hour-forest-edge', 'deep-teal-slit-dress', '35mm-distant-full-body']
   }
 ];
 
-export const forestKeepBaselines = ['forest-12', 'forest-16', 'forest-18', 'forest-19'] as const;
+export const forestKeepBaselines = ['forest-08', 'forest-09', 'forest-11', 'forest-14'] as const;
 
 export function getRegenerationTarget(imageId: string) {
   return regenerationQueue.find((target) => target.imageId === imageId);
