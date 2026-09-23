@@ -1,5 +1,7 @@
 # MuseForge Real Image Pipeline
 
+> 所有真实图片生成必须先遵循 [STYLE_BIBLE](STYLE_BIBLE.md)：明确成年、20～28 岁、年轻、性感、高颜值、高级写真感。
+
 MuseForge 的内容数据已经支持 Galaxy → Planet → Image DNA。这个文档约定如何把视觉占位图稳定替换为真实 AI 生成图片。
 
 ## 目标
