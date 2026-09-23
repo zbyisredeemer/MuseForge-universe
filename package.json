@@ -1,7 +1,7 @@
 {
   "name": "museforge-universe",
   "private": true,
-  "version": "0.6.1",
+  "version": "0.7.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +9,9 @@
     "preview": "vite preview",
     "validate:assets": "node scripts/validate-assets.mjs",
     "validate:identities": "node scripts/validate-identity-diversity.mjs",
-    "validate": "npm run validate:assets && npm run validate:identities && npm run validate:regeneration",
-    "validate:regeneration": "node scripts/validate-regeneration-queue.mjs"
+    "validate": "npm run validate:assets && npm run validate:identities && npm run validate:regeneration && npm run validate:style",
+    "validate:regeneration": "node scripts/validate-regeneration-queue.mjs",
+    "validate:style": "node scripts/validate-style.mjs"
   },
   "dependencies": {
     "react": "latest",
