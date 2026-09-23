@@ -120,7 +120,7 @@ npm run validate:assets
 
 ## 下一批真实化顺序
 
-Hanfu Muse 已完成 **20 / 20**。Forest Muse 当前优先补回已删除的 006 / 010 / 013 / 015 / 017 / 020 六个槽位，全部满足 Style Bible 后再继续扩量。之后按以下顺序推进：
+Hanfu Muse 当前 active 真实图为 **17 / 20**；006 / 015 / 017 等待按原编号年轻化重生成。Hanfu Batch 02（021～030）生成规格已经写入 `src/data/generation/hanfu-batch-02.ts`，但真实 WebP 完成前不加入前台。Forest Muse 当前也有 6 个待补槽位；本轮用户明确要求完善 Hanfu 时，优先处理 Hanfu。
 
 ```text
 Tokyo Night
@@ -198,3 +198,20 @@ Ocean Muse
 - Editorial Portrait：逐张复核 001～010，当前全部符合年轻、高颜值、高级性感方向，保留 10 张；
 - Snow Muse / Ocean Muse / Tokyo Night：当前仍为 SVG placeholder，无真实 WebP 需要删除；后续真实化继续严格按 Style Bible 生成；
 - Hanfu 006 / 015 / 017 已加入 regeneration queue，按原编号补回。
+
+
+## Hanfu Batch 02 生成队列
+
+- 规格文件：`src/data/generation/hanfu-batch-02.ts`
+- 编号：021～030
+- 数量：10 张
+- 原则：真实 WebP 完成前不加入 `hanfuMuse.images`
+- 身份：每张独立 ageBand / face / hair / distinctive features
+- 摄影：35mm / 50mm / 70mm / 85mm 轮换，半身 / 三分之二身 / 全身 / 环境人像轮换
+- 主题：宋制、唐制、明制、魏晋风、敦煌、骑装/丝路灵感
+
+下一次有真实图生成能力时，优先顺序：
+
+1. 补回 006 / 015 / 017；
+2. 生成 021～030；
+3. 每完成一张就转换 WebP、校验二进制、上传并同步元数据。
