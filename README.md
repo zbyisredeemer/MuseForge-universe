@@ -32,6 +32,7 @@
 - [PHOTO_ITERATION](docs/PHOTO_ITERATION.md)：持续迭代规则
 - [IDENTITY_DIVERSITY](docs/IDENTITY_DIVERSITY.md)：去同脸规则
 - [IMAGE_PIPELINE](docs/IMAGE_PIPELINE.md)：图片资产目录与替换规范
+- [HANFU_SERIES](docs/HANFU_SERIES.md)：汉服系列风格、身份差异化与 021～030 批次规划
 
 ## 代码入口
 
@@ -39,6 +40,7 @@
 - `src/data/identity-diversity.ts`：20～28 岁范围内的身份差异化
 - `src/data/regeneration-queue.ts`：下一批应该重做哪些图片
 - `src/data/planets/`：各 Planet 图片数据
+- `src/data/generation/hanfu-batch-02.ts`：Hanfu 021～030 下一批 10 张真实图生成规格
 - `src/data/styles.ts`：最终数据聚合并注入全局风格
 
 ## 图片目录
