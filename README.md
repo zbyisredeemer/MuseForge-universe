@@ -1,72 +1,46 @@
 # MuseForge Universe
 
-一个持续迭代的「美女图片提示词宇宙」。项目不把风格做成传统列表，而是把视觉主题组织成星系与星球；每张图片同时拥有可检索、可组合的 Prompt DNA。
+一个持续迭代的「美女图片宇宙」：用 Galaxy → Planet → Image DNA 管理不同场景的高质量 AI 美女写真。
 
-## 当前版本 v0.6
+## 当前版本 v0.7
 
-- 宇宙 / 星球探索界面
-- 当前上线 5 颗星球：**Forest Muse / Snow Muse / Ocean Muse / Hanfu Muse / Tokyo Night**
-- 3D 图片球浏览与高清大图查看
-- Prompt / Negative Prompt / 标签
-- 图片级 **Prompt DNA**：人物、服装、环境、姿势、摄影、美学、生成参数
-- **Galaxy → Planet → Image DNA** 分类模型
-- 当前 52 个内容位：Forest 20；Hanfu 20；Snow / Ocean / Tokyo Night 各 4
-- Forest Muse 已完成 **20 / 20** 真实化；Hanfu Muse 已完成 **20 / 20** 真实化；Snow / Ocean / Tokyo Night 当前仍为可替换的 SVG 视觉占位
-- 已建立真实图片标准目录与 `npm run validate:assets` 资产校验流程；可用 `npm run validate` 同时执行资产与身份多样性校验
-- **Identity DNA v2 去同脸机制**：当前 52 个内容位除脸型、五官、年龄感、肤色倾向与发型外，还系统变化脸宽、颧骨、下颌、下巴、眼距、鼻宽、唇比例与自然不对称\n- Forest Muse 005～020 已加入 **16 组不同地域的现代服装/材质风格参考**，只影响造型语言，不把地域标签硬绑定到固定面孔
-- Forest Muse **005～020 已完成第一轮真实成片视觉审计**；同脸明显的图片进入定向重生成队列，不再全量推倒重做
-- Forest `016 / 018 / 019` 的优秀差异化成片已保留，并把元数据分别对齐为 **雾林读书 / 溪畔采花 / 暮林灯影**
-- Forest **8 个高优先级重生成位**（005/006/007/010/013/015/017/020）已锁定独立 Identity DNA，不再依赖全局随机身份组合
-- 新增结构化 `regenerationQueue` 与 `npm run validate:regeneration`，后续迭代进度由仓库代码维护\n- 新增 `npm run validate:identities`，自动检查 52 个结构身份签名是否重复，并校验 Forest 005～020 的地域轮换完整性
-- Vite + React + TypeScript，可部署到 Vercel
+项目核心风格已经固定：
 
-## 分类架构
+> **明确成年、20～28 岁、年轻、性感、高颜值、高级写真感。**
 
-```text
-MuseForge Universe
-└── Galaxy 星系
-    └── Planet 星球
-        └── Image 图片
-            └── Prompt DNA
-                ├── subject
-                ├── fashion
-                ├── environment
-                ├── pose
-                ├── photography
-                ├── aesthetics
-                └── generation
-```
+任何 Planet、Prompt、去同脸机制和持续迭代都必须服从这个总风格。
 
-当前规划 8 个一级星系：
+### 当前能力
 
-- Nature / 自然
-- Urban / 城市
-- Eastern / 东方
-- Fashion / 时尚
-- Lifestyle / 生活
-- Fantasy / 梦幻
-- Future / 未来
-- Photography / 摄影
+- Galaxy / Planet 浏览
+- 3D 图片球与高清大图
+- Prompt / Negative Prompt / Tags
+- Image DNA
+- Forest Muse / Hanfu Muse 已有真实 WebP
+- Snow / Ocean / Tokyo Night 可继续真实化
+- Identity DNA 去同脸
+- 结构化 regeneration queue
+- 全局 young-sexy beauty generation preset
+- Forest 001～010 标准化生成 brief
+- 固化 ChatGPT 生成 → 选图 → WebP → GitHub binary upload → 更新元数据流程
 
-完整分类规则、目录规范与扩展计划见 [docs/CLASSIFICATION.md](docs/CLASSIFICATION.md)。
+## 核心文档
 
-真实图片替换流程与 Forest 20 张进度见 [docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md)。
+- [STYLE_BIBLE](docs/STYLE_BIBLE.md)：项目最高优先级审美规则
+- [IMAGE_WORKFLOW](docs/IMAGE_WORKFLOW.md)：生成并上传到 GitHub 的固定流程
+- [PHOTO_ITERATION](docs/PHOTO_ITERATION.md)：持续迭代规则
+- [IDENTITY_DIVERSITY](docs/IDENTITY_DIVERSITY.md)：去同脸规则
+- [IMAGE_PIPELINE](docs/IMAGE_PIPELINE.md)：图片资产目录与替换规范
 
-人脸去同质化策略见 [docs/IDENTITY_DIVERSITY.md](docs/IDENTITY_DIVERSITY.md)。
+## 代码入口
 
-图片生成、二进制上传与 GitHub 提交流程见 [docs/IMAGE_ASSET_WORKFLOW.md](docs/IMAGE_ASSET_WORKFLOW.md)。\n\n照片长期迭代与二次重生成门槛见 [docs/PHOTO_ITERATION.md](docs/PHOTO_ITERATION.md)。
-
-## 数据结构
-
-- `src/data/types.ts`：Galaxy、Planet、MuseImage、Image DNA 类型
-- `src/data/taxonomy.ts`：一级星系与受控词表
-- `src/data/identity-diversity.ts`：全局 Identity DNA 分配与 Prompt 去同脸增强
-- `src/data/planets/`：每颗星球的图片、Prompt 与 DNA 数据
-- `src/data/styles.ts`：聚合导出；保留 `styles` 兼容当前 UI
+- `src/data/generation-presets.ts`：全局风格 preset + Forest 第一批生成配置
+- `src/data/identity-diversity.ts`：20～28 岁范围内的身份差异化
+- `src/data/regeneration-queue.ts`：下一批应该重做哪些图片
+- `src/data/planets/`：各 Planet 图片数据
+- `src/data/styles.ts`：最终数据聚合并注入全局风格
 
 ## 图片目录
-
-新内容推荐使用：
 
 ```text
 public/images/
@@ -74,14 +48,16 @@ public/images/
 │   ├── forest-muse/
 │   ├── snow-muse/
 │   └── ocean-muse/
-├── urban/
 ├── eastern/
-├── fashion/
-├── fantasy/
-└── future/
+│   └── hanfu-muse/
+└── urban/
 ```
 
-Forest 写实图片位于 `public/images/nature/forest-muse/`；Hanfu 写实图片位于 `public/images/eastern/hanfu-muse/`；新增真实图片统一遵循 Galaxy / Planet 标准目录。
+统一命名：
+
+```text
+{planet-slug}-{NNN}.webp
+```
 
 ## 本地运行
 
@@ -90,35 +66,26 @@ npm install
 npm run dev
 ```
 
-## 构建
+## 校验与构建
 
 ```bash
+npm run validate
 npm run build
 ```
 
-## 如何新增一颗星球
+`validate` 会检查：
 
-1. 在 `src/data/planets/` 新建星球数据文件
-2. 为星球指定 `galaxyId`、`code`、`sequence` 与星点坐标
-3. 为每张图片补充 `galaxyId`、`planetId`、Prompt、标签和完整 DNA
-4. 在 `src/data/styles.ts` 的 `planets` 中注册
-5. 图片按 `public/images/{galaxy}/{planet}/` 规范存放
+- 图片资产；
+- Identity DNA；
+- regeneration queue；
+- Style Bible / 年龄范围 / 全局 preset。
 
-页面无需为每颗新星球单独编写展示逻辑。
+## 默认持续迭代顺序
 
-## 下一阶段
+1. Forest 中不符合 Style Bible 的旧图
+2. Tokyo Night 真实化
+3. Snow Muse 真实化
+4. Ocean Muse 真实化
+5. 扩展新 Planet
 
-当前已完成第一轮星球铺设。下一步优先把视觉占位逐步替换成真实生成图，并继续把重点星球做深：
-
-- Forest Muse：扩展至 20 张
-- Snow Muse：12 张
-- Ocean Muse：12 张
-- Hanfu Muse：20 张
-- Jiangnan Muse：12 张
-- Tokyo Night：15 张
-- Hong Kong Neon：15 张
-- French Vintage：15 张
-- Quiet Luxury：15 张
-- Elf Muse：12 张
-
-随后增加多维筛选、全局搜索、相似推荐和基于 DNA 的 Prompt 自动拼装。
+用户说“继续”时，默认从 regeneration queue 的最高优先级开始执行。
