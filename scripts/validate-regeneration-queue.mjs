@@ -30,7 +30,7 @@ for (const id of expectedHighPriority) {
   if (!uniqueIds.has(id)) errors.push(`missing expected Forest high-priority target: ${id}`);
 }
 
-const lockedIdentityTargets = ['forest-05', 'forest-06', 'forest-07', 'forest-10'];
+const lockedIdentityTargets = ['forest-05', 'forest-06', 'forest-07', 'forest-10', 'forest-13', 'forest-15', 'forest-17', 'forest-20'];
 for (const id of lockedIdentityTargets) {
   const pattern = new RegExp(`'${id.replace('-', '\\-')}':\\s*\\{`);
   if (!pattern.test(identitySource)) {
