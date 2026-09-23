@@ -20,9 +20,13 @@ const expectedHighPriority = [
   'forest-06',
   'forest-07',
   'forest-10',
+  'forest-12',
   'forest-13',
   'forest-15',
+  'forest-16',
   'forest-17',
+  'forest-18',
+  'forest-19',
   'forest-20'
 ];
 
@@ -48,7 +52,7 @@ if (!keepBaselinesMatch) {
   errors.push('missing forestKeepBaselines');
 } else {
   const keepIds = [...keepBaselinesMatch[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
-  const expectedKeep = ['forest-12', 'forest-16', 'forest-18', 'forest-19'];
+  const expectedKeep = ['forest-08', 'forest-09', 'forest-11', 'forest-14'];
   for (const id of expectedKeep) {
     if (!keepIds.includes(id)) errors.push(`missing keep baseline ${id}`);
   }
