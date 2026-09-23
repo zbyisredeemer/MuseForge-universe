@@ -1,5 +1,6 @@
 export * from './types';
 export { galaxies, getGalaxyById, taxonomyOptions } from './taxonomy';
+export { regenerationQueue, forestKeepBaselines, getRegenerationTarget } from './regeneration-queue';
 
 import { forestMuse } from './planets/forest-muse';
 import { snowMuse } from './planets/snow-muse';
