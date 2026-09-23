@@ -64,7 +64,9 @@
 - 006 / 015 / 017 因年龄感明显偏成熟、服装/摄影语言偏厚重或纪实，已从 active images 与真实 WebP 资产中删除；
 - 其余 17 张当前保留；Editorial Portrait 001～010 全部保留；
 - Hanfu 源 Prompt 中旧的 mature 方向同步改为明确年轻成年方向；
-- 006 / 015 / 017 已加入 regeneration queue，等待按原编号重生成。
+- 006 / 015 / 017 已加入 regeneration queue，等待按原编号重生成；
+- 001～020 已补充独立 Identity DNA 与镜头 DNA，避免同脸和统一 85mm 模板；
+- 021～030 的第二批 10 张生成规格已固化到 `src/data/generation/hanfu-batch-02.ts`，真实图完成前不提前发布。
 
 ## Hanfu 004 修复状态
 
