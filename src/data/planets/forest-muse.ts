@@ -67,11 +67,11 @@ const forestExpansion: ForestExpansion[] = [
   },
   {
     title: '林间逆光',
-    prompt: 'Adult East Asian woman in a cream dress standing between tall forest trees at golden hour, strong warm backlight outlining hair, subtle lens bloom, calm expression, luxury cinematic portrait, 85mm lens, realistic skin, editorial color grading',
-    tags: ['逆光', '金色', '奶油裙', '胶片'],
-    scene: 'sunlit-forest', season: 'summer', weather: 'sunny', time: 'golden-hour', action: 'standing', expression: 'calm',
-    outfit: ['dress'], colors: ['cream'], composition: 'three-quarter', lens: '85mm',
-    lighting: ['warm-backlight', 'natural-light'], styles: ['photorealistic', 'cinematic', 'editorial', 'film'], mood: ['warm', 'romantic'], palette: ['cream', 'warm-gold', 'forest-green']
+    prompt: 'Mature adult woman beside a tall tree in a sunlit forest at golden hour, body turned almost in profile and one hand resting naturally against the bark, cream long dress with restrained natural-fabric tailoring, gaze directed past the camera instead of a centered beauty pose, warm rim light outlining the face and hair with soft reflected fill from the forest floor, realistic pores and age texture, 70mm lens, three-quarter environmental portrait, subtle film bloom, photorealistic editorial color grading',
+    tags: ['逆光', '金色', '侧身', '成熟感'],
+    scene: 'sunlit-forest', season: 'summer', weather: 'sunny', time: 'golden-hour', action: 'leaning-on-tree', expression: 'calm-away',
+    outfit: ['long-dress'], colors: ['cream'], composition: 'three-quarter-profile', lens: '70mm', aperture: 'f/2.5', angle: 'side-three-quarter',
+    lighting: ['warm-backlight', 'natural-light', 'reflected-fill'], styles: ['photorealistic', 'cinematic', 'editorial', 'film'], mood: ['warm', 'serene'], palette: ['cream', 'warm-gold', 'forest-green']
   },
   {
     title: '野莓灌木',
@@ -83,50 +83,50 @@ const forestExpansion: ForestExpansion[] = [
   },
   {
     title: '古树根系',
-    prompt: 'Adult East Asian woman beside the exposed roots of an ancient tree in a deep forest, dark olive dress, low soft side light, composed expression, cinematic environmental portrait, realistic bark and fabric texture, 35mm lens, grounded natural palette',
-    tags: ['古树', '根系', '深林', '环境人像'],
-    scene: 'ancient-tree-roots', season: 'summer', weather: 'cloudy', time: 'day', action: 'standing', expression: 'composed',
-    outfit: ['dress'], colors: ['dark-olive'], composition: 'environmental-portrait', lens: '35mm',
-    lighting: ['soft-side-light'], styles: ['photorealistic', 'cinematic'], mood: ['mysterious', 'serene'], palette: ['dark-olive', 'brown', 'deep-green']
+    prompt: 'Mature adult woman crouching beside the exposed roots of an ancient tree in a deep forest, one hand resting on a massive root for scale, broad environmental composition that shows bark, roots, moss and forest floor, dark olive structured dress with practical layered texture, strong natural facial structure and visible mature skin texture, composed expression looking toward the roots rather than directly at camera, 28mm lens from a slightly low angle, soft side light, photorealistic cinematic environmental portrait',
+    tags: ['古树', '根系', '深林', '低机位'],
+    scene: 'ancient-tree-roots', season: 'summer', weather: 'cloudy', time: 'day', action: 'crouching-by-roots', expression: 'composed-away',
+    outfit: ['structured-dress'], colors: ['dark-olive'], composition: 'wide-environmental-portrait', lens: '28mm', aperture: 'f/4', angle: 'slightly-low',
+    lighting: ['soft-side-light', 'forest-ambient-light'], styles: ['photorealistic', 'cinematic'], mood: ['grounded', 'serene'], palette: ['dark-olive', 'brown', 'deep-green']
   },
   {
-    title: '晨露蕨径',
-    prompt: 'Adult East Asian woman walking along a fern-lined path covered in morning dew, pale gray-green dress, soft sunrise haze, loose long hair, fresh quiet mood, photorealistic cinematic portrait, 50mm lens, fine droplets and natural bokeh',
-    tags: ['晨露', '蕨径', '清晨', '清新'],
-    scene: 'fern-path', season: 'spring', weather: 'mist', time: 'dawn', action: 'walking', expression: 'soft',
-    outfit: ['dress'], colors: ['gray-green'], composition: 'full-body', lens: '50mm',
-    lighting: ['soft-dawn-light'], styles: ['photorealistic', 'cinematic'], mood: ['fresh', 'serene'], palette: ['gray-green', 'silver', 'soft-gold']
+    title: '雾林读书',
+    prompt: 'Adult woman with a short dark bob seated on a moss-covered fallen log in a quiet misty forest, reading an open book with her attention on the page, dark olive wool coat over a charcoal knit top and long textured skirt, practical lace-up boots, full body visible, soft fog layering between tall trees, realistic mature skin and hands, 50mm environmental portrait at eye level, cool diffused morning light, restrained cinematic realism',
+    tags: ['雾林', '读书', '短发', '沉静'],
+    scene: 'misty-forest-reading', season: 'autumn', weather: 'fog', time: 'morning', action: 'seated-reading', expression: 'absorbed',
+    outfit: ['wool-coat', 'knit-top', 'long-skirt'], colors: ['dark-olive', 'charcoal'], composition: 'full-body-environmental', lens: '50mm', aperture: 'f/2.8', angle: 'eye-level',
+    lighting: ['diffused-light', 'fog-ambient-light'], styles: ['photorealistic', 'cinematic', 'editorial'], mood: ['quiet', 'introspective'], palette: ['dark-olive', 'charcoal', 'mist-gray']
   },
   {
     title: '林中长椅',
-    prompt: 'Adult East Asian woman sitting on a weathered wooden bench in a quiet woodland, beige coat over a simple dress, overcast afternoon, introspective expression, cinematic lifestyle portrait, 85mm lens, realistic skin and subtle film grain',
-    tags: ['长椅', '米色', '沉静', '胶片'],
-    scene: 'woodland-bench', season: 'autumn', weather: 'cloudy', time: 'day', action: 'sitting', expression: 'introspective',
-    outfit: ['beige-coat', 'dress'], colors: ['beige', 'dark-green'], composition: 'half-body', lens: '85mm',
+    prompt: 'Adult woman with short textured hair seated at one end of a weathered wooden bench in a quiet woodland, bench fully visible to establish the scene, dark green coat layered over a simple muted dress, hands resting naturally in her lap, gaze turned sideways into the forest, wide 35mm composition with substantial negative space and tree depth, realistic skin texture, soft overcast afternoon light, subtle film grain, candid cinematic lifestyle portrait',
+    tags: ['长椅', '短发', '留白', '胶片'],
+    scene: 'woodland-bench', season: 'autumn', weather: 'cloudy', time: 'day', action: 'seated-on-bench', expression: 'introspective-away',
+    outfit: ['coat', 'dress'], colors: ['dark-green', 'beige'], composition: 'wide-environmental', lens: '35mm', aperture: 'f/3.5', angle: 'side-eye-level',
     lighting: ['soft-overcast-light'], styles: ['photorealistic', 'cinematic', 'film'], mood: ['serene', 'cool'], palette: ['beige', 'moss-green', 'gray']
   },
   {
-    title: '小径回眸',
-    prompt: 'Adult East Asian woman walking away on a narrow forest trail and looking back over her shoulder, understated dark green dress, warm late-afternoon light, cinematic storytelling portrait, 50mm lens, realistic motion and hair detail',
-    tags: ['小径', '回眸', '叙事感', '暖光'],
-    scene: 'narrow-forest-trail', season: 'summer', weather: 'sunny', time: 'golden-hour', action: 'walking', expression: 'looking-back',
-    outfit: ['dress'], colors: ['dark-green'], composition: 'full-body', lens: '50mm',
-    lighting: ['warm-backlight'], styles: ['photorealistic', 'cinematic'], mood: ['warm', 'romantic'], palette: ['dark-green', 'warm-gold', 'brown']
+    title: '溪畔采花',
+    prompt: 'Mature adult woman gathering small wildflowers beside a shallow forest stream at golden hour, shoulder-length natural waves, rust cardigan over a dark floral dress, one hand holding a loose bouquet while the other reaches toward plants in the foreground, warm expression with visible freckles and natural mature skin texture, 50mm three-quarter environmental portrait, warm backlight and stream-reflected fill, photorealistic lifestyle editorial',
+    tags: ['溪畔', '采花', '雀斑', '暖光'],
+    scene: 'streamside-wildflowers', season: 'summer', weather: 'sunny', time: 'golden-hour', action: 'gathering-wildflowers', expression: 'warm-natural',
+    outfit: ['cardigan', 'floral-dress'], colors: ['rust', 'dark-floral'], composition: 'three-quarter-environmental', lens: '50mm', aperture: 'f/2.8', angle: 'eye-level',
+    lighting: ['warm-backlight', 'stream-reflected-fill'], styles: ['photorealistic', 'cinematic', 'lifestyle'], mood: ['warm', 'grounded'], palette: ['rust', 'forest-green', 'warm-gold']
   },
   {
-    title: '雨幕深林',
-    prompt: 'Adult East Asian woman standing under light rain in a dense dark forest, waterproof black coat over muted green layers, wet hair, cinematic moody portrait, cool diffused light, 85mm lens, realistic rain streaks and skin texture',
-    tags: ['雨幕', '深林', '黑外套', '冷调'],
-    scene: 'dense-rain-forest', season: 'summer', weather: 'rain', time: 'day', action: 'standing', expression: 'focused',
-    outfit: ['rain-coat'], colors: ['black', 'muted-green'], composition: 'half-body', lens: '85mm',
-    lighting: ['diffused-light'], styles: ['photorealistic', 'cinematic'], mood: ['cool', 'mysterious'], palette: ['black', 'deep-green', 'silver']
+    title: '暮林灯影',
+    prompt: 'Adult woman with short textured dark hair standing on a narrow forest path at blue hour, holding a warm kerosene lantern low beside her body, long charcoal wool coat with restrained layered details, cool blue forest ambient light contrasting with the lantern glow on one hand and lower face, three-quarter full-body composition, realistic skin texture, 50mm lens, quiet cinematic twilight photography',
+    tags: ['暮林', '提灯', '短发', '蓝调'],
+    scene: 'twilight-forest-path', season: 'autumn', weather: 'clear', time: 'blue-hour', action: 'holding-lantern', expression: 'calm-alert',
+    outfit: ['long-wool-coat'], colors: ['charcoal', 'black'], composition: 'three-quarter-full-body', lens: '50mm', aperture: 'f/2.2', angle: 'side-three-quarter',
+    lighting: ['lantern-key-light', 'blue-hour-ambient'], styles: ['photorealistic', 'cinematic'], mood: ['mysterious', 'quiet'], palette: ['charcoal', 'deep-blue', 'warm-amber']
   },
   {
     title: '暮色林缘',
-    prompt: 'Elegant adult East Asian woman at the edge of a forest during blue hour, deep teal long dress, fading sky behind tree silhouettes, gentle breeze, cinematic twilight portrait, 85mm lens, controlled highlights, realistic skin and fabric',
-    tags: ['林缘', '暮色', '蓝调', '长裙'],
-    scene: 'forest-edge', season: 'autumn', weather: 'clear', time: 'blue-hour', action: 'standing', expression: 'calm',
-    outfit: ['long-dress'], colors: ['deep-teal'], composition: 'three-quarter', lens: '85mm',
+    prompt: 'Adult woman standing at the edge of a dense conifer forest during blue hour, shown as a smaller full-body figure rather than a close beauty portrait, deep teal long dress moving lightly in the wind, layered tree silhouettes and fading mountain sky occupying most of the frame, face turned in partial profile with natural mid-length layered hair, 35mm environmental lens from a slightly low angle, cool ambient twilight with a restrained soft rim light, realistic fabric and skin, cinematic photorealism',
+    tags: ['林缘', '暮色', '远景', '蓝调'],
+    scene: 'forest-edge', season: 'autumn', weather: 'clear', time: 'blue-hour', action: 'standing-in-wind', expression: 'calm-profile',
+    outfit: ['long-dress'], colors: ['deep-teal'], composition: 'full-body-distant-environmental', lens: '35mm', aperture: 'f/3.2', angle: 'slightly-low',
     lighting: ['blue-hour-light', 'soft-rim-light'], styles: ['photorealistic', 'cinematic', 'editorial'], mood: ['cool', 'elegant'], palette: ['deep-teal', 'blue', 'charcoal']
   }
 ];
