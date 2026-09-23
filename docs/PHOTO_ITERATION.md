@@ -45,6 +45,14 @@ Forest 001～020 已经全部是真实 WebP，因此下一轮不再以“替换�
 4. 保留 Forest Muse 的统一自然审美：森林、真实摄影、自然光、克制色彩；
 5. 新图只有在明显优于旧图时才覆盖原 WebP。
 
+### 当前队列
+
+- `005 野花林隙`：✅ second-pass prompt ready；35mm 环境人像、跪姿、主体缩小到画面一半以内。
+- `006 雾松`：✅ second-pass prompt ready；50mm 全身行走、轻微低机位、雾气环境光。
+- `007 月夜森林`：✅ second-pass prompt ready；85mm 侧坐三分之四人像、月光轮廓光 + 冷色补光。
+- `008 金叶暮光`：✅ second-pass prompt ready；50mm 横向行走、侧向三分之四机位、暖逆光 + 反射补光。
+- `009～020`：⏳ 下一批继续逐张重构。
+
 ## 自动校验
 
 ```bash
