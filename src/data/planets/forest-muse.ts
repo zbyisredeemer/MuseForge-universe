@@ -23,6 +23,8 @@ type ForestExpansion = {
   colors: string[];
   composition: string;
   lens: string;
+  aperture?: string;
+  angle?: string;
   lighting: string[];
   styles: string[];
   mood: string[];
@@ -33,27 +35,27 @@ type ForestExpansion = {
 const forestExpansion: ForestExpansion[] = [
   {
     title: '雨后木桥',
-    prompt: 'Adult East Asian woman crossing a narrow wooden bridge in a wet forest after rain, moss-covered rails, soft gray daylight, long dark hair, simple sage dress, cinematic environmental portrait, realistic skin and fabric, 50mm lens, natural color grading',
+    prompt: 'Adult woman walking away across a narrow rain-darkened wooden bridge in a wet forest, looking briefly to the side rather than directly at camera, moss-covered rails and moving water visible around the bridge, muted sage natural-fabric dress with practical longline tailoring, full body in frame with generous environment, 35mm lens from a back three-quarter angle, soft gray overcast light reflected from wet wood, natural skin and fabric texture, realistic stride and hands, documentary-cinematic forest photography',
     tags: ['雨后', '木桥', '苔藓', '灰调'],
-    scene: 'wet-forest-bridge', season: 'summer', weather: 'rain', time: 'day', action: 'walking', expression: 'calm',
-    outfit: ['simple-dress'], colors: ['sage'], composition: 'full-body', lens: '50mm',
-    lighting: ['soft-overcast-light'], styles: ['photorealistic', 'cinematic'], mood: ['serene'], palette: ['sage', 'gray', 'deep-green']
+    scene: 'wet-forest-bridge', season: 'summer', weather: 'rain', time: 'day', action: 'walking-away', expression: 'side-glance-calm',
+    outfit: ['simple-dress'], colors: ['sage'], composition: 'full-body-environmental', lens: '35mm', aperture: 'f/4', angle: 'back-three-quarter',
+    lighting: ['soft-overcast-light', 'wet-surface-reflection'], styles: ['photorealistic', 'cinematic'], mood: ['serene'], palette: ['sage', 'gray', 'deep-green']
   },
   {
     title: '溪边白衫',
-    prompt: 'Adult East Asian woman sitting beside a shallow forest stream, soft white blouse and long olive skirt, scattered sunlight through leaves, relaxed thoughtful expression, photorealistic editorial portrait, 85mm lens, delicate bokeh and realistic textures',
+    prompt: 'Adult woman seated naturally on a broad stone beside a shallow forest stream, torso angled away from camera and gaze following the water, soft white textured blouse with understated layered tailoring and a long olive skirt, both hands relaxed and visible instead of a beauty-pose hand-to-face gesture, scattered leaf light across fabric and stones, 85mm lens from a slightly high three-quarter angle, realistic mature skin texture, restrained smile lines, delicate background bokeh, candid editorial realism',
     tags: ['溪边', '白衫', '坐姿', '斑驳光'],
-    scene: 'forest-stream-bank', season: 'summer', weather: 'sunny', time: 'morning', action: 'sitting', expression: 'thoughtful',
-    outfit: ['white-blouse', 'long-skirt'], colors: ['white', 'olive'], composition: 'three-quarter', lens: '85mm',
-    lighting: ['dappled-light', 'natural-light'], styles: ['photorealistic', 'editorial'], mood: ['fresh', 'serene'], palette: ['white', 'olive', 'emerald']
+    scene: 'forest-stream-bank', season: 'summer', weather: 'sunny', time: 'morning', action: 'sitting-on-stone', expression: 'thoughtful-away',
+    outfit: ['white-blouse', 'long-skirt'], colors: ['white', 'olive'], composition: 'three-quarter-candid', lens: '85mm', aperture: 'f/2.2', angle: 'slightly-high-three-quarter',
+    lighting: ['dappled-light', 'natural-light', 'stream-reflected-fill'], styles: ['photorealistic', 'editorial'], mood: ['fresh', 'serene'], palette: ['white', 'olive', 'emerald']
   },
   {
     title: '秋林风衣',
-    prompt: 'Elegant adult East Asian woman in a camel trench coat walking through an autumn forest, copper leaves and dark tree trunks, soft wind, cinematic fashion editorial, 50mm lens, warm filmic grading, realistic hair strands and skin texture',
+    prompt: 'Adult woman taking a long natural stride through an autumn woodland, camel trench coat over dark textured layers with one restrained woven belt detail, photographed from a low three-quarter side angle so the face is not front-centered, copper leaves and dark trunks forming vertical depth, soft wind moving the coat hem, 35mm full-body environmental fashion portrait, warm natural side light, realistic skin texture and hair, filmic but not airbrushed',
     tags: ['秋林', '风衣', '铜色', '行走'],
-    scene: 'autumn-woodland', season: 'autumn', weather: 'cloudy', time: 'day', action: 'walking', expression: 'focused',
-    outfit: ['trench-coat'], colors: ['camel'], composition: 'full-body', lens: '50mm',
-    lighting: ['soft-natural-light'], styles: ['photorealistic', 'cinematic', 'editorial', 'film'], mood: ['warm', 'elegant'], palette: ['camel', 'copper', 'deep-green']
+    scene: 'autumn-woodland', season: 'autumn', weather: 'cloudy', time: 'day', action: 'long-stride', expression: 'focused-away',
+    outfit: ['trench-coat'], colors: ['camel'], composition: 'full-body-environmental', lens: '35mm', aperture: 'f/3.2', angle: 'low-three-quarter-side',
+    lighting: ['soft-natural-light', 'warm-side-light'], styles: ['photorealistic', 'cinematic', 'editorial', 'film'], mood: ['warm', 'elegant'], palette: ['camel', 'copper', 'deep-green']
   },
   {
     title: '薄雾针叶林',
@@ -145,7 +147,7 @@ function createForestExpansionImage(item: ForestExpansion, offset: number): Muse
       fashion: { outfit: item.outfit, colors: item.colors },
       environment: { scene: item.scene, season: item.season, weather: item.weather, time: item.time },
       pose: { action: item.action, expression: item.expression },
-      photography: { composition: item.composition, lens: item.lens, lighting: item.lighting },
+      photography: { composition: item.composition, lens: item.lens, aperture: item.aperture, angle: item.angle, lighting: item.lighting },
       aesthetics: { styles: item.styles, mood: item.mood, palette: item.palette },
       generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
     }
