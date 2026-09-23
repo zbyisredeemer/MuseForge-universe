@@ -165,7 +165,8 @@ const seeds = [
   }
 ] as const;
 
-// hanfu-004 is temporarily unpublished because its binary asset was corrupt and is queued for regeneration.\nconst images: MuseImage[] = seeds.map((seed, index) => {
+// hanfu-004 is temporarily unpublished because its binary asset was corrupt and is queued for regeneration.
+const images: MuseImage[] = seeds.map((seed, index) => {
   const number = String(index + 1).padStart(3, '0');
   return {
     id: `hanfu-${number}`,
@@ -219,14 +220,14 @@ const seeds = [
       }
     }
   };
-});
+}).filter((image) => image.id !== 'hanfu-004');
 
 export const hanfuMuse: MusePlanet = {
   id: 'hanfu-muse',
   galaxyId: 'eastern',
   name: '汉服系美女',
   subtitle: 'HANFU MUSE',
-  description: '传统汉服与古典场景的人像星球：竹庭、春水、书斋、夜市、雪宫、荷塘、秋山与月亭；整体更强调成熟女性魅力与克制的东方性感。',
+  description: '传统汉服与古典场景的人像星球：竹庭、春水、书斋、夜市、雪宫、荷塘、秋山与月亭；整体强调年轻成年女性魅力、克制的东方性感与高级写真感。',
   code: 'HANFU',
   sequence: 1,
   star: { x: 45, y: 29, size: 16 },
