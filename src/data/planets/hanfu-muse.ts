@@ -165,10 +165,58 @@ const seeds = [
   }
 ] as const;
 
+const identityProfiles = [
+  { ageBand: '23-24', hair: ['long', 'straight', 'center-part'], face: { shape: 'oval', faceWidth: 'medium', cheekbones: 'soft-high', jawShape: 'soft-v', chinShape: 'rounded', skinTone: 'light-warm', eyeShape: 'almond', eyeSpacing: 'balanced', browShape: 'soft-arched', noseShape: 'straight', noseWidth: 'narrow', lipShape: 'defined-cupid-bow', lipRatio: 'balanced', distinctiveFeatures: ['small-beauty-mark-under-eye'] } },
+  { ageBand: '25-26', hair: ['long', 'soft-wave', 'half-up'], face: { shape: 'heart', faceWidth: 'medium', cheekbones: 'defined', jawShape: 'tapered', chinShape: 'pointed-soft', skinTone: 'light-neutral', eyeShape: 'upturned-almond', eyeSpacing: 'slightly-wide', browShape: 'straight-soft', noseShape: 'slender', noseWidth: 'narrow', lipShape: 'full-lower-lip', lipRatio: 'lower-fuller', distinctiveFeatures: ['subtle-dimple'] } },
+  { ageBand: '21-22', hair: ['long', 'dark-brown', 'braided-updo'], face: { shape: 'round', faceWidth: 'compact', cheekbones: 'soft', jawShape: 'rounded', chinShape: 'short-rounded', skinTone: 'fair-neutral', eyeShape: 'soft-monolid', eyeSpacing: 'balanced', browShape: 'natural-straight', noseShape: 'small-straight', noseWidth: 'medium', lipShape: 'petal', lipRatio: 'balanced', distinctiveFeatures: ['light-freckles'] } },
+  { ageBand: '23-25', hair: ['long', 'black', 'low-bun'], face: { shape: 'long-oval', faceWidth: 'narrow', cheekbones: 'high-soft', jawShape: 'slender', chinShape: 'long-rounded', skinTone: 'light-olive', eyeShape: 'double-lid-almond', eyeSpacing: 'close-balanced', browShape: 'fine-arched', noseShape: 'high-bridge', noseWidth: 'narrow', lipShape: 'small-full', lipRatio: 'balanced', distinctiveFeatures: ['calm-intellectual-look'] } },
+  { ageBand: '24-25', hair: ['shoulder-length', 'black', 'soft-wave'], face: { shape: 'diamond', faceWidth: 'medium', cheekbones: 'prominent-soft', jawShape: 'narrow', chinShape: 'defined', skinTone: 'medium-warm', eyeShape: 'long-almond', eyeSpacing: 'balanced', browShape: 'bold-straight', noseShape: 'straight', noseWidth: 'medium', lipShape: 'wide-defined', lipRatio: 'balanced', distinctiveFeatures: ['slightly-asymmetric-smile'] } },
+  { ageBand: '23-25', hair: ['long', 'black', 'high-updo'], face: { shape: 'soft-square', faceWidth: 'medium-wide', cheekbones: 'defined', jawShape: 'soft-angular', chinShape: 'rounded-square', skinTone: 'fair-cool', eyeShape: 'upturned', eyeSpacing: 'balanced', browShape: 'clean-arched', noseShape: 'straight', noseWidth: 'medium', lipShape: 'full', lipRatio: 'balanced', distinctiveFeatures: ['clear-jawline'] } },
+  { ageBand: '22-23', hair: ['long', 'black', 'loose-braids'], face: { shape: 'oval', faceWidth: 'slightly-wide', cheekbones: 'soft', jawShape: 'rounded', chinShape: 'soft', skinTone: 'light-warm', eyeShape: 'round-almond', eyeSpacing: 'slightly-wide', browShape: 'soft-straight', noseShape: 'small', noseWidth: 'medium', lipShape: 'soft-full', lipRatio: 'balanced', distinctiveFeatures: ['bright-eyes'] } },
+  { ageBand: '26-27', hair: ['short-bob', 'black', 'textured'], face: { shape: 'rectangular', faceWidth: 'medium', cheekbones: 'high', jawShape: 'defined', chinShape: 'square-soft', skinTone: 'medium-neutral', eyeShape: 'narrow-almond', eyeSpacing: 'balanced', browShape: 'strong-straight', noseShape: 'defined-bridge', noseWidth: 'medium', lipShape: 'wide', lipRatio: 'balanced', distinctiveFeatures: ['short-hair-contrast'] } },
+  { ageBand: '24-26', hair: ['long', 'black', 'side-part'], face: { shape: 'heart', faceWidth: 'medium', cheekbones: 'soft-high', jawShape: 'tapered', chinShape: 'small-pointed', skinTone: 'fair-neutral', eyeShape: 'downturned-almond', eyeSpacing: 'balanced', browShape: 'gentle-arched', noseShape: 'slender', noseWidth: 'narrow', lipShape: 'small-defined', lipRatio: 'balanced', distinctiveFeatures: ['wistful-eyes'] } },
+  { ageBand: '25-27', hair: ['long', 'black', 'ornate-updo'], face: { shape: 'oval', faceWidth: 'narrow', cheekbones: 'defined', jawShape: 'slender', chinShape: 'rounded-point', skinTone: 'light-neutral', eyeShape: 'cat-almond', eyeSpacing: 'balanced', browShape: 'arched', noseShape: 'high-bridge', noseWidth: 'narrow', lipShape: 'full-defined', lipRatio: 'upper-slightly-fuller', distinctiveFeatures: ['regal-gaze'] } },
+  { ageBand: '22-24', hair: ['long', 'black', 'wet-loose-strands'], face: { shape: 'round-oval', faceWidth: 'medium', cheekbones: 'soft', jawShape: 'rounded', chinShape: 'short', skinTone: 'light-cool', eyeShape: 'large-almond', eyeSpacing: 'balanced', browShape: 'natural', noseShape: 'small-straight', noseWidth: 'medium', lipShape: 'petal-full', lipRatio: 'balanced', distinctiveFeatures: ['rain-kissed-hair'] } },
+  { ageBand: '24-25', hair: ['long', 'dark-brown', 'plum-pin-updo'], face: { shape: 'diamond', faceWidth: 'medium', cheekbones: 'high', jawShape: 'tapered', chinShape: 'defined', skinTone: 'fair-warm', eyeShape: 'almond', eyeSpacing: 'close-balanced', browShape: 'fine-straight', noseShape: 'straight', noseWidth: 'narrow', lipShape: 'full-lower-lip', lipRatio: 'lower-fuller', distinctiveFeatures: ['warm-blush'] } },
+  { ageBand: '23-24', hair: ['long', 'black', 'low-ornate-bun'], face: { shape: 'oval', faceWidth: 'medium', cheekbones: 'soft-high', jawShape: 'soft-v', chinShape: 'rounded', skinTone: 'light-neutral', eyeShape: 'soft-almond', eyeSpacing: 'slightly-wide', browShape: 'straight', noseShape: 'slender', noseWidth: 'narrow', lipShape: 'delicate', lipRatio: 'balanced', distinctiveFeatures: ['tiny-mole-near-lip'] } },
+  { ageBand: '26-28', hair: ['short-textured', 'black', 'side-swept'], face: { shape: 'soft-square', faceWidth: 'medium-wide', cheekbones: 'defined', jawShape: 'angular-soft', chinShape: 'broad-rounded', skinTone: 'medium-warm', eyeShape: 'narrow-upturned', eyeSpacing: 'balanced', browShape: 'bold', noseShape: 'straight-strong', noseWidth: 'medium', lipShape: 'wide-full', lipRatio: 'balanced', distinctiveFeatures: ['strong-editorial-bone-structure'] } },
+  { ageBand: '22-24', hair: ['long', 'black', 'half-up-pearl'], face: { shape: 'heart', faceWidth: 'medium', cheekbones: 'soft', jawShape: 'tapered', chinShape: 'small-rounded', skinTone: 'fair-neutral', eyeShape: 'round-almond', eyeSpacing: 'slightly-wide', browShape: 'soft-arched', noseShape: 'small', noseWidth: 'narrow', lipShape: 'soft-full', lipRatio: 'balanced', distinctiveFeatures: ['gentle-smile'] } },
+  { ageBand: '24-26', hair: ['long', 'black', 'high-ponytail-inspired-updo'], face: { shape: 'oval', faceWidth: 'medium', cheekbones: 'high-soft', jawShape: 'defined-v', chinShape: 'rounded-point', skinTone: 'light-warm', eyeShape: 'upturned-almond', eyeSpacing: 'balanced', browShape: 'clean-straight', noseShape: 'high-bridge', noseWidth: 'medium', lipShape: 'defined-full', lipRatio: 'balanced', distinctiveFeatures: ['confident-gaze'] } },
+  { ageBand: '24-26', hair: ['long', 'dark-brown', 'windblown-braids'], face: { shape: 'rectangular-oval', faceWidth: 'medium', cheekbones: 'defined', jawShape: 'strong-soft', chinShape: 'long-rounded', skinTone: 'medium-golden', eyeShape: 'deep-set-almond', eyeSpacing: 'balanced', browShape: 'strong-natural', noseShape: 'straight', noseWidth: 'medium-wide', lipShape: 'full', lipRatio: 'balanced', distinctiveFeatures: ['sun-kissed-skin'] } },
+  { ageBand: '21-23', hair: ['long', 'black', 'flower-crown-updo'], face: { shape: 'round', faceWidth: 'compact', cheekbones: 'soft', jawShape: 'rounded', chinShape: 'small', skinTone: 'fair-warm', eyeShape: 'large-almond', eyeSpacing: 'balanced', browShape: 'soft-straight', noseShape: 'small', noseWidth: 'narrow', lipShape: 'petal', lipRatio: 'balanced', distinctiveFeatures: ['youthful-dimples'] } },
+  { ageBand: '25-27', hair: ['long', 'black', 'jade-pin-low-bun'], face: { shape: 'diamond-oval', faceWidth: 'medium', cheekbones: 'prominent', jawShape: 'slender', chinShape: 'defined', skinTone: 'light-olive', eyeShape: 'long-almond', eyeSpacing: 'balanced', browShape: 'arched-soft', noseShape: 'straight', noseWidth: 'medium', lipShape: 'full-defined', lipRatio: 'balanced', distinctiveFeatures: ['elegant-long-neck'] } },
+  { ageBand: '23-25', hair: ['long', 'black', 'phoenix-ornament-updo'], face: { shape: 'heart-oval', faceWidth: 'medium', cheekbones: 'defined-high', jawShape: 'tapered', chinShape: 'pointed-soft', skinTone: 'fair-neutral', eyeShape: 'cat-almond', eyeSpacing: 'balanced', browShape: 'arched-bold', noseShape: 'high-bridge', noseWidth: 'narrow', lipShape: 'full', lipRatio: 'balanced', distinctiveFeatures: ['commanding-eye-contact'] } }
+] as const;
+
+const cameraProfiles = [
+  { composition: 'three-quarter', lens: '70mm', angle: 'eye-level', lighting: ['misty-dawn-softlight'] },
+  { composition: 'half-body', lens: '85mm', angle: 'slight-low-angle', lighting: ['golden-hour-backlight'] },
+  { composition: 'full-body', lens: '50mm', angle: 'eye-level', lighting: ['spring-diffused-light'] },
+  { composition: 'seated-three-quarter', lens: '70mm', angle: 'slight-high-angle', lighting: ['window-softlight'] },
+  { composition: 'walking-full-body', lens: '35mm', angle: 'eye-level', lighting: ['lantern-night-mixed-light'] },
+  { composition: 'three-quarter', lens: '85mm', angle: 'eye-level', lighting: ['snow-softlight'] },
+  { composition: 'seated-half-body', lens: '70mm', angle: 'eye-level', lighting: ['summer-water-bounce'] },
+  { composition: 'environmental-full-body', lens: '35mm', angle: 'slight-low-angle', lighting: ['autumn-directional-light'] },
+  { composition: 'three-quarter', lens: '85mm', angle: 'eye-level', lighting: ['moonlight-lantern-mix'] },
+  { composition: 'half-body', lens: '70mm', angle: 'slight-low-angle', lighting: ['dusk-lantern-light'] },
+  { composition: 'walking-three-quarter', lens: '50mm', angle: 'eye-level', lighting: ['rainy-night-lantern-light'] },
+  { composition: 'three-quarter', lens: '85mm', angle: 'eye-level', lighting: ['snow-plum-softlight'] },
+  { composition: 'seated-half-body', lens: '70mm', angle: 'slight-high-angle', lighting: ['candle-moon-mixed-light'] },
+  { composition: 'environmental-full-body', lens: '35mm', angle: 'slight-low-angle', lighting: ['sunset-rim-light'] },
+  { composition: 'half-body', lens: '85mm', angle: 'eye-level', lighting: ['misty-dawn-softlight'] },
+  { composition: 'walking-full-body', lens: '50mm', angle: 'eye-level', lighting: ['festival-lantern-light'] },
+  { composition: 'environmental-three-quarter', lens: '50mm', angle: 'slight-low-angle', lighting: ['desert-sunset-backlight'] },
+  { composition: 'three-quarter', lens: '85mm', angle: 'eye-level', lighting: ['moonlit-garden-light'] },
+  { composition: 'seated-three-quarter', lens: '70mm', angle: 'slight-high-angle', lighting: ['steam-candle-softlight'] },
+  { composition: 'full-body', lens: '50mm', angle: 'slight-low-angle', lighting: ['grand-hall-lantern-light'] }
+] as const;
+
 const removedHanfuSlots = new Set([6, 15, 17]);
 
 const images: MuseImage[] = seeds.map((seed, index) => {
   const number = String(index + 1).padStart(3, '0');
+  const identity = identityProfiles[index]!;
+  const camera = cameraProfiles[index]!;
   return {
     id: `hanfu-${number}`,
     title: seed.title,
@@ -182,10 +230,16 @@ const images: MuseImage[] = seeds.map((seed, index) => {
       subject: {
         gender: 'female',
         ageGroup: 'adult',
+        ageBand: identity.ageBand,
+        identityId: `hanfu-identity-${number}`,
+        face: {
+          ...identity.face,
+          distinctiveFeatures: [...identity.face.distinctiveFeatures]
+        },
         region: 'east-asia',
         country: 'china',
         appearance: ['natural-makeup'],
-        hair: ['dark', 'traditional-styling']
+        hair: [...identity.hair]
       },
       fashion: {
         outfit: ['hanfu'],
@@ -204,9 +258,10 @@ const images: MuseImage[] = seeds.map((seed, index) => {
         expression: seed.expression
       },
       photography: {
-        composition: 'vertical-portrait',
-        lens: '85mm',
-        lighting: ['cinematic-natural-light']
+        composition: camera.composition,
+        lens: camera.lens,
+        angle: camera.angle,
+        lighting: [...camera.lighting, 'cinematic-natural-light']
       },
       aesthetics: {
         styles: ['photorealistic', 'cinematic', 'editorial'],
