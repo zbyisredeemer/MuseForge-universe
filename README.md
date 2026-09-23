@@ -16,7 +16,7 @@
 - 3D 图片球与高清大图
 - Prompt / Negative Prompt / Tags
 - Image DNA
-- Forest Muse / Hanfu Muse 已有真实 WebP
+- Forest Muse / Hanfu Muse 已有真实 WebP；损坏资产会自动下线并进入 regeneration queue
 - Snow / Ocean / Tokyo Night 可继续真实化
 - Identity DNA 去同脸
 - 结构化 regeneration queue

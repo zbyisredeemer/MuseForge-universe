@@ -13,41 +13,44 @@ export type RegenerationTarget = {
 
 export const regenerationQueue: RegenerationTarget[] = [
   {
+    imageId: 'hanfu-004',
+    priority: 'high',
+    stage: 'candidate-needed',
+    reasons: ['published-asset-corrupt', 'asset-was-only-93-bytes', 'must-restore-gallery-slot'],
+    targetChanges: [
+      'age-23-25',
+      'clearly-adult-young-chinese-woman',
+      'young-intellectual-sexy',
+      'distinct-face-from-other-hanfu-muses',
+      'scholar-studio-calligraphy',
+      'slate-blue-and-cream-hanfu',
+      'elegant-open-neckline',
+      'fitted-waist',
+      '50mm-or-70mm-editorial'
+    ],
+    candidateNotes: ['corrupt published asset removed and slot temporarily unpublished until a valid candidate is generated']
+  },
+  {
     imageId: 'forest-05',
     priority: 'high',
-    stage: 'candidate-review',
-    reasons: ['face-similarity', 'needs-stronger-young-sexy-editorial-style'],
-    targetChanges: ['age-23-24', 'young-attractive', 'subtly-sensual', '35mm-kneeling-flower-glade', 'cream-fitted-dress'],
-    candidateAssets: ['/images/nature/forest-muse/candidates/forest-muse-005-candidate-a.webp'],
-    candidateNotes: ['generated candidate uploaded for review; do not replace published asset until approved']
+    stage: 'candidate-needed',
+    reasons: ['face-similarity', 'needs-stronger-young-sexy-editorial-style', 'previous-candidate-corrupt'],
+    targetChanges: ['age-23-24', 'young-attractive', 'subtly-sensual', 'distinct-bone-structure', '35mm-kneeling-flower-glade', 'cream-fitted-dress'],
+    candidateNotes: ['candidate-a was not a valid WebP and was removed; generate a fresh candidate before replacement']
   },
   {
     imageId: 'forest-06',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['current-look-too-serious', 'needs-more-feminine-fashion-energy'],
-    targetChanges: ['age-25-26', 'young-attractive', 'short-bob', 'misty-pine-fashion-walk', 'fitted-dark-green-coat-dress']
-  },
-  {
-    imageId: 'forest-07',
-    priority: 'high',
-    stage: 'candidate-needed',
-    reasons: ['face-similarity', 'needs-more-glamorous-night-beauty-language'],
-    targetChanges: ['age-21-22', 'young-glamorous', 'diamond-face', 'moonlit-side-seated', 'deep-teal-sensual-dress']
+    reasons: ['current-look-too-serious', 'outfit-too-conservative', 'needs-more-feminine-fashion-energy'],
+    targetChanges: ['age-25-26', 'young-attractive', 'short-bob', 'distinct-wide-or-heart-face', 'misty-pine-fashion-walk', 'fitted-dark-green-coat-dress']
   },
   {
     imageId: 'forest-10',
     priority: 'high',
     stage: 'candidate-needed',
-    reasons: ['face-similarity', 'pose-template'],
-    targetChanges: ['age-27-28', 'young-elegant', 'wavy-bob', 'streamside-seated', 'white-blouse-low-neckline-olive-skirt']
-  },
-  {
-    imageId: 'forest-12',
-    priority: 'high',
-    stage: 'candidate-needed',
-    reasons: ['current-age-impression-outside-core-style', 'too-conservative'],
-    targetChanges: ['age-22-24', 'young-sexy-minimalist', 'short-hair', 'misty-conifer', 'charcoal-knit-mini-or-fitted-dress']
+    reasons: ['face-similarity', 'pose-template', 'current-lifestyle-styling-too-conservative'],
+    targetChanges: ['age-27-28', 'young-elegant', 'wavy-bob', 'distinct-face', 'streamside-seated', 'white-blouse-low-neckline-olive-skirt']
   },
   {
     imageId: 'forest-13',
@@ -64,32 +67,11 @@ export const regenerationQueue: RegenerationTarget[] = [
     targetChanges: ['age-22-23', 'young-feminine', 'ancient-tree-roots', 'dark-olive-fitted-dress', '28mm-environmental']
   },
   {
-    imageId: 'forest-16',
-    priority: 'high',
-    stage: 'candidate-needed',
-    reasons: ['current-scene-too-conservative', 'not-sexy-enough-for-project-core'],
-    targetChanges: ['age-23-25', 'young-intellectual-sexy', 'misty-forest-reading', 'short-skirt-layering-or-fitted-knit', '50mm']
-  },
-  {
     imageId: 'forest-17',
     priority: 'high',
     stage: 'candidate-needed',
     reasons: ['metadata-image-semantic-mismatch', 'needs-younger-fashion-language'],
-    targetChanges: ['age-20-21', 'young-attractive', 'short-pixie', 'forest-bench', 'fitted-coat-dress', '35mm']
-  },
-  {
-    imageId: 'forest-18',
-    priority: 'high',
-    stage: 'candidate-needed',
-    reasons: ['current-age-impression-outside-core-style', 'too-lifestyle-mature'],
-    targetChanges: ['age-22-24', 'young-sweet-sexy', 'streamside-flowers', 'cropped-cardigan-floral-dress', '50mm']
-  },
-  {
-    imageId: 'forest-19',
-    priority: 'high',
-    stage: 'candidate-needed',
-    reasons: ['current-look-too-serious', 'needs-young-sexy-night-language'],
-    targetChanges: ['age-23-25', 'young-mysterious', 'short-hair', 'lantern-blue-hour', 'fitted-charcoal-dress-or-coat-dress']
+    targetChanges: ['age-20-21', 'clearly-adult', 'young-attractive', 'short-pixie', 'forest-bench', 'fitted-coat-dress', '35mm']
   },
   {
     imageId: 'forest-20',
@@ -100,7 +82,17 @@ export const regenerationQueue: RegenerationTarget[] = [
   }
 ];
 
-export const forestKeepBaselines = ['forest-08', 'forest-09', 'forest-11', 'forest-14'] as const;
+export const forestKeepBaselines = [
+  'forest-07',
+  'forest-08',
+  'forest-09',
+  'forest-11',
+  'forest-12',
+  'forest-14',
+  'forest-16',
+  'forest-18',
+  'forest-19'
+] as const;
 
 export function getRegenerationTarget(imageId: string) {
   return regenerationQueue.find((target) => target.imageId === imageId);

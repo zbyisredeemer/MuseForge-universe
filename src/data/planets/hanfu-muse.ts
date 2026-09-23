@@ -29,11 +29,11 @@ const seeds = [
   },
   {
     title: '书斋兰影',
-    prompt: 'Mature adult Chinese woman writing calligraphy in a refined scholar studio, slate blue and cream hanfu with translucent layers, elegant open neckline, fitted waist and graceful shoulder drape, intelligent mature allure, ink brush, scrolls and plum blossoms by lattice window, realistic editorial photography',
+    prompt: 'Clearly adult young Chinese woman around 23 to 25 writing calligraphy in a refined scholar studio, slate blue and cream hanfu with translucent layers, elegant open neckline, fitted waist and graceful shoulder drape, intelligent youthful allure, distinct facial bone structure, ink brush, scrolls and plum blossoms by lattice window, realistic premium editorial photography',
     tags: ['汉服', '书斋', '书法', '兰灰', '知性'],
     scene: 'scholar-studio', season: 'spring', weather: 'clear', time: 'day',
     colors: ['slate-blue', 'cream'], accessories: ['silver-hair-ornament'], action: 'writing-calligraphy', expression: 'intelligent-smile',
-    mood: ['intellectual', 'mature', 'sensual'], palette: ['slate-blue', 'cream', 'wood-brown']
+    mood: ['intellectual', 'young', 'sensual'], palette: ['slate-blue', 'cream', 'wood-brown']
   },
   {
     title: '长安夜市',
@@ -165,7 +165,7 @@ const seeds = [
   }
 ] as const;
 
-const images: MuseImage[] = seeds.map((seed, index) => {
+// hanfu-004 is temporarily unpublished because its binary asset was corrupt and is queued for regeneration.\nconst images: MuseImage[] = seeds.map((seed, index) => {
   const number = String(index + 1).padStart(3, '0');
   return {
     id: `hanfu-${number}`,
