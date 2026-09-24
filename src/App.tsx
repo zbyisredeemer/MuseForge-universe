@@ -43,28 +43,60 @@ function UniverseBackdrop() {
   const stars = useMemo(() => {
     let seed = 731;
     const rand = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-    return Array.from({ length: 180 }, (_, index) => ({
+    return Array.from({ length: 240 }, (_, index) => ({
       id: index,
+      depth: index % 3,
       left: `${rand() * 100}%`,
       top: `${rand() * 100}%`,
-      size: 0.6 + rand() * 2.1,
-      opacity: 0.2 + rand() * 0.75,
-      delay: `${rand() * 5}s`
+      size: 0.55 + rand() * 2.35,
+      opacity: 0.18 + rand() * 0.78,
+      delay: `${rand() * 8}s`,
+      duration: `${4.5 + rand() * 7}s`
     }));
   }, []);
 
   return (
     <div className="universe-bg" aria-hidden="true">
+      <div className="cosmic-vignette" />
       <div className="nebula nebula-a" />
       <div className="nebula nebula-b" />
+      <div className="nebula nebula-c" />
+
+      <div className="galaxy-system">
+        <div className="galaxy-halo" />
+        <div className="galaxy-disc" />
+        <div className="galaxy-ring galaxy-ring-a" />
+        <div className="galaxy-ring galaxy-ring-b" />
+        <div className="galaxy-core" />
+      </div>
+
       <div className="galaxy-band" />
-      {stars.map((star) => (
-        <i key={star.id} className="dust-star" style={{ left: star.left, top: star.top, width: star.size, height: star.size, opacity: star.opacity, animationDelay: star.delay }} />
+
+      {[0, 1, 2].map((depth) => (
+        <div key={depth} className={`star-layer star-layer-${depth}`}>
+          {stars.filter((star) => star.depth === depth).map((star) => (
+            <i
+              key={star.id}
+              className="dust-star"
+              style={{
+                left: star.left,
+                top: star.top,
+                width: star.size,
+                height: star.size,
+                opacity: star.opacity,
+                animationDelay: star.delay,
+                animationDuration: star.duration
+              }}
+            />
+          ))}
+        </div>
       ))}
+
+      <i className="shooting-star shooting-star-a" />
+      <i className="shooting-star shooting-star-b" />
     </div>
   );
 }
-
 function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
   return (
     <section className="universe-view">
@@ -151,7 +183,6 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
             );
           })}
         </div>
-        <div className="planet-core"><span>{style.code}</span><small>PLANET {String(style.sequence).padStart(3, '0')}</small></div>
       </div>
     </section>
   );
