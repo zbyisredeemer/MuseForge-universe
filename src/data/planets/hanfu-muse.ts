@@ -213,7 +213,7 @@ const cameraProfiles = [
 
 const removedHanfuSlots = new Set<number>();
 
-const images: MuseImage[] = seeds.map((seed, index) => {
+const images: MuseImage[] = seeds.map<MuseImage>((seed, index) => {
   const number = String(index + 1).padStart(3, '0');
   const identity = identityProfiles[index]!;
   const camera = cameraProfiles[index]!;
