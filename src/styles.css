@@ -1766,3 +1766,157 @@ summary { cursor: pointer; font-size: 12px; }
     animation: none !important;
   }
 }
+
+
+/* ---- Planet maturity lifecycle ---- */
+.legend-ring {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(183, 230, 215, .64);
+  border-top-color: rgba(183, 230, 215, .12);
+  box-shadow: 0 0 8px rgba(126, 209, 176, .16);
+}
+
+.star-maturity-track,
+.star-maturity-ring {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.star-maturity-track {
+  inset: -8px;
+  border: 1px solid rgba(219, 235, 232, .055);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, .015);
+}
+
+.star-maturity-ring {
+  inset: -8px;
+  padding: 1.2px;
+  background: conic-gradient(
+    from -90deg,
+    rgba(224, 248, 241, .84) 0 var(--maturity-progress),
+    rgba(215, 230, 229, .055) var(--maturity-progress) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: .64;
+  filter: drop-shadow(0 0 3px var(--star-glow));
+  transform: rotate(0deg);
+  transition: opacity .28s ease, filter .28s ease, inset .28s ease;
+}
+
+.style-star.maturity-explore .star-maturity-ring {
+  opacity: .28;
+  filter: saturate(.45);
+}
+
+.style-star.maturity-building .star-maturity-ring {
+  opacity: .48;
+}
+
+.style-star.maturity-mature .star-maturity-ring {
+  opacity: .72;
+  filter: drop-shadow(0 0 5px var(--star-glow));
+}
+
+.style-star.maturity-complete .star-maturity-track {
+  inset: -10px;
+  border-color: rgba(227, 249, 242, .10);
+}
+
+.style-star.maturity-complete .star-maturity-ring {
+  inset: -10px;
+  opacity: .94;
+  filter: drop-shadow(0 0 6px var(--star-glow)) drop-shadow(0 0 12px rgba(235, 255, 248, .14));
+  animation: completeRingOrbit 9s linear infinite;
+}
+
+.style-star.maturity-complete .star-pulse {
+  animation-duration: 3.4s;
+  opacity: .84;
+}
+
+.style-star.maturity-explore .star-pulse {
+  animation-duration: 3.8s;
+  opacity: .18;
+}
+
+.style-star:hover .star-maturity-ring,
+.style-star:focus-visible .star-maturity-ring {
+  opacity: 1;
+  inset: -11px;
+}
+
+.maturity-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-bottom: 6px;
+  padding: 3px 6px;
+  border: 1px solid rgba(221, 237, 234, .10);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .035);
+  color: rgba(223, 236, 234, .48);
+  font-size: 7px;
+  line-height: 1;
+  letter-spacing: .13em;
+}
+
+.maturity-badge-explore {
+  color: rgba(199, 210, 215, .45);
+  border-style: dashed;
+}
+
+.maturity-badge-building {
+  color: rgba(182, 216, 230, .64);
+  border-color: rgba(143, 195, 219, .16);
+}
+
+.maturity-badge-mature {
+  color: rgba(204, 234, 220, .74);
+  border-color: rgba(126, 209, 176, .20);
+  background: rgba(79, 148, 121, .07);
+}
+
+.maturity-badge-complete {
+  color: rgba(232, 255, 247, .88);
+  border-color: rgba(179, 239, 216, .28);
+  background: rgba(83, 168, 134, .10);
+  box-shadow: 0 0 18px rgba(105, 213, 172, .08);
+}
+
+.style-maturity {
+  margin: 0 0 0 9px;
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+
+@keyframes completeRingOrbit {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 640px) {
+  .star-maturity-track,
+  .star-maturity-ring {
+    inset: -6px;
+  }
+
+  .style-star.maturity-complete .star-maturity-track,
+  .style-star.maturity-complete .star-maturity-ring {
+    inset: -8px;
+  }
+
+  .maturity-badge {
+    font-size: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .style-star.maturity-complete .star-maturity-ring {
+    animation: none !important;
+  }
+}

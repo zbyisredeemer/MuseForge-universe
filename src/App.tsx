@@ -1,4 +1,5 @@
 import { MouseEvent as ReactMouseEvent, PointerEvent, useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { galaxies, getGalaxyById, styles } from './data/styles';
 import type { MuseImage, MuseStyle } from './data/styles';
 
@@ -176,6 +177,17 @@ function getPreviewImages(style: MuseStyle) {
   const generated = style.images.filter((image) => image.dna.generation.assetType === 'generated');
   const placeholders = style.images.filter((image) => image.dna.generation.assetType !== 'generated');
   return [...generated, ...placeholders].slice(0, 3);
+}
+
+type MaturityStage = 'explore' | 'building' | 'mature' | 'complete';
+
+function getMaturityState(style: MuseStyle): { stage: MaturityStage; label: string; ratio: number } {
+  const ratio = getCompletionRatio(style);
+
+  if (ratio >= 1) return { stage: 'complete', label: 'COMPLETE', ratio };
+  if (ratio >= 0.7) return { stage: 'mature', label: 'MATURE', ratio };
+  if (ratio >= 0.25) return { stage: 'building', label: 'BUILDING', ratio };
+  return { stage: 'explore', label: 'EXPLORE', ratio };
 }
 
 type UniverseDensityFilter = 'all' | 'complete' | 'rich';
@@ -356,6 +368,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
             <span><i className="legend-dot legend-color" />颜色 = 星系</span>
             <span><i className="legend-dot legend-size" />大小 = 照片数</span>
             <span><i className="legend-dot legend-bright" />亮度 = 完成度</span>
+            <span><i className="legend-ring" />外圈 = 成熟度</span>
           </div>
         </div>
       </div>
@@ -494,6 +507,14 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           const isVisible = visibleStyleIds.has(style.id);
           const previewImages = getPreviewImages(style);
           const tooltipDirection = position.x > 72 ? 'tooltip-left' : 'tooltip-right';
+          const maturity = getMaturityState(style);
+          const starStyle = {
+            left: `${position.x}%`,
+            top: `${position.y}%`,
+            width: starSize,
+            height: starSize,
+            '--maturity-progress': `${Math.max(8, maturity.ratio * 100)}%`
+          } as CSSProperties;
 
           return (
             <button
@@ -501,6 +522,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               className={[
                 'style-star',
                 `completion-${getCompletionTier(completionRatio)}`,
+                `maturity-${maturity.stage}`,
                 focusedGalaxy === style.galaxyId ? 'focus-star' : '',
                 tooltipDirection,
                 isVisible ? '' : 'filtered-out'
@@ -508,12 +530,14 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               data-galaxy={style.galaxyId}
               aria-hidden={!isVisible}
               tabIndex={isVisible ? 0 : -1}
-              aria-label={`打开${style.name}，共${style.images.length}张照片`}
-              style={{ left: `${position.x}%`, top: `${position.y}%`, width: starSize, height: starSize }}
+              aria-label={`打开${style.name}，共${style.images.length}张照片，状态${maturity.label}`}
+              style={starStyle}
               onClick={() => isVisible && onOpen(style)}
               onPointerEnter={() => !focusedGalaxy && setRouteGalaxy(style.galaxyId)}
               onPointerLeave={() => !focusedGalaxy && setRouteGalaxy(null)}
             >
+              <span className="star-maturity-track" />
+              <span className="star-maturity-ring" />
               <span className="star-core" />
               <span className="star-pulse" />
               <span className="star-tooltip">
@@ -525,6 +549,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
                   ))}
                 </span>
                 <span className="star-tooltip-copy">
+                  <span className={`maturity-badge maturity-badge-${maturity.stage}`}>{maturity.label}</span>
                   <b>{style.name}</b>
                   <small>{galaxy?.name ?? style.subtitle} · {style.subtitle}</small>
                   <em>
@@ -557,6 +582,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   const galaxy = getGalaxyById(style.galaxyId);
   const generatedCount = style.images.filter((image) => image.dna.generation.assetType === 'generated').length;
   const placeholderCount = style.images.length - generatedCount;
+  const maturity = getMaturityState(style);
   const orderedImages = useMemo(
     () => [...style.images].sort((a, b) => Number(b.dna.generation.assetType === 'generated') - Number(a.dna.generation.assetType === 'generated')),
     [style.images]
@@ -583,7 +609,10 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         <div className="eyebrow">{galaxy?.subtitle ?? 'UNIVERSE'} GALAXY · PLANET {String(style.sequence).padStart(3, '0')}</div>
         <h2>{style.name}</h2>
         <p>{style.description}</p>
-        <div className="style-stats"><b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}</div>
+        <div className="style-stats">
+          <b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}
+          <span className={`style-maturity maturity-badge maturity-badge-${maturity.stage}`}>{maturity.label} · {Math.round(maturity.ratio * 100)}%</span>
+        </div>
         <div className="drag-hint">拖动球体旋转 · 真实图优先 · 点击图片查看高清图与 Prompt</div>
       </div>
 
