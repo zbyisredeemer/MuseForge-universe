@@ -1490,3 +1490,165 @@ summary { cursor: pointer; font-size: 12px; }
     animation: none !important;
   }
 }
+
+
+/* ---- Pointer parallax + visual star previews ---- */
+:root {
+  --parallax-bg-x: 0px;
+  --parallax-bg-y: 0px;
+  --parallax-field-x: 0px;
+  --parallax-field-y: 0px;
+  --parallax-copy-x: 0px;
+  --parallax-copy-y: 0px;
+}
+
+.universe-bg {
+  transform: translate3d(var(--parallax-bg-x), var(--parallax-bg-y), 0) scale(1.025);
+  transition: transform .12s linear;
+  will-change: transform;
+}
+
+.universe-view .constellation {
+  translate: var(--parallax-field-x) var(--parallax-field-y);
+  transition: translate .12s linear;
+  will-change: translate;
+}
+
+.universe-view .hero-copy {
+  translate: var(--parallax-copy-x) var(--parallax-copy-y);
+  transition: translate .16s linear, opacity .4s ease, transform .4s ease;
+  will-change: translate;
+}
+
+.star-tooltip {
+  width: 242px;
+  min-width: 242px;
+  padding: 8px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(3, 8, 14, .92);
+  border-color: rgba(207, 226, 232, .16);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .56);
+}
+
+.style-star.tooltip-right .star-tooltip {
+  left: 34px;
+  right: auto;
+}
+
+.style-star.tooltip-left .star-tooltip {
+  left: auto;
+  right: 34px;
+  transform: translateX(5px);
+}
+
+.style-star.tooltip-left:hover .star-tooltip,
+.style-star.tooltip-left:focus-visible .star-tooltip {
+  transform: translateX(0);
+}
+
+.star-preview-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  height: 88px;
+  margin-bottom: 9px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .025);
+}
+
+.star-preview-thumb {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .03);
+}
+
+.star-preview-thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: saturate(.92) contrast(1.02);
+  transform: scale(1.035);
+  transition: transform .32s ease, filter .32s ease;
+}
+
+.style-star:hover .star-preview-thumb img,
+.style-star:focus-visible .star-preview-thumb img {
+  transform: scale(1.08);
+  filter: saturate(1.04) contrast(1.04);
+}
+
+.star-tooltip-copy {
+  display: block;
+  padding: 2px 5px 4px;
+}
+
+.star-tooltip-copy b {
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+.star-tooltip-copy small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.star-tooltip-copy em {
+  margin-top: 7px;
+  font-size: 10px;
+}
+
+.focus-mode .constellation {
+  --focus-depth-scale: 1;
+}
+
+@media (max-width: 1000px) {
+  .star-tooltip {
+    width: 214px;
+    min-width: 214px;
+  }
+
+  .star-preview-strip {
+    height: 76px;
+  }
+}
+
+@media (max-width: 640px) {
+  .universe-bg,
+  .universe-view .constellation,
+  .universe-view .hero-copy {
+    translate: 0 0;
+    transform-origin: center;
+  }
+
+  .universe-bg {
+    transform: scale(1.025);
+  }
+
+  .star-tooltip {
+    width: 184px;
+    min-width: 184px;
+  }
+
+  .star-preview-strip {
+    height: 62px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .universe-bg,
+  .universe-view .constellation,
+  .universe-view .hero-copy {
+    transition: none !important;
+    translate: 0 0 !important;
+  }
+
+  .universe-bg {
+    transform: scale(1.025) !important;
+  }
+}

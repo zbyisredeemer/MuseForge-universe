@@ -1,4 +1,4 @@
-import { MouseEvent as ReactMouseEvent, PointerEvent, useMemo, useRef, useState } from 'react';
+import { MouseEvent as ReactMouseEvent, PointerEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { galaxies, getGalaxyById, styles } from './data/styles';
 import type { MuseImage, MuseStyle } from './data/styles';
 
@@ -158,6 +158,12 @@ function getCompletionTier(ratio: number) {
   return 'low';
 }
 
+function getPreviewImages(style: MuseStyle) {
+  const generated = style.images.filter((image) => image.dna.generation.assetType === 'generated');
+  const placeholders = style.images.filter((image) => image.dna.generation.assetType !== 'generated');
+  return [...generated, ...placeholders].slice(0, 3);
+}
+
 type UniverseDensityFilter = 'all' | 'complete' | 'rich';
 
 function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
@@ -188,6 +194,47 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
   const focusedGalaxyStyles = focusedGalaxy ? styles.filter((style) => style.galaxyId === focusedGalaxy) : [];
   const focusedImageCount = focusedGalaxyStyles.reduce((total, style) => total + style.images.length, 0);
 
+  const parallaxFrame = useRef<number | null>(null);
+  const parallaxTarget = useRef({ x: 0, y: 0 });
+
+  const applyParallax = (x: number, y: number) => {
+    const root = document.documentElement;
+    root.style.setProperty('--parallax-bg-x', `${x * -7}px`);
+    root.style.setProperty('--parallax-bg-y', `${y * -5}px`);
+    root.style.setProperty('--parallax-field-x', `${x * 11}px`);
+    root.style.setProperty('--parallax-field-y', `${y * 8}px`);
+    root.style.setProperty('--parallax-copy-x', `${x * 2.5}px`);
+    root.style.setProperty('--parallax-copy-y', `${y * 2}px`);
+  };
+
+  const scheduleParallax = (x: number, y: number) => {
+    parallaxTarget.current = { x, y };
+    if (parallaxFrame.current !== null) return;
+    parallaxFrame.current = window.requestAnimationFrame(() => {
+      parallaxFrame.current = null;
+      applyParallax(parallaxTarget.current.x, parallaxTarget.current.y);
+    });
+  };
+
+  const onUniversePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType === 'touch') return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    scheduleParallax(Math.max(-1, Math.min(1, x)), Math.max(-1, Math.min(1, y)));
+  };
+
+  const resetParallax = () => scheduleParallax(0, 0);
+
+  useEffect(() => {
+    return () => {
+      if (parallaxFrame.current !== null) {
+        window.cancelAnimationFrame(parallaxFrame.current);
+      }
+      applyParallax(0, 0);
+    };
+  }, []);
+
   const handleGalaxyFilter = (galaxyId: string) => {
     setFocusedGalaxy(null);
     setGalaxyFilter(galaxyId);
@@ -206,7 +253,11 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
   };
 
   return (
-    <section className={`universe-view${focusedGalaxy ? ' focus-mode' : ''}`}>
+    <section
+      className={`universe-view${focusedGalaxy ? ' focus-mode' : ''}`}
+      onPointerMove={onUniversePointerMove}
+      onPointerLeave={resetParallax}
+    >
       <div className="hero-copy">
         <div className="eyebrow">EXPLORE VISUAL STYLES AS STARS</div>
         <h1>每一颗星，<br />都是一种美女影像风格。</h1>
@@ -333,6 +384,8 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           const galaxy = getGalaxyById(style.galaxyId);
           const completionRatio = getCompletionRatio(style);
           const isVisible = visibleStyleIds.has(style.id);
+          const previewImages = getPreviewImages(style);
+          const tooltipDirection = position.x > 72 ? 'tooltip-left' : 'tooltip-right';
 
           return (
             <button
@@ -341,6 +394,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
                 'style-star',
                 `completion-${getCompletionTier(completionRatio)}`,
                 focusedGalaxy === style.galaxyId ? 'focus-star' : '',
+                tooltipDirection,
                 isVisible ? '' : 'filtered-out'
               ].filter(Boolean).join(' ')}
               data-galaxy={style.galaxyId}
@@ -353,11 +407,20 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               <span className="star-core" />
               <span className="star-pulse" />
               <span className="star-tooltip">
-                <b>{style.name}</b>
-                <small>{galaxy?.name ?? style.subtitle} · {style.subtitle}</small>
-                <em>
-                  {style.images.length} 张照片 · 完成度 {Math.round(completionRatio * 100)}%
-                </em>
+                <span className="star-preview-strip" aria-hidden="true">
+                  {previewImages.map((image) => (
+                    <span key={image.id} className="star-preview-thumb">
+                      <img src={image.image} alt="" loading="lazy" decoding="async" />
+                    </span>
+                  ))}
+                </span>
+                <span className="star-tooltip-copy">
+                  <b>{style.name}</b>
+                  <small>{galaxy?.name ?? style.subtitle} · {style.subtitle}</small>
+                  <em>
+                    {style.images.length} 张照片 · 完成度 {Math.round(completionRatio * 100)}%
+                  </em>
+                </span>
               </span>
             </button>
           );
