@@ -1,5 +1,5 @@
 import { MouseEvent as ReactMouseEvent, PointerEvent, useMemo, useRef, useState } from 'react';
-import { getGalaxyById, styles } from './data/styles';
+import { galaxies, getGalaxyById, styles } from './data/styles';
 import type { MuseImage, MuseStyle } from './data/styles';
 
 type View = { kind: 'universe' } | { kind: 'style'; style: MuseStyle };
@@ -131,8 +131,41 @@ function getUniverseStarSize(style: MuseStyle) {
   return Math.min(24, Math.max(13, 11 + Math.sqrt(style.images.length) * 1.8));
 }
 
+function getCompletionRatio(style: MuseStyle) {
+  if (!style.images.length) return 0;
+  const generated = style.images.filter((image) => image.dna.generation.assetType === 'generated').length;
+  return generated / style.images.length;
+}
+
+function getCompletionTier(ratio: number) {
+  if (ratio >= 0.85) return 'high';
+  if (ratio >= 0.45) return 'mid';
+  return 'low';
+}
+
+type UniverseDensityFilter = 'all' | 'complete' | 'rich';
+
 function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
-  const activeGalaxyIds = Array.from(new Set(styles.map((style) => style.galaxyId)));
+  const [densityFilter, setDensityFilter] = useState<UniverseDensityFilter>('all');
+  const [galaxyFilter, setGalaxyFilter] = useState<string>('all');
+
+  const filteredStyles = styles.filter((style) => {
+    const galaxyMatches = galaxyFilter === 'all' || style.galaxyId === galaxyFilter;
+    if (!galaxyMatches) return false;
+
+    if (densityFilter === 'complete') {
+      return getCompletionRatio(style) >= 0.85;
+    }
+
+    if (densityFilter === 'rich') {
+      return style.images.length >= 10;
+    }
+
+    return true;
+  });
+
+  const visibleStyleIds = new Set(filteredStyles.map((style) => style.id));
+  const visibleGalaxyIds = new Set(filteredStyles.map((style) => style.galaxyId));
 
   return (
     <section className="universe-view">
@@ -140,27 +173,94 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
         <div className="eyebrow">EXPLORE VISUAL STYLES AS STARS</div>
         <h1>每一颗星，<br />都是一种美女影像风格。</h1>
         <p>按星系探索不同风格。悬浮查看照片数量，点击进入风格星球，浏览高清影像与对应 Prompt DNA。</p>
+
+        <div className="universe-controls" aria-label="宇宙筛选">
+          <div className="control-row control-density">
+            <span className="control-label">显示</span>
+            {([
+              ['all', '全部'],
+              ['complete', '高完成度'],
+              ['rich', '10+ 照片']
+            ] as const).map(([value, label]) => (
+              <button
+                key={value}
+                className={densityFilter === value ? 'active' : ''}
+                onClick={() => setDensityFilter(value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <div className="control-row galaxy-filter-row">
+            <span className="control-label">星系</span>
+            <button
+              className={galaxyFilter === 'all' ? 'active' : ''}
+              onClick={() => setGalaxyFilter('all')}
+            >
+              全部
+            </button>
+            {galaxies.map((galaxy) => (
+              <button
+                key={galaxy.id}
+                data-galaxy={galaxy.id}
+                className={galaxyFilter === galaxy.id ? 'active' : ''}
+                onClick={() => setGalaxyFilter(galaxy.id)}
+              >
+                {galaxy.name.replace('星系', '')}
+              </button>
+            ))}
+          </div>
+
+          <div className="universe-legend">
+            <span><i className="legend-dot legend-color" />颜色 = 星系</span>
+            <span><i className="legend-dot legend-size" />大小 = 照片数</span>
+            <span><i className="legend-dot legend-bright" />亮度 = 完成度</span>
+          </div>
+        </div>
       </div>
 
       <div className="constellation" aria-label="风格星图">
         <div className="orbit orbit-one" />
         <div className="orbit orbit-two" />
 
-        {activeGalaxyIds.map((galaxyId) => {
-          const galaxy = getGalaxyById(galaxyId);
-          const anchor = getGalaxyAnchor(galaxyId);
-          const galaxyStyles = styles.filter((style) => style.galaxyId === galaxyId);
+        {galaxies.map((galaxy) => {
+          const anchor = getGalaxyAnchor(galaxy.id);
+          const galaxyStyles = styles.filter((style) => style.galaxyId === galaxy.id);
           const imageCount = galaxyStyles.reduce((total, style) => total + style.images.length, 0);
+          const generatedCount = galaxyStyles.reduce(
+            (total, style) => total + style.images.filter((image) => image.dna.generation.assetType === 'generated').length,
+            0
+          );
+          const completionRatio = imageCount ? generatedCount / imageCount : 0;
+          const isDormant = galaxyStyles.length === 0;
+          const isFilteredOut = galaxyFilter !== 'all' && galaxyFilter !== galaxy.id;
+          const hasVisibleStyles = visibleGalaxyIds.has(galaxy.id);
 
           return (
             <div
-              key={galaxyId}
-              className="galaxy-zone"
-              data-galaxy={galaxyId}
+              key={galaxy.id}
+              className={[
+                'galaxy-zone',
+                isDormant ? 'dormant' : '',
+                isFilteredOut ? 'filtered-out' : '',
+                !isDormant && !hasVisibleStyles ? 'empty-result' : '',
+                !isDormant ? `completion-${getCompletionTier(completionRatio)}` : ''
+              ].filter(Boolean).join(' ')}
+              data-galaxy={galaxy.id}
               style={{ left: `${anchor.x}%`, top: `${anchor.y}%` }}
             >
-              <span>{galaxy?.name ?? galaxyId}</span>
-              <small>{galaxyStyles.length} 颗星 · {imageCount} 张照片</small>
+              <i className="galaxy-zone-mist" />
+              <i className="galaxy-zone-ring galaxy-zone-ring-a" />
+              <i className="galaxy-zone-ring galaxy-zone-ring-b" />
+              <i className="galaxy-zone-core" />
+
+              <span>{galaxy.name}</span>
+              <small>
+                {isDormant
+                  ? '待开发'
+                  : `${galaxyStyles.length} 颗星 · ${imageCount} 张 · ${Math.round(completionRatio * 100)}%`}
+              </small>
             </div>
           );
         })}
@@ -171,32 +271,45 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           const position = getUniverseStarPlacement(style, index, galaxyStyles.length);
           const starSize = getUniverseStarSize(style);
           const galaxy = getGalaxyById(style.galaxyId);
+          const completionRatio = getCompletionRatio(style);
+          const isVisible = visibleStyleIds.has(style.id);
 
           return (
             <button
               key={style.id}
-              className="style-star"
+              className={[
+                'style-star',
+                `completion-${getCompletionTier(completionRatio)}`,
+                isVisible ? '' : 'filtered-out'
+              ].filter(Boolean).join(' ')}
               data-galaxy={style.galaxyId}
+              aria-hidden={!isVisible}
+              tabIndex={isVisible ? 0 : -1}
               aria-label={`打开${style.name}，共${style.images.length}张照片`}
               style={{ left: `${position.x}%`, top: `${position.y}%`, width: starSize, height: starSize }}
-              onClick={() => onOpen(style)}
+              onClick={() => isVisible && onOpen(style)}
             >
               <span className="star-core" />
               <span className="star-pulse" />
               <span className="star-tooltip">
                 <b>{style.name}</b>
                 <small>{galaxy?.name ?? style.subtitle} · {style.subtitle}</small>
-                <em>{style.images.length} 张照片</em>
+                <em>
+                  {style.images.length} 张照片 · 完成度 {Math.round(completionRatio * 100)}%
+                </em>
               </span>
             </button>
           );
         })}
 
-        <div className="hint-line"><span />按星系聚类 · 星点大小映射照片数量</div>
+        <div className="hint-line">
+          <span />
+          {filteredStyles.length} / {styles.length} 颗星可见
+        </div>
       </div>
 
       <div className="universe-footer">
-        <span>{new Set(styles.map((style) => style.galaxyId)).size} GALAXY ONLINE</span>
+        <span>{galaxies.length} GALAXY · {new Set(styles.map((style) => style.galaxyId)).size} ACTIVE</span>
         <span>{styles.length} PLANET ONLINE</span>
         <span>{styles.reduce((total, style) => total + style.images.length, 0)} MUSES · PROMPT DNA</span>
       </div>
