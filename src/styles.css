@@ -1231,3 +1231,262 @@ summary { cursor: pointer; font-size: 12px; }
     animation: none !important;
   }
 }
+
+
+/* ---- Cinematic galaxy focus ---- */
+.galaxy-zone {
+  appearance: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity .45s ease, filter .45s ease, transform .55s cubic-bezier(.2,.72,.2,1), left .65s cubic-bezier(.2,.72,.2,1), top .65s cubic-bezier(.2,.72,.2,1), box-shadow .35s ease;
+}
+
+.galaxy-zone:not(.dormant):hover {
+  z-index: 8;
+  filter: saturate(1.15) brightness(1.12);
+  box-shadow: inset 0 0 54px rgba(var(--zone-rgb), .04), 0 0 90px rgba(var(--zone-rgb), .08);
+}
+
+.galaxy-zone:not(.dormant):hover .galaxy-zone-core {
+  transform: translate(-50%, -50%) scale(1.35);
+}
+
+.galaxy-zone.dormant {
+  cursor: default;
+  pointer-events: none;
+}
+
+.constellation.is-focused::before {
+  width: 720px;
+  height: 720px;
+  border-color: rgba(184, 222, 218, .10);
+  animation-duration: 34s;
+}
+
+.constellation.is-focused::after {
+  width: 510px;
+  height: 510px;
+  border-color: rgba(185, 173, 226, .08);
+}
+
+.galaxy-zone.focused {
+  z-index: 2;
+  width: 480px;
+  height: 330px;
+  opacity: .34;
+  filter: saturate(1.15);
+  border-color: rgba(var(--zone-rgb), .10);
+  box-shadow: inset 0 0 90px rgba(var(--zone-rgb), .035), 0 0 160px rgba(var(--zone-rgb), .07);
+  pointer-events: none;
+  animation: focusedGalaxyBreathe 9s ease-in-out infinite alternate;
+}
+
+.galaxy-zone.focused .galaxy-zone-mist {
+  width: 94%;
+  height: 94%;
+  opacity: .32;
+  filter: blur(34px);
+}
+
+.galaxy-zone.focused .galaxy-zone-ring-a {
+  width: 69%;
+  height: 69%;
+}
+
+.galaxy-zone.focused .galaxy-zone-ring-b {
+  width: 45%;
+  height: 45%;
+}
+
+.galaxy-zone.focused .galaxy-zone-core {
+  width: 24px;
+  height: 24px;
+  opacity: .45;
+}
+
+.galaxy-zone.focused > span,
+.galaxy-zone.focused > small {
+  opacity: 0;
+}
+
+.galaxy-zone.receded {
+  opacity: .045 !important;
+  filter: blur(1px) saturate(.2);
+  transform: translate(-50%, -50%) scale(.72);
+  pointer-events: none;
+}
+
+.style-star {
+  transition: opacity .34s ease, transform .52s cubic-bezier(.2,.72,.2,1), left .62s cubic-bezier(.2,.72,.2,1), top .62s cubic-bezier(.2,.72,.2,1), filter .25s ease;
+}
+
+.style-star.focus-star {
+  z-index: 12;
+}
+
+.style-star.focus-star .star-pulse {
+  animation-duration: 3s;
+}
+
+.galaxy-focus-panel {
+  position: absolute;
+  z-index: 30;
+  left: 3%;
+  top: 5%;
+  width: min(300px, 28vw);
+  padding: 15px 16px 14px;
+  border: 1px solid rgba(218, 233, 236, .10);
+  border-radius: 16px;
+  background: rgba(2, 7, 13, .64);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .30);
+  animation: focusPanelIn .42s ease both;
+}
+
+.galaxy-focus-panel button {
+  margin: 0 0 13px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(221, 235, 237, .52);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.galaxy-focus-panel button:hover {
+  color: rgba(242, 250, 249, .9);
+}
+
+.galaxy-focus-panel strong {
+  display: block;
+  margin-top: 7px;
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+
+.galaxy-focus-panel p {
+  margin: 8px 0 11px;
+  color: rgba(224, 235, 236, .5);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.galaxy-focus-panel small {
+  color: rgba(221, 233, 235, .3);
+  font-size: 9px;
+  letter-spacing: .08em;
+}
+
+.focus-mode .hero-copy {
+  opacity: .38;
+  transform: translateX(-8px) scale(.97);
+  transform-origin: left top;
+  transition: opacity .4s ease, transform .4s ease;
+}
+
+.focus-mode .universe-controls {
+  pointer-events: none;
+  opacity: .45;
+}
+
+.focus-mode .universe-footer {
+  opacity: .45;
+}
+
+.sphere-card.placeholder {
+  filter: saturate(.65) brightness(.78);
+}
+
+.sphere-card.placeholder::after {
+  content: "PLACEHOLDER";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .48);
+  color: rgba(235, 242, 240, .5);
+  font-size: 7px;
+  letter-spacing: .09em;
+  backdrop-filter: blur(5px);
+}
+
+.sphere-card.generated::after {
+  content: "GENERATED";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: rgba(11, 48, 39, .54);
+  color: rgba(204, 247, 230, .72);
+  font-size: 7px;
+  letter-spacing: .09em;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes focusedGalaxyBreathe {
+  from { transform: translate(-50%, -50%) scale(.96) rotate(-4deg); }
+  to { transform: translate(-50%, -50%) scale(1.04) rotate(3deg); }
+}
+
+@keyframes focusPanelIn {
+  from { opacity: 0; transform: translate3d(-8px, 5px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@media (max-width: 1000px) {
+  .galaxy-focus-panel {
+    left: 18px;
+    top: 8px;
+    width: min(300px, calc(100vw - 36px));
+  }
+
+  .focus-mode .hero-copy {
+    opacity: .16;
+  }
+
+  .galaxy-zone.focused {
+    width: 390px;
+    height: 270px;
+  }
+}
+
+@media (max-width: 640px) {
+  .galaxy-focus-panel {
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(300px, calc(100vw - 32px));
+    padding: 11px 13px;
+  }
+
+  .galaxy-focus-panel strong {
+    font-size: 22px;
+  }
+
+  .galaxy-focus-panel p {
+    display: none;
+  }
+
+  .galaxy-zone.focused {
+    width: 280px;
+    height: 200px;
+  }
+
+  .focus-mode .hero-copy {
+    opacity: .06;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galaxy-zone.focused,
+  .galaxy-focus-panel {
+    animation: none !important;
+  }
+}

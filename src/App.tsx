@@ -127,6 +127,21 @@ function getUniverseStarPlacement(style: MuseStyle, index: number, total: number
   };
 }
 
+function getFocusedStarPlacement(style: MuseStyle, index: number, total: number) {
+  const center = { x: 64, y: 49 };
+  if (total <= 1) return center;
+
+  const angle = ((index / total) * 360 - 90 + (style.sequence % 2) * 12) * (Math.PI / 180);
+  const shell = Math.floor(index / 8);
+  const radiusX = 15 + shell * 7;
+  const radiusY = 12 + shell * 5.5;
+
+  return {
+    x: Math.max(25, Math.min(92, center.x + Math.cos(angle) * radiusX)),
+    y: Math.max(13, Math.min(87, center.y + Math.sin(angle) * radiusY))
+  };
+}
+
 function getUniverseStarSize(style: MuseStyle) {
   return Math.min(24, Math.max(13, 11 + Math.sqrt(style.images.length) * 1.8));
 }
@@ -148,9 +163,12 @@ type UniverseDensityFilter = 'all' | 'complete' | 'rich';
 function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
   const [densityFilter, setDensityFilter] = useState<UniverseDensityFilter>('all');
   const [galaxyFilter, setGalaxyFilter] = useState<string>('all');
+  const [focusedGalaxy, setFocusedGalaxy] = useState<string | null>(null);
+
+  const effectiveGalaxyFilter = focusedGalaxy ?? galaxyFilter;
 
   const filteredStyles = styles.filter((style) => {
-    const galaxyMatches = galaxyFilter === 'all' || style.galaxyId === galaxyFilter;
+    const galaxyMatches = effectiveGalaxyFilter === 'all' || style.galaxyId === effectiveGalaxyFilter;
     if (!galaxyMatches) return false;
 
     if (densityFilter === 'complete') {
@@ -166,13 +184,33 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
 
   const visibleStyleIds = new Set(filteredStyles.map((style) => style.id));
   const visibleGalaxyIds = new Set(filteredStyles.map((style) => style.galaxyId));
+  const focusedGalaxyData = focusedGalaxy ? getGalaxyById(focusedGalaxy) : undefined;
+  const focusedGalaxyStyles = focusedGalaxy ? styles.filter((style) => style.galaxyId === focusedGalaxy) : [];
+  const focusedImageCount = focusedGalaxyStyles.reduce((total, style) => total + style.images.length, 0);
+
+  const handleGalaxyFilter = (galaxyId: string) => {
+    setFocusedGalaxy(null);
+    setGalaxyFilter(galaxyId);
+  };
+
+  const focusGalaxy = (galaxyId: string) => {
+    const hasStyles = styles.some((style) => style.galaxyId === galaxyId);
+    if (!hasStyles) return;
+    setGalaxyFilter('all');
+    setFocusedGalaxy(galaxyId);
+  };
+
+  const leaveGalaxyFocus = () => {
+    setFocusedGalaxy(null);
+    setGalaxyFilter('all');
+  };
 
   return (
-    <section className="universe-view">
+    <section className={`universe-view${focusedGalaxy ? ' focus-mode' : ''}`}>
       <div className="hero-copy">
         <div className="eyebrow">EXPLORE VISUAL STYLES AS STARS</div>
         <h1>每一颗星，<br />都是一种美女影像风格。</h1>
-        <p>按星系探索不同风格。悬浮查看照片数量，点击进入风格星球，浏览高清影像与对应 Prompt DNA。</p>
+        <p>按星系探索不同风格。悬浮查看照片数量，点击星系聚焦，再进入具体风格星球浏览高清影像与 Prompt DNA。</p>
 
         <div className="universe-controls" aria-label="宇宙筛选">
           <div className="control-row control-density">
@@ -195,8 +233,8 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           <div className="control-row galaxy-filter-row">
             <span className="control-label">星系</span>
             <button
-              className={galaxyFilter === 'all' ? 'active' : ''}
-              onClick={() => setGalaxyFilter('all')}
+              className={galaxyFilter === 'all' && !focusedGalaxy ? 'active' : ''}
+              onClick={() => handleGalaxyFilter('all')}
             >
               全部
             </button>
@@ -204,8 +242,8 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               <button
                 key={galaxy.id}
                 data-galaxy={galaxy.id}
-                className={galaxyFilter === galaxy.id ? 'active' : ''}
-                onClick={() => setGalaxyFilter(galaxy.id)}
+                className={effectiveGalaxyFilter === galaxy.id ? 'active' : ''}
+                onClick={() => handleGalaxyFilter(galaxy.id)}
               >
                 {galaxy.name.replace('星系', '')}
               </button>
@@ -220,12 +258,23 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
         </div>
       </div>
 
-      <div className="constellation" aria-label="风格星图">
+      <div className={`constellation${focusedGalaxy ? ' is-focused' : ''}`} aria-label="风格星图">
         <div className="orbit orbit-one" />
         <div className="orbit orbit-two" />
 
+        {focusedGalaxy && focusedGalaxyData && (
+          <div className="galaxy-focus-panel">
+            <button onClick={leaveGalaxyFocus}>← 返回全宇宙</button>
+            <div className="eyebrow">{focusedGalaxyData.subtitle} GALAXY</div>
+            <strong>{focusedGalaxyData.name}</strong>
+            <p>{focusedGalaxyData.description}</p>
+            <small>{focusedGalaxyStyles.length} 个风格星球 · {focusedImageCount} 张照片</small>
+          </div>
+        )}
+
         {galaxies.map((galaxy) => {
-          const anchor = getGalaxyAnchor(galaxy.id);
+          const baseAnchor = getGalaxyAnchor(galaxy.id);
+          const anchor = focusedGalaxy === galaxy.id ? { x: 64, y: 49 } : baseAnchor;
           const galaxyStyles = styles.filter((style) => style.galaxyId === galaxy.id);
           const imageCount = galaxyStyles.reduce((total, style) => total + style.images.length, 0);
           const generatedCount = galaxyStyles.reduce(
@@ -234,21 +283,29 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           );
           const completionRatio = imageCount ? generatedCount / imageCount : 0;
           const isDormant = galaxyStyles.length === 0;
-          const isFilteredOut = galaxyFilter !== 'all' && galaxyFilter !== galaxy.id;
+          const isFocused = focusedGalaxy === galaxy.id;
+          const isReceded = Boolean(focusedGalaxy) && !isFocused;
+          const isFilteredOut = !focusedGalaxy && galaxyFilter !== 'all' && galaxyFilter !== galaxy.id;
           const hasVisibleStyles = visibleGalaxyIds.has(galaxy.id);
 
           return (
-            <div
+            <button
               key={galaxy.id}
+              type="button"
               className={[
                 'galaxy-zone',
                 isDormant ? 'dormant' : '',
+                isFocused ? 'focused' : '',
+                isReceded ? 'receded' : '',
                 isFilteredOut ? 'filtered-out' : '',
                 !isDormant && !hasVisibleStyles ? 'empty-result' : '',
                 !isDormant ? `completion-${getCompletionTier(completionRatio)}` : ''
               ].filter(Boolean).join(' ')}
               data-galaxy={galaxy.id}
               style={{ left: `${anchor.x}%`, top: `${anchor.y}%` }}
+              onClick={() => focusGalaxy(galaxy.id)}
+              disabled={isDormant}
+              aria-label={isDormant ? `${galaxy.name}待开发` : `聚焦${galaxy.name}`}
             >
               <i className="galaxy-zone-mist" />
               <i className="galaxy-zone-ring galaxy-zone-ring-a" />
@@ -261,15 +318,18 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
                   ? '待开发'
                   : `${galaxyStyles.length} 颗星 · ${imageCount} 张 · ${Math.round(completionRatio * 100)}%`}
               </small>
-            </div>
+            </button>
           );
         })}
 
         {styles.map((style) => {
           const galaxyStyles = styles.filter((item) => item.galaxyId === style.galaxyId);
           const index = galaxyStyles.findIndex((item) => item.id === style.id);
-          const position = getUniverseStarPlacement(style, index, galaxyStyles.length);
-          const starSize = getUniverseStarSize(style);
+          const position = focusedGalaxy === style.galaxyId
+            ? getFocusedStarPlacement(style, index, galaxyStyles.length)
+            : getUniverseStarPlacement(style, index, galaxyStyles.length);
+          const baseStarSize = getUniverseStarSize(style);
+          const starSize = focusedGalaxy === style.galaxyId ? Math.min(30, baseStarSize * 1.22) : baseStarSize;
           const galaxy = getGalaxyById(style.galaxyId);
           const completionRatio = getCompletionRatio(style);
           const isVisible = visibleStyleIds.has(style.id);
@@ -280,6 +340,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               className={[
                 'style-star',
                 `completion-${getCompletionTier(completionRatio)}`,
+                focusedGalaxy === style.galaxyId ? 'focus-star' : '',
                 isVisible ? '' : 'filtered-out'
               ].filter(Boolean).join(' ')}
               data-galaxy={style.galaxyId}
@@ -304,7 +365,9 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
 
         <div className="hint-line">
           <span />
-          {filteredStyles.length} / {styles.length} 颗星可见
+          {focusedGalaxy
+            ? `${filteredStyles.length} 颗风格星球 · 点击进入`
+            : `${filteredStyles.length} / ${styles.length} 颗星可见 · 点击星系聚焦`}
         </div>
       </div>
 
@@ -321,6 +384,10 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   const galaxy = getGalaxyById(style.galaxyId);
   const generatedCount = style.images.filter((image) => image.dna.generation.assetType === 'generated').length;
   const placeholderCount = style.images.length - generatedCount;
+  const orderedImages = useMemo(
+    () => [...style.images].sort((a, b) => Number(b.dna.generation.assetType === 'generated') - Number(a.dna.generation.assetType === 'generated')),
+    [style.images]
+  );
   const [rotation, setRotation] = useState({ x: -8, y: 0 });
   const drag = useRef({ active: false, x: 0, y: 0, startX: 0, startY: 0 });
 
@@ -344,23 +411,23 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         <h2>{style.name}</h2>
         <p>{style.description}</p>
         <div className="style-stats"><b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}</div>
-        <div className="drag-hint">拖动球体旋转 · 点击图片查看高清图与 Prompt</div>
+        <div className="drag-hint">拖动球体旋转 · 真实图优先 · 点击图片查看高清图与 Prompt</div>
       </div>
 
       <div className="sphere-stage" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
         <div className="sphere-glow" />
         <div className="sphere" style={{ transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)` }}>
-          {style.images.map((image, index) => {
-            const [pitch, yaw] = getSpherePlacement(index, style.images.length);
+          {orderedImages.map((image, index) => {
+            const [pitch, yaw] = getSpherePlacement(index, orderedImages.length);
             return (
               <button
                 key={image.id}
-                className="sphere-card"
+                className={`sphere-card ${image.dna.generation.assetType === 'generated' ? 'generated' : 'placeholder'}`}
                 style={{ transform: `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(330px)` }}
                 onPointerDown={(e: PointerEvent<HTMLButtonElement>) => e.stopPropagation()}
                 onClick={() => onSelect(image)}
               >
-                <img src={image.image} alt={image.title} draggable={false} />
+                <img src={image.image} alt={image.title} draggable={false} loading="lazy" decoding="async" />
                 <span>{image.title}</span>
               </button>
             );
