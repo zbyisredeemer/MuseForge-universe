@@ -270,3 +270,15 @@ Ocean Muse
 - 所有条目均设置 `generation.assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'`；
 - GitHub 返回的 10 个图片 Blob SHA 与本地 Git blob SHA 逐张一致，二进制完整性已核验；
 - 本批实际成片视觉以雪山木屋、湖景、象牙白针织/绒衣、红色或奶油色围巾、冬日金色光线为核心；后续质量迭代重点提升人物脸型、服装、构图与场景差异度。
+
+
+## 2026-09-24 Snow Muse Batch 02 生成规格
+
+- 已新增生成规格：`src/data/generation/snow-batch-02.ts`；
+- 目标编号：`snow-muse-011.webp` ～ `snow-muse-020.webp`，固定 10 张；
+- 最终资产继续统一为 **941x1672 / 9:16 / WebP**；
+- 本批重点拉开 Batch 01 的同质化：冰蓝酒店露台、雪镇夜街、玻璃冰屋、缆车站、冰河木桥、雪夜温泉、雪地摩托、壁炉雪窗、酒红雪林、极昼冰湾；
+- 每张均配置独立 ageBand / face / hair / distinctiveFeatures，继续执行 Identity DNA 去同脸；
+- 性感尺度保持 tasteful sensuality：修身针织、露肩、slip dress、短外套、长靴、泳装 + 浴袍等均服务于高级冬季时尚写真，不走色情或未成年视觉；
+- 当前仅完成生成规格，真实 WebP 未入库，因此暂不向 `snowMuse.images` 增加 011～020，也不标记为 generated；
+- 成片完成后必须按 `IMAGE_ASSET_WORKFLOW.md` 的 binary blob 流程一次性写入图片与元数据，并执行资产校验。
