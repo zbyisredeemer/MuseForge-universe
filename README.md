@@ -16,9 +16,9 @@
 - 3D 图片球与高清大图
 - Prompt / Negative Prompt / Tags
 - Image DNA
-- Forest Muse 当前保留 15 张符合 Style Bible 的真实 WebP；006 / 010 / 013 / 015 / 017 / 020 已删除并等待重生成；Hanfu Muse 当前保留 17 张，006 / 015 / 017 已删除并等待年轻化重生成
+- Forest Muse 001～021 已全部补齐为真实 WebP（21 张）；Hanfu Muse 001～020 已全部补齐为真实 WebP（20 张）
 - 新增 Photography / Editorial Portrait，首批 10 张真实 WebP，作为跨场景高级人像星球
-- Snow / Ocean / Tokyo Night 可继续真实化
+- Tokyo Night 已完成 001 真实化，002～004 仍为占位图；Snow / Ocean 可继续真实化
 - Identity DNA 去同脸
 - 结构化 regeneration queue
 - 全局 young-sexy beauty generation preset
@@ -87,11 +87,10 @@ npm run build
 
 ## 默认持续迭代顺序
 
-1. 补回已删除的 Forest 槽位（006 / 010 / 013 / 015 / 017 / 020），按当前 Style Bible 重生成
-2. 补回 Hanfu 006 / 015 / 017，统一年轻成年 + 高级性感方向
-3. Tokyo Night 真实化
-4. Snow Muse 真实化
-5. Ocean Muse 真实化
-6. 扩展新 Planet
+1. Tokyo Night 002～004 真实化
+2. Snow Muse 真实化
+3. Ocean Muse 真实化
+4. Hanfu 021～030 Batch 02
+5. 扩展新 Planet
 
 用户说“继续”时，默认从 regeneration queue 的最高优先级开始执行。

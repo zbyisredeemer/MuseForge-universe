@@ -14,7 +14,7 @@ export const tokyoNight: MusePlanet = {
   star: { x: 31, y: 59, size: 16 },
   images: [
     {
-      id: 'tokyo-01', title: '雨夜霓虹', image: museArtwork('tokyo', 0, '雨夜霓虹'),
+      id: 'tokyo-01', title: '雨夜霓虹', image: '/images/urban/tokyo-night/tokyo-night-001.webp',
       galaxyId: 'urban', planetId: 'tokyo-night',
       prompt: 'Stylish adult Japanese woman standing on a neon-lit Tokyo side street after rain, black trench coat, short dark hair, magenta and cyan reflections on wet pavement, cinematic urban portrait, realistic skin, 50mm lens, shallow depth of field, premium night photography',
       negativePrompt, tags: ['东京', '霓虹', '雨夜', '风衣'],
@@ -25,7 +25,7 @@ export const tokyoNight: MusePlanet = {
         pose: { action: 'standing', expression: 'calm' },
         photography: { composition: 'three-quarter', lens: '50mm', lighting: ['neon-light', 'reflected-light'] },
         aesthetics: { styles: ['photorealistic', 'cinematic', 'street'], mood: ['cool', 'mysterious'], palette: ['magenta', 'cyan', 'black'] },
-        generation: { aspectRatio: '9:16', resolution: '2160x3840', format: 'svg', assetType: 'placeholder' }
+        generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
     {

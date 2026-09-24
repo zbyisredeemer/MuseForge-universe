@@ -84,24 +84,24 @@ public/images/
 | 003 | 杉林斜阳 | ✅ Generated | `forest-muse-003.webp` |
 | 004 | 翡翠溪谷 | ✅ Generated | `forest-muse-004.webp` |
 | 005 | 野花林隙 | ✅ Generated | `forest-muse-005.webp` |
-| 006 | 雾松 | 🗑 Removed · 待重生成 | — |
+| 006 | 雾松 | ✅ Generated | `forest-muse-006.webp` |
 | 007 | 月夜森林 | ✅ Generated | `forest-muse-007.webp` |
 | 008 | 金叶暮光 | ✅ Generated | `forest-muse-008.webp` |
 | 009 | 雨后木桥 | ✅ Generated | `forest-muse-009.webp` |
-| 010 | 溪边白衫 | 🗑 Removed · 待重生成 | — |
+| 010 | 溪边白衫 | ✅ Generated | `forest-muse-010.webp` |
 | 011 | 秋林风衣 | ✅ Generated | `forest-muse-011.webp` |
 | 012 | 薄雾针叶林 | ✅ Generated | `forest-muse-012.webp` |
-| 013 | 林间逆光 | 🗑 Removed · 待重生成 | — |
+| 013 | 林间逆光 | ✅ Generated | `forest-muse-013.webp` |
 | 014 | 野莓灌木 | ✅ Generated | `forest-muse-014.webp` |
-| 015 | 古树根系 | 🗑 Removed · 待重生成 | — |
+| 015 | 古树根系 | ✅ Generated | `forest-muse-015.webp` |
 | 016 | 雾林读书 | ✅ Generated | `forest-muse-016.webp` |
-| 017 | 林中长椅 | 🗑 Removed · 待重生成 | — |
+| 017 | 林中长椅 | ✅ Generated | `forest-muse-017.webp` |
 | 018 | 溪畔采花 | ✅ Generated | `forest-muse-018.webp` |
 | 019 | 暮林灯影 | ✅ Generated | `forest-muse-019.webp` |
-| 020 | 暮色林缘 | 🗑 Removed · 待重生成 | — |
+| 020 | 暮色林缘 | ✅ Generated | `forest-muse-020.webp` |
 | 021 | 溪光花影 | ✅ Generated | `forest-muse-021.webp` |
 
-当前 Forest Muse 前台保留真实图片：**15 张**。006 / 010 / 013 / 015 / 017 / 020 已删除，编号保留为空槽位等待重生成；021 为持续迭代新增图。
+当前 Forest Muse 001～021 已全部补齐，前台真实图片：**21 张**。
 
 ## 校验工具
 
@@ -120,10 +120,10 @@ npm run validate:assets
 
 ## 下一批真实化顺序
 
-Hanfu Muse 当前 active 真实图为 **17 / 20**；006 / 015 / 017 等待按原编号年轻化重生成。Hanfu Batch 02（021～030）生成规格已经写入 `src/data/generation/hanfu-batch-02.ts`，但真实 WebP 完成前不加入前台。Forest Muse 当前也有 6 个待补槽位；本轮用户明确要求完善 Hanfu 时，优先处理 Hanfu。
+Hanfu Muse 当前 active 真实图为 **20 / 20**；006 / 015 / 017 已按原编号补回。Hanfu Batch 02（021～030）生成规格已经写入 `src/data/generation/hanfu-batch-02.ts`，但真实 WebP 完成前不加入前台。Forest Muse 当前也有 6 个待补槽位；本轮用户明确要求完善 Hanfu 时，优先处理 Hanfu。
 
 ```text
-Tokyo Night
+Tokyo Night 002～004
 Snow Muse
 Ocean Muse
 ```
@@ -140,7 +140,7 @@ Ocean Muse
 | 003 | 桃花春水 | ✅ Generated | `hanfu-muse-003.webp` |
 | 004 | 书斋兰影 | ✅ Generated | `hanfu-muse-004.webp` |
 | 005 | 长安夜市 | ✅ Generated | `hanfu-muse-005.webp` |
-| 006 | 雪宫红裳 | 🗑 Removed · 待年轻化重生成 | — |
+| 006 | 雪宫红裳 | ✅ Generated | `hanfu-muse-006.webp` |
 | 007 | 荷风玉色 | ✅ Generated | `hanfu-muse-007.webp` |
 | 008 | 秋山旅人 | ✅ Generated | `hanfu-muse-008.webp` |
 | 009 | 月满江亭 | ✅ Generated | `hanfu-muse-009.webp` |
@@ -149,14 +149,14 @@ Ocean Muse
 | 012 | 雪梅暗香 | ✅ Generated | `hanfu-muse-012.webp` |
 | 013 | 月下琵琶 | ✅ Generated | `hanfu-muse-013.webp` |
 | 014 | 金阙夕照 | ✅ Generated | `hanfu-muse-014.webp` |
-| 015 | 烟波湖亭 | 🗑 Removed · 待年轻化重生成 | — |
+| 015 | 烟波湖亭 | ✅ Generated | `hanfu-muse-015.webp` |
 | 016 | 灯市绯影 | ✅ Generated | `hanfu-muse-016.webp` |
-| 017 | 丝路长风 | 🗑 Removed · 待年轻化重生成 | — |
+| 017 | 丝路长风 | ✅ Generated | `hanfu-muse-017.webp` |
 | 018 | 花月同春 | ✅ Generated | `hanfu-muse-018.webp` |
 | 019 | 翡翠浴阁 | ✅ Generated | `hanfu-muse-019.webp` |
 | 020 | 凤仪宫灯 | ✅ Generated | `hanfu-muse-020.webp` |
 
-当前 Hanfu Muse active 真实图片：**17 张**。006 / 015 / 017 已删除并保留编号等待年轻化重生成。
+当前 Hanfu Muse active 真实图片：**20 张**。006 / 015 / 017 已完成年轻化重生成并恢复前台。
 
 当前保留成片继续保持成年人、东方古典审美和写实摄影质感，并强调服装剪裁、露肩、薄纱、腰线和姿态中的女性魅力表达；后续补图继续执行年轻成年基线与 Identity DNA 去同脸规则。
 
@@ -196,8 +196,8 @@ Ocean Muse
 
 - Hanfu Muse：逐张复核 001～020，删除 006 / 015 / 017 三张偏成熟成片；当前 active 17 张；
 - Editorial Portrait：逐张复核 001～010，当前全部符合年轻、高颜值、高级性感方向，保留 10 张；
-- Snow Muse / Ocean Muse / Tokyo Night：当前仍为 SVG placeholder，无真实 WebP 需要删除；后续真实化继续严格按 Style Bible 生成；
-- Hanfu 006 / 015 / 017 已加入 regeneration queue，按原编号补回。
+- Tokyo Night：001 已替换为真实 WebP，002～004 仍为 SVG placeholder；Snow Muse / Ocean Muse 仍待真实化；
+- Hanfu 006 / 015 / 017 已按原编号补回，regeneration queue 标记为 replaced。
 
 
 ## Hanfu Batch 02 生成队列
@@ -210,8 +210,19 @@ Ocean Muse
 - 摄影：35mm / 50mm / 70mm / 85mm 轮换，半身 / 三分之二身 / 全身 / 环境人像轮换
 - 主题：宋制、唐制、明制、魏晋风、敦煌、骑装/丝路灵感
 
-下一次有真实图生成能力时，优先顺序：
+下一次继续生成时，优先顺序：
 
-1. 补回 006 / 015 / 017；
-2. 生成 021～030；
-3. 每完成一张就转换 WebP、校验二进制、上传并同步元数据。
+1. Tokyo Night 002～004；
+2. Snow Muse / Ocean Muse；
+3. Hanfu 021～030；
+4. 每完成一张就转换 WebP、校验二进制、上传并同步元数据。
+
+
+## 2026-09-24 Regeneration Batch
+
+- Forest Muse：补回 006 / 010 / 013 / 015 / 017 / 020，共 6 张；
+- Hanfu Muse：补回 006 / 015 / 017，共 3 张；
+- Tokyo Night：001「雨夜霓虹」由 SVG placeholder 替换为真实 WebP；
+- 本批 10 张统一为 941x1672、9:16、高质量 WebP；
+- Forest 当前 21 张真实图，Hanfu 当前 20 张真实图，Tokyo Night 当前 1 张真实图；
+- regeneration queue 中本批 9 个补图目标已标记为 `replaced`。

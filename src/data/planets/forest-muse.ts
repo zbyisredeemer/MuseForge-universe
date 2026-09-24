@@ -266,6 +266,26 @@ export const forestMuse: MusePlanet = {
       }
     },
         {
+      id: 'forest-06',
+      title: '雾松',
+      image: '/images/nature/forest-muse/forest-muse-006.webp',
+      galaxyId: 'nature',
+      planetId: 'forest-muse',
+      prompt:
+        'Clearly adult young East Asian woman around 25 to 26 standing in a misty conifer forest beside a mountain stream, distinct soft-square face and shoulder-length textured dark hair, fitted charcoal ribbed knit midi dress with defined waist and elegant long sleeves, calm confident expression, cool diffused morning light, layered pine fog and waterfall depth, realistic skin texture and natural hair strands, premium cinematic outdoor fashion editorial, 85mm lens, vertical 9:16 composition',
+      negativePrompt,
+      tags: ['雾松', '针叶林', '针织裙', '冷调'],
+      dna: {
+        subject: { ...baseIdentity, hair: ['shoulder-length', 'dark', 'textured-wave'] },
+        fashion: { outfit: ['fitted-ribbed-knit-dress'], colors: ['charcoal'] },
+        environment: { scene: 'misty-conifer-stream', season: 'autumn', weather: 'fog', time: 'morning' },
+        pose: { action: 'standing', expression: 'calm-confident' },
+        photography: { composition: 'three-quarter', lens: '85mm', aperture: 'f/2.2', angle: 'eye-level', lighting: ['diffused-morning-light', 'mist-ambient-light'] },
+        aesthetics: { styles: ['photorealistic', 'cinematic', 'editorial'], mood: ['young', 'cool', 'elegant'], palette: ['charcoal', 'mist-gray', 'pine-green'] },
+        generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
+      }
+    },
+    {
       id: 'forest-07',
       title: '月夜森林',
       image: '/images/nature/forest-muse/forest-muse-007.webp',
@@ -305,9 +325,7 @@ export const forestMuse: MusePlanet = {
         generation: { aspectRatio: '9:16', resolution: '941x1672', format: 'webp', assetType: 'generated' }
       }
     },
-    ...forestExpansion
-      .map(createForestExpansionImage)
-      .filter((image) => !['forest-10', 'forest-13', 'forest-15', 'forest-17', 'forest-20'].includes(image.id)),
+    ...forestExpansion.map(createForestExpansionImage),
     {
       id: 'forest-21',
       title: '溪光花影',

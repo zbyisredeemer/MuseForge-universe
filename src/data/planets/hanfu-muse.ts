@@ -211,7 +211,7 @@ const cameraProfiles = [
   { composition: 'full-body', lens: '50mm', angle: 'slight-low-angle', lighting: ['grand-hall-lantern-light'] }
 ] as const;
 
-const removedHanfuSlots = new Set([6, 15, 17]);
+const removedHanfuSlots = new Set<number>();
 
 const images: MuseImage[] = seeds.map((seed, index) => {
   const number = String(index + 1).padStart(3, '0');
