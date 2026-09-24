@@ -247,3 +247,15 @@ Ocean Muse
 - 所有条目同步 Prompt / tags / DNA，且 `generation.assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'`；
 - 图片主题覆盖礁岸海风、白沙晴湾、港湾金潮、浪花礁影、海崖露台、潮线漫步、蓝白海巷、游艇晴航、珍珠秘湾、无边海池；
 - 下一步真实化优先处理 Tokyo Night 002～004 与 Snow Muse。
+
+
+## 2026-09-24 Snow Muse Batch 01 生成规格
+
+- 已新增生成规格：`src/data/generation/snow-batch-01.ts`；
+- 目标编号：`snow-muse-001.webp` ～ `snow-muse-010.webp`，固定 10 张；
+- 最终规格统一为 941x1672、9:16、高质量 WebP；
+- 场景覆盖初雪晨光、冰湖蓝影、风雪红围巾、雪夜灯火、雪松长靴、冰屋暖光、雪站月台、极光雪原、雪屋咖啡、冰瀑银影；
+- 每张已配置独立 ageBand / face / hair / distinctiveFeatures，继续执行 Identity DNA 去同脸规则；
+- 风格继续遵循 Style Bible：明确成年、20～28 岁、年轻、高颜值、高级性感、写实冬季时尚写真；
+- 当前状态：生成规格已就绪，真实 WebP 尚未入库；在真实图片完成前不把 005～010 提前加入 `snowMuse.images`，也不把 placeholder 标记为 generated；
+- 成片完成后按 `IMAGE_ASSET_WORKFLOW.md` 执行：WebP → base64 → create_blob → create_tree → create_commit → update_ref(main)，并同步 `snow-muse.ts`、README 与本 Pipeline。
