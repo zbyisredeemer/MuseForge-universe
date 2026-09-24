@@ -196,7 +196,7 @@ Ocean Muse
 
 - Hanfu Muse：逐张复核 001～020，删除 006 / 015 / 017 三张偏成熟成片；当前 active 17 张；
 - Editorial Portrait：逐张复核 001～010，当前全部符合年轻、高颜值、高级性感方向，保留 10 张；
-- Tokyo Night：001 已替换为真实 WebP，002～004 仍为 SVG placeholder；Snow Muse / Ocean Muse 仍待真实化；
+- Tokyo Night：001 已替换为真实 WebP，002～004 仍为 SVG placeholder；Ocean Muse 001～010 已完成首批真实化；Snow Muse 仍待真实化；
 - Hanfu 006 / 015 / 017 已按原编号补回，regeneration queue 标记为 replaced。
 
 
@@ -213,7 +213,7 @@ Ocean Muse
 下一次继续生成时，优先顺序：
 
 1. Tokyo Night 002～004；
-2. Snow Muse / Ocean Muse；
+2. Snow Muse；
 3. Hanfu 021～030；
 4. 每完成一张就转换 WebP、校验二进制、上传并同步元数据。
 
@@ -236,3 +236,14 @@ Ocean Muse
 - 图片 Blob 通过 Files Library 单行 base64 中转 → GitHub create_blob → tree/commit 原子写入；
 - GitHub 返回的 10 个 Blob SHA 与本地 Git blob SHA 逐张一致，二进制完整性已核验；
 - `src/data/planets/hanfu-muse.ts` 已有对应 Prompt、路径、`format: 'webp'`、`resolution: '941x1672'` 与 `assetType: 'generated'`，本轮无需改动图片引用。
+
+
+## 2026-09-24 Ocean Muse Batch 01
+
+- Ocean Muse 首批真实化完成：`ocean-muse-001.webp` ～ `ocean-muse-010.webp`；
+- 10 张均由生成原图裁切并转换为 941x1672、9:16 高质量 WebP；
+- 静态目录：`public/images/nature/ocean-muse/`；
+- `src/data/planets/ocean-muse.ts` 已从 4 个 SVG placeholder 扩展为 10 个真实图片条目；
+- 所有条目同步 Prompt / tags / DNA，且 `generation.assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'`；
+- 图片主题覆盖礁岸海风、白沙晴湾、港湾金潮、浪花礁影、海崖露台、潮线漫步、蓝白海巷、游艇晴航、珍珠秘湾、无边海池；
+- 下一步真实化优先处理 Tokyo Night 002～004 与 Snow Muse。
