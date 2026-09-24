@@ -43,9 +43,9 @@ function UniverseBackdrop() {
   const stars = useMemo(() => {
     let seed = 731;
     const rand = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-    return Array.from({ length: 240 }, (_, index) => ({
+    return Array.from({ length: 420 }, (_, index) => ({
       id: index,
-      depth: index % 3,
+      depth: index % 4,
       left: `${rand() * 100}%`,
       top: `${rand() * 100}%`,
       size: 0.55 + rand() * 2.35,
@@ -72,7 +72,7 @@ function UniverseBackdrop() {
 
       <div className="galaxy-band" />
 
-      {[0, 1, 2].map((depth) => (
+      {[0, 1, 2, 3].map((depth) => (
         <div key={depth} className={`star-layer star-layer-${depth}`}>
           {stars.filter((star) => star.depth === depth).map((star) => (
             <i
@@ -97,32 +97,102 @@ function UniverseBackdrop() {
     </div>
   );
 }
+const GALAXY_ANCHORS: Record<string, { x: number; y: number }> = {
+  nature: { x: 71, y: 31 },
+  urban: { x: 43, y: 43 },
+  eastern: { x: 70, y: 67 },
+  fashion: { x: 50, y: 24 },
+  lifestyle: { x: 29, y: 65 },
+  fantasy: { x: 82, y: 49 },
+  future: { x: 54, y: 54 },
+  photography: { x: 42, y: 76 }
+};
+
+function getGalaxyAnchor(galaxyId: string) {
+  return GALAXY_ANCHORS[galaxyId] ?? { x: 50, y: 50 };
+}
+
+function getUniverseStarPlacement(style: MuseStyle, index: number, total: number) {
+  const anchor = getGalaxyAnchor(style.galaxyId);
+  if (total <= 1) return anchor;
+
+  const angle = ((index / total) * 360 - 90 + (style.sequence % 2) * 16) * (Math.PI / 180);
+  const shell = Math.floor(index / 7);
+  const radiusX = 7.5 + shell * 4.5;
+  const radiusY = 6.2 + shell * 3.8;
+
+  return {
+    x: Math.max(7, Math.min(93, anchor.x + Math.cos(angle) * radiusX)),
+    y: Math.max(10, Math.min(90, anchor.y + Math.sin(angle) * radiusY))
+  };
+}
+
+function getUniverseStarSize(style: MuseStyle) {
+  return Math.min(24, Math.max(13, 11 + Math.sqrt(style.images.length) * 1.8));
+}
+
 function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
+  const activeGalaxyIds = Array.from(new Set(styles.map((style) => style.galaxyId)));
+
   return (
     <section className="universe-view">
       <div className="hero-copy">
         <div className="eyebrow">EXPLORE VISUAL STYLES AS STARS</div>
         <h1>每一颗星，<br />都是一种美女影像风格。</h1>
-        <p>悬浮识别风格，点击进入风格星球；围绕球体浏览高清影像，再拆解每张图的生成提示词。</p>
+        <p>按星系探索不同风格。悬浮查看照片数量，点击进入风格星球，浏览高清影像与对应 Prompt DNA。</p>
       </div>
 
       <div className="constellation" aria-label="风格星图">
         <div className="orbit orbit-one" />
         <div className="orbit orbit-two" />
-        {styles.map((style) => (
-          <button
-            key={style.id}
-            className="style-star"
-            aria-label={`打开${style.name}`}
-            style={{ left: `${style.star.x}%`, top: `${style.star.y}%`, width: style.star.size, height: style.star.size }}
-            onClick={() => onOpen(style)}
-          >
-            <span className="star-core" />
-            <span className="star-pulse" />
-            <span className="star-tooltip"><b>{style.name}</b><small>{getGalaxyById(style.galaxyId)?.name ?? style.subtitle} · {style.subtitle}</small></span>
-          </button>
-        ))}
-        <div className="hint-line"><span />{styles.length} 颗可探索星球</div>
+
+        {activeGalaxyIds.map((galaxyId) => {
+          const galaxy = getGalaxyById(galaxyId);
+          const anchor = getGalaxyAnchor(galaxyId);
+          const galaxyStyles = styles.filter((style) => style.galaxyId === galaxyId);
+          const imageCount = galaxyStyles.reduce((total, style) => total + style.images.length, 0);
+
+          return (
+            <div
+              key={galaxyId}
+              className="galaxy-zone"
+              data-galaxy={galaxyId}
+              style={{ left: `${anchor.x}%`, top: `${anchor.y}%` }}
+            >
+              <span>{galaxy?.name ?? galaxyId}</span>
+              <small>{galaxyStyles.length} 颗星 · {imageCount} 张照片</small>
+            </div>
+          );
+        })}
+
+        {styles.map((style) => {
+          const galaxyStyles = styles.filter((item) => item.galaxyId === style.galaxyId);
+          const index = galaxyStyles.findIndex((item) => item.id === style.id);
+          const position = getUniverseStarPlacement(style, index, galaxyStyles.length);
+          const starSize = getUniverseStarSize(style);
+          const galaxy = getGalaxyById(style.galaxyId);
+
+          return (
+            <button
+              key={style.id}
+              className="style-star"
+              data-galaxy={style.galaxyId}
+              aria-label={`打开${style.name}，共${style.images.length}张照片`}
+              style={{ left: `${position.x}%`, top: `${position.y}%`, width: starSize, height: starSize }}
+              onClick={() => onOpen(style)}
+            >
+              <span className="star-core" />
+              <span className="star-pulse" />
+              <span className="star-tooltip">
+                <b>{style.name}</b>
+                <small>{galaxy?.name ?? style.subtitle} · {style.subtitle}</small>
+                <em>{style.images.length} 张照片</em>
+              </span>
+            </button>
+          );
+        })}
+
+        <div className="hint-line"><span />按星系聚类 · 星点大小映射照片数量</div>
       </div>
 
       <div className="universe-footer">
