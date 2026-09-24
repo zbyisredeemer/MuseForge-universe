@@ -1652,3 +1652,117 @@ summary { cursor: pointer; font-size: 12px; }
     transform: scale(1.025) !important;
   }
 }
+
+
+/* ---- Semantic galaxy routes ---- */
+.galaxy-routes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity .4s ease;
+}
+
+.galaxy-routes.hidden {
+  opacity: 0;
+}
+
+.galaxy-route {
+  opacity: .16;
+  transition: opacity .34s ease, filter .34s ease;
+}
+
+.galaxy-route-line,
+.galaxy-route-glow {
+  vector-effect: non-scaling-stroke;
+  fill: none;
+}
+
+.galaxy-route-line {
+  stroke: url(#route-gradient);
+  stroke-width: .55;
+  stroke-linecap: round;
+  stroke-dasharray: 1.4 2.7;
+  opacity: .62;
+}
+
+.galaxy-route-glow {
+  stroke: rgba(171, 219, 216, .18);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  opacity: .08;
+  filter: blur(2.3px);
+}
+
+.galaxy-route-node {
+  fill: rgba(214, 235, 235, .34);
+  opacity: .16;
+  filter: drop-shadow(0 0 2px rgba(154, 221, 209, .18));
+}
+
+.galaxy-route.active {
+  opacity: .92;
+  filter: drop-shadow(0 0 4px rgba(143, 214, 203, .12));
+}
+
+.galaxy-route.active .galaxy-route-line {
+  stroke-width: .82;
+  stroke-dasharray: 2 2.2;
+  opacity: .9;
+  animation: routeFlow 4.2s linear infinite;
+}
+
+.galaxy-route.active .galaxy-route-glow {
+  opacity: .28;
+}
+
+.galaxy-route.active .galaxy-route-node {
+  opacity: .72;
+  animation: routeNodePulse 2.2s ease-in-out infinite;
+}
+
+.constellation[data-route-galaxy] .galaxy-zone:not(.receded):not(.focused) {
+  transition: opacity .3s ease, filter .3s ease, transform .55s cubic-bezier(.2,.72,.2,1), left .65s cubic-bezier(.2,.72,.2,1), top .65s cubic-bezier(.2,.72,.2,1), box-shadow .35s ease;
+}
+
+.constellation[data-route-galaxy] .galaxy-zone:not(.dormant) .galaxy-zone-ring-a {
+  border-style: solid;
+}
+
+@keyframes routeFlow {
+  to { stroke-dashoffset: -12; }
+}
+
+@keyframes routeNodePulse {
+  0%, 100% { opacity: .34; r: .26; }
+  50% { opacity: .9; r: .45; }
+}
+
+@media (max-width: 640px) {
+  .galaxy-routes {
+    opacity: .58;
+  }
+
+  .galaxy-route {
+    opacity: .10;
+  }
+
+  .galaxy-route.active {
+    opacity: .62;
+  }
+
+  .galaxy-route-node {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galaxy-route.active .galaxy-route-line,
+  .galaxy-route.active .galaxy-route-node {
+    animation: none !important;
+  }
+}

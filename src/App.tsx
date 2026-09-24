@@ -108,6 +108,20 @@ const GALAXY_ANCHORS: Record<string, { x: number; y: number }> = {
   photography: { x: 42, y: 76 }
 };
 
+const GALAXY_ROUTES = [
+  ['nature', 'fashion'],
+  ['nature', 'fantasy'],
+  ['nature', 'future'],
+  ['fashion', 'urban'],
+  ['urban', 'future'],
+  ['urban', 'lifestyle'],
+  ['future', 'eastern'],
+  ['future', 'photography'],
+  ['eastern', 'fantasy'],
+  ['eastern', 'photography'],
+  ['lifestyle', 'photography']
+] as const;
+
 function getGalaxyAnchor(galaxyId: string) {
   return GALAXY_ANCHORS[galaxyId] ?? { x: 50, y: 50 };
 }
@@ -170,6 +184,8 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
   const [densityFilter, setDensityFilter] = useState<UniverseDensityFilter>('all');
   const [galaxyFilter, setGalaxyFilter] = useState<string>('all');
   const [focusedGalaxy, setFocusedGalaxy] = useState<string | null>(null);
+  const [routeGalaxy, setRouteGalaxy] = useState<string | null>(null);
+  const constellationRef = useRef<HTMLDivElement>(null);
 
   const effectiveGalaxyFilter = focusedGalaxy ?? galaxyFilter;
 
@@ -222,9 +238,41 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
     const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
     const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
     scheduleParallax(Math.max(-1, Math.min(1, x)), Math.max(-1, Math.min(1, y)));
+
+    if (focusedGalaxy) {
+      if (routeGalaxy !== null) setRouteGalaxy(null);
+      return;
+    }
+
+    const constellation = constellationRef.current;
+    if (!constellation) return;
+
+    const mapRect = constellation.getBoundingClientRect();
+    const px = ((event.clientX - mapRect.left) / mapRect.width) * 100;
+    const py = ((event.clientY - mapRect.top) / mapRect.height) * 100;
+
+    let nearest: string | null = null;
+    let nearestDistance = 17;
+
+    for (const galaxy of galaxies) {
+      const anchor = getGalaxyAnchor(galaxy.id);
+      const dx = (px - anchor.x) * 0.82;
+      const dy = py - anchor.y;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < nearestDistance) {
+        nearest = galaxy.id;
+        nearestDistance = distance;
+      }
+    }
+
+    if (nearest !== routeGalaxy) setRouteGalaxy(nearest);
   };
 
-  const resetParallax = () => scheduleParallax(0, 0);
+  const resetParallax = () => {
+    scheduleParallax(0, 0);
+    setRouteGalaxy(null);
+  };
 
   useEffect(() => {
     return () => {
@@ -237,6 +285,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
 
   const handleGalaxyFilter = (galaxyId: string) => {
     setFocusedGalaxy(null);
+    setRouteGalaxy(null);
     setGalaxyFilter(galaxyId);
   };
 
@@ -244,11 +293,13 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
     const hasStyles = styles.some((style) => style.galaxyId === galaxyId);
     if (!hasStyles) return;
     setGalaxyFilter('all');
+    setRouteGalaxy(null);
     setFocusedGalaxy(galaxyId);
   };
 
   const leaveGalaxyFocus = () => {
     setFocusedGalaxy(null);
+    setRouteGalaxy(null);
     setGalaxyFilter('all');
   };
 
@@ -309,9 +360,64 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
         </div>
       </div>
 
-      <div className={`constellation${focusedGalaxy ? ' is-focused' : ''}`} aria-label="风格星图">
+      <div
+        ref={constellationRef}
+        className={`constellation${focusedGalaxy ? ' is-focused' : ''}`}
+        data-route-galaxy={routeGalaxy ?? undefined}
+        aria-label="风格星图"
+      >
         <div className="orbit orbit-one" />
         <div className="orbit orbit-two" />
+
+        <svg
+          className={`galaxy-routes${focusedGalaxy ? ' hidden' : ''}`}
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="route-gradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="rgba(133, 205, 196, .10)" />
+              <stop offset="48%" stopColor="rgba(190, 211, 229, .18)" />
+              <stop offset="100%" stopColor="rgba(165, 137, 225, .10)" />
+            </linearGradient>
+          </defs>
+          {GALAXY_ROUTES.map(([from, to]) => {
+            const start = getGalaxyAnchor(from);
+            const end = getGalaxyAnchor(to);
+            const isRouteActive = routeGalaxy === from || routeGalaxy === to;
+
+            return (
+              <g
+                key={`${from}-${to}`}
+                className={`galaxy-route${isRouteActive ? ' active' : ''}`}
+                data-from={from}
+                data-to={to}
+              >
+                <line
+                  className="galaxy-route-glow"
+                  x1={start.x}
+                  y1={start.y}
+                  x2={end.x}
+                  y2={end.y}
+                />
+                <line
+                  className="galaxy-route-line"
+                  x1={start.x}
+                  y1={start.y}
+                  x2={end.x}
+                  y2={end.y}
+                />
+                <circle
+                  className="galaxy-route-node"
+                  cx={(start.x + end.x) / 2}
+                  cy={(start.y + end.y) / 2}
+                  r="0.34"
+                />
+              </g>
+            );
+          })}
+        </svg>
 
         {focusedGalaxy && focusedGalaxyData && (
           <div className="galaxy-focus-panel">
@@ -355,6 +461,8 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               data-galaxy={galaxy.id}
               style={{ left: `${anchor.x}%`, top: `${anchor.y}%` }}
               onClick={() => focusGalaxy(galaxy.id)}
+              onPointerEnter={() => !focusedGalaxy && setRouteGalaxy(galaxy.id)}
+              onPointerLeave={() => !focusedGalaxy && setRouteGalaxy(null)}
               disabled={isDormant}
               aria-label={isDormant ? `${galaxy.name}待开发` : `聚焦${galaxy.name}`}
             >
@@ -403,6 +511,8 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               aria-label={`打开${style.name}，共${style.images.length}张照片`}
               style={{ left: `${position.x}%`, top: `${position.y}%`, width: starSize, height: starSize }}
               onClick={() => isVisible && onOpen(style)}
+              onPointerEnter={() => !focusedGalaxy && setRouteGalaxy(style.galaxyId)}
+              onPointerLeave={() => !focusedGalaxy && setRouteGalaxy(null)}
             >
               <span className="star-core" />
               <span className="star-pulse" />
@@ -430,7 +540,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           <span />
           {focusedGalaxy
             ? `${filteredStyles.length} 颗风格星球 · 点击进入`
-            : `${filteredStyles.length} / ${styles.length} 颗星可见 · 点击星系聚焦`}
+            : `${filteredStyles.length} / ${styles.length} 颗星可见 · 靠近星系查看航线`}
         </div>
       </div>
 
