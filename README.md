@@ -19,7 +19,7 @@
 - Forest Muse 001～021 已全部补齐为真实 WebP（21 张）；Hanfu Muse 001～020 已全部补齐为真实 WebP（20 张）
 - Hanfu Muse 001～010 已于 2026-09-24 完成新一轮成片刷新：10 张均为 941x1672、9:16 高质量 WebP，并保持原编号与静态路径
 - 新增 Photography / Editorial Portrait，首批 10 张真实 WebP，作为跨场景高级人像星球
-- Ocean Muse 001～010 已完成首批 10 张真实 WebP；Tokyo Night 已完成 001 真实化，002～004 仍为占位图；Snow Muse 可继续真实化
+- Ocean Muse 001～010 与 Snow Muse 001～010 均已完成首批 10 张真实 WebP；Tokyo Night 已完成 001 真实化，002～004 仍为占位图
 - Identity DNA 去同脸
 - 结构化 regeneration queue
 - 全局 young-sexy beauty generation preset
@@ -41,7 +41,7 @@
 - `src/data/identity-diversity.ts`：20～28 岁范围内的身份差异化
 - `src/data/regeneration-queue.ts`：下一批应该重做哪些图片
 - `src/data/planets/`：各 Planet 图片数据
-- `src/data/generation/hanfu-batch-02.ts`：Hanfu 021～030 下一批 10 张真实图生成规格
+- `src/data/generation/hanfu-batch-02.ts`：Hanfu 021～030 下一批 10 张真实图生成规格\n- `src/data/generation/snow-batch-01.ts`：Snow Muse 001～010 首批生成规格与 Identity DNA
 - `src/data/styles.ts`：最终数据聚合并注入全局风格
 
 ## 图片目录
