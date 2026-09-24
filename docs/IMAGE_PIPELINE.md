@@ -226,3 +226,13 @@ Ocean Muse
 - 本批 10 张统一为 941x1672、9:16、高质量 WebP；
 - Forest 当前 21 张真实图，Hanfu 当前 20 张真实图，Tokyo Night 当前 1 张真实图；
 - regeneration queue 中本批 9 个补图目标已标记为 `replaced`。
+
+
+## 2026-09-24 Hanfu 001～010 成片刷新
+
+- 重新生成并替换 Hanfu Muse 001～010，共 10 张；
+- 场景继续对应竹庭晨雾、锦鲤夕照、桃花春水、书斋兰影、长安夜市、雪宫红裳、荷风玉色、秋山旅人、月满江亭、宫阙灯影；
+- 10 张均转换为 941x1672、9:16 高质量 WebP，沿用既有静态路径，不增加重复编号；
+- 图片 Blob 通过 Files Library 单行 base64 中转 → GitHub create_blob → tree/commit 原子写入；
+- GitHub 返回的 10 个 Blob SHA 与本地 Git blob SHA 逐张一致，二进制完整性已核验；
+- `src/data/planets/hanfu-muse.ts` 已有对应 Prompt、路径、`format: 'webp'`、`resolution: '941x1672'` 与 `assetType: 'generated'`，本轮无需改动图片引用。

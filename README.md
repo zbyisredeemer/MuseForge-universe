@@ -17,6 +17,7 @@
 - Prompt / Negative Prompt / Tags
 - Image DNA
 - Forest Muse 001～021 已全部补齐为真实 WebP（21 张）；Hanfu Muse 001～020 已全部补齐为真实 WebP（20 张）
+- Hanfu Muse 001～010 已于 2026-09-24 完成新一轮成片刷新：10 张均为 941x1672、9:16 高质量 WebP，并保持原编号与静态路径
 - 新增 Photography / Editorial Portrait，首批 10 张真实 WebP，作为跨场景高级人像星球
 - Tokyo Night 已完成 001 真实化，002～004 仍为占位图；Snow / Ocean 可继续真实化
 - Identity DNA 去同脸
