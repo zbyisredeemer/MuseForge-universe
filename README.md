@@ -41,7 +41,9 @@
 - `src/data/identity-diversity.ts`：20～28 岁范围内的身份差异化
 - `src/data/regeneration-queue.ts`：下一批应该重做哪些图片
 - `src/data/planets/`：各 Planet 图片数据
-- `src/data/generation/hanfu-batch-02.ts`：Hanfu 021～030 下一批 10 张真实图生成规格\n- `src/data/generation/snow-batch-01.ts`：Snow Muse 001～010 首批生成规格与 Identity DNA
+- `src/data/generation/hanfu-batch-02.ts`：Hanfu 021～030 第二批 10 张真实图生成规格
+- `src/data/generation/ocean-batch-02.ts`：Ocean Muse 011～020 第二批 10 张生成规格与 Identity DNA
+- `src/data/generation/snow-batch-01.ts`：Snow Muse 001～010 首批生成规格与 Identity DNA
 - `src/data/styles.ts`：最终数据聚合并注入全局风格
 
 ## 图片目录
