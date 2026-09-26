@@ -123,9 +123,9 @@ npm run validate:assets
 Hanfu Muse 当前 active 真实图为 **20 / 20**；006 / 015 / 017 已按原编号补回。Hanfu Batch 02（021～030）生成规格已经写入 `src/data/generation/hanfu-batch-02.ts`，但真实 WebP 完成前不加入前台。Forest Muse 当前也有 6 个待补槽位；本轮用户明确要求完善 Hanfu 时，优先处理 Hanfu。
 
 ```text
-Tokyo Night 002～004
-Snow Muse
-Ocean Muse
+Snow Muse 011～020
+Hanfu Muse 021～030
+扩展新 Planet
 ```
 
 后续新增真实图片继续遵循 Identity DNA 去同脸规则与标准 WebP 资产目录。
@@ -212,9 +212,9 @@ Ocean Muse
 
 下一次继续生成时，优先顺序：
 
-1. Tokyo Night 002～004；
-2. Snow Muse；
-3. Hanfu 021～030；
+1. Snow Muse 011～020；
+2. Hanfu 021～030；
+3. 扩展新的 Planet；
 4. 每完成一张就转换 WebP、校验二进制、上传并同步元数据。
 
 
@@ -282,3 +282,14 @@ Ocean Muse
 - 性感尺度保持 tasteful sensuality：修身针织、露肩、slip dress、短外套、长靴、泳装 + 浴袍等均服务于高级冬季时尚写真，不走色情或未成年视觉；
 - 当前仅完成生成规格，真实 WebP 未入库，因此暂不向 `snowMuse.images` 增加 011～020，也不标记为 generated；
 - 成片完成后必须按 `IMAGE_ASSET_WORKFLOW.md` 的 binary blob 流程一次性写入图片与元数据，并执行资产校验。
+
+
+## 2026-09-26 Tokyo Night Batch
+
+- Tokyo Night 本批新增/真实化：`tokyo-night-002.webp` ～ `tokyo-night-011.webp`，共 10 张；
+- 10 张均由本轮生成成片拆分、裁切并转换为 **941x1672 / 9:16 / WebP**；
+- 静态目录：`public/images/urban/tokyo-night/`；
+- `src/data/planets/tokyo-night.ts` 已扩展为 001～011 共 11 张真实图片，原 002～004 placeholder 已替换；
+- 场景覆盖东京塔露台、霓虹机车、夜樱和风、都市酒廊、雨夜街头、银色夜景、涂鸦巷、湾岸大桥、酒店夜窗、霓虹露台；
+- 所有新增条目均设置 `generation.assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'`；
+- 下一批默认转入 Snow Muse 011～020 Batch 02。
