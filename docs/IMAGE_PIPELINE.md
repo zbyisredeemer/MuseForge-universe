@@ -318,3 +318,15 @@ Hanfu Muse 当前 active 真实图为 **30 / 30**；021～030 Batch 02 已完成
 - 所有新增条目均设置 `generation.assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'`；
 - 图片 Blob SHA 与本地 Git blob SHA 已逐张核对一致；
 - Hanfu Muse 当前真实图片总数：**30 张**。
+
+
+## 2026-09-27 Ocean Muse Batch 02 生成规格
+
+- 已新增生成规格：`src/data/generation/ocean-batch-02.ts`；
+- 目标编号：`ocean-muse-011.webp` ～ `ocean-muse-020.webp`，固定 10 张；
+- 最终资产继续统一为 **941x1672 / 9:16 / WebP**；
+- 场景覆盖双体船日出、太平洋冲浪、圣托里尼蓝顶、巴厘岛崖池、桑给巴尔木帆船、马尔代夫水屋、火山黑沙滩、热带雨栈桥、灯塔海崖与荧光海夜滩；
+- 身份覆盖 Mediterranean / East Asian / Southern European / Southeast Asian / East African / South Asian / Latina / Northern European 等方向，每张配置独立 ageBand / face / hair / distinctiveFeatures；
+- 继续执行 Style Bible：明确成年、20～28 岁、年轻、高颜值、高级性感、写实海岸时尚写真；
+- 当前仅完成生成规格，真实 WebP 尚未入库，因此 **不提前把 011～020 加入 `oceanMuse.images`，也不标记为 generated**；
+- 成片完成后继续按 `IMAGE_ASSET_WORKFLOW.md`：WebP → base64 → create_blob → create_tree → create_commit → update_ref(main)，并同步 `ocean-muse.ts`、README 与本 Pipeline。
