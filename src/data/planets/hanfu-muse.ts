@@ -1,4 +1,5 @@
 import type { MuseImage, MusePlanet } from '../types';
+import { hanfuBatch02 } from '../generation/hanfu-batch-02';
 
 const negativePrompt = 'lowres, blurry, jpeg artifacts, overprocessed skin, bad anatomy, extra fingers, malformed hands, asymmetrical eyes, deformed face, duplicate person, cloned face, recurring identity, text, logo, watermark, frame, oversaturated';
 
@@ -213,7 +214,7 @@ const cameraProfiles = [
 
 const removedHanfuSlots = new Set<number>();
 
-const images: MuseImage[] = seeds.map<MuseImage>((seed, index) => {
+const legacyImages: MuseImage[] = seeds.map<MuseImage>((seed, index) => {
   const number = String(index + 1).padStart(3, '0');
   const identity = identityProfiles[index]!;
   const camera = cameraProfiles[index]!;
@@ -277,6 +278,70 @@ const images: MuseImage[] = seeds.map<MuseImage>((seed, index) => {
     }
   };
 }).filter((_, index) => !removedHanfuSlots.has(index + 1));
+
+const batch02Images: MuseImage[] = hanfuBatch02.map<MuseImage>((spec) => {
+  const number = spec.id.replace('hanfu-', '');
+  return {
+    id: spec.id,
+    title: spec.title,
+    image: spec.outputPath,
+    galaxyId: 'eastern',
+    planetId: 'hanfu-muse',
+    prompt: spec.prompt,
+    negativePrompt: spec.negativePrompt,
+    tags: [...spec.tags],
+    dna: {
+      subject: {
+        gender: 'female',
+        ageGroup: 'adult',
+        ageBand: spec.identity.ageBand,
+        identityId: `hanfu-identity-${number}`,
+        face: {
+          shape: spec.identity.face[0],
+          eyeShape: spec.identity.face[1],
+          noseShape: spec.identity.face[2],
+          lipShape: spec.identity.face[3],
+          distinctiveFeatures: [...spec.identity.distinctiveFeatures]
+        },
+        region: 'east-asia',
+        country: 'china',
+        appearance: ['natural-makeup'],
+        hair: [...spec.identity.hair]
+      },
+      fashion: {
+        outfit: [...spec.fashion]
+      },
+      environment: {
+        scene: spec.scene[0],
+        location: 'china-inspired',
+        season: spec.scene[1],
+        time: spec.scene[2]
+      },
+      pose: {
+        action: 'editorial-pose',
+        expression: 'confident-soft'
+      },
+      photography: {
+        composition: spec.photography.composition,
+        lens: spec.photography.lens,
+        angle: spec.photography.angle,
+        lighting: [...spec.photography.lighting, 'cinematic-natural-light']
+      },
+      aesthetics: {
+        styles: ['photorealistic', 'cinematic', 'editorial'],
+        mood: ['young', 'elegant', 'sensual']
+      },
+      generation: {
+        aspectRatio: '9:16',
+        resolution: '941x1672',
+        format: 'webp',
+        assetType: 'generated'
+      }
+    }
+  };
+});
+
+const images: MuseImage[] = [...legacyImages, ...batch02Images];
 
 export const hanfuMuse: MusePlanet = {
   id: 'hanfu-muse',

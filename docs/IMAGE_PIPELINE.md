@@ -120,12 +120,12 @@ npm run validate:assets
 
 ## 下一批真实化顺序
 
-Hanfu Muse 当前 active 真实图为 **20 / 20**；006 / 015 / 017 已按原编号补回。Hanfu Batch 02（021～030）生成规格已经写入 `src/data/generation/hanfu-batch-02.ts`，但真实 WebP 完成前不加入前台。Forest Muse 当前也有 6 个待补槽位；本轮用户明确要求完善 Hanfu 时，优先处理 Hanfu。
+Hanfu Muse 当前 active 真实图为 **30 / 30**；021～030 Batch 02 已完成真实 WebP 入库并加入前台。Forest Muse 当前也有 6 个待补槽位；本轮用户明确要求完善 Hanfu 时，优先处理 Hanfu。
 
 ```text
-Hanfu Muse 021～030
 扩展新 Planet
 继续按 10 张一批补充现有 Planet
+现有 Planet 质量刷新与去同脸优化
 ```
 
 后续新增真实图片继续遵循 Identity DNA 去同脸规则与标准 WebP 资产目录。
@@ -205,16 +205,16 @@ Hanfu Muse 021～030
 - 规格文件：`src/data/generation/hanfu-batch-02.ts`
 - 编号：021～030
 - 数量：10 张
-- 原则：真实 WebP 完成前不加入 `hanfuMuse.images`
+- 状态：021～030 已完成真实 WebP 并加入 `hanfuMuse.images`
 - 身份：每张独立 ageBand / face / hair / distinctive features
 - 摄影：35mm / 50mm / 70mm / 85mm 轮换，半身 / 三分之二身 / 全身 / 环境人像轮换
 - 主题：宋制、唐制、明制、魏晋风、敦煌、骑装/丝路灵感
 
 下一次继续生成时，优先顺序：
 
-1. Hanfu 021～030；
-2. 扩展新的 Planet；
-3. 持续按 10 张一批补充现有 Planet；
+1. 扩展新的 Planet；
+2. 持续按 10 张一批补充现有 Planet；
+3. 现有 Planet 做质量刷新与去同脸优化；
 4. 每完成一张就转换 WebP、校验二进制、上传并同步元数据。
 
 
@@ -306,3 +306,15 @@ Hanfu Muse 021～030
 - 图片 Blob SHA 与本地 Git blob SHA 已逐张核对一致；
 - Snow Muse 当前真实图片总数：**20 张**；
 - 下一批默认进入 Hanfu Muse 021～030 Batch 02。
+
+
+## 2026-09-26 Hanfu Muse Batch 02 完成记录
+
+- Hanfu Muse 第二批新增：`hanfu-muse-021.webp` ～ `hanfu-muse-030.webp`，共 10 张；
+- 10 张均由本轮生成成片拆分、裁切并转换为 **941x1672 / 9:16 / WebP**；
+- 静态目录：`public/images/eastern/hanfu-muse/`；
+- `src/data/planets/hanfu-muse.ts` 已接入 `hanfuBatch02`，前台图片总数扩展为 001～030 共 30 张；
+- 本批沿用 `src/data/generation/hanfu-batch-02.ts` 中的 Prompt / Tags / Identity DNA / Photography 规格；
+- 所有新增条目均设置 `generation.assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'`；
+- 图片 Blob SHA 与本地 Git blob SHA 已逐张核对一致；
+- Hanfu Muse 当前真实图片总数：**30 张**。

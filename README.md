@@ -16,7 +16,7 @@
 - 3D 图片球与高清大图
 - Prompt / Negative Prompt / Tags
 - Image DNA
-- Forest Muse 001～021 已全部补齐为真实 WebP（21 张）；Hanfu Muse 001～020 已全部补齐为真实 WebP（20 张）
+- Forest Muse 001～021 已全部补齐为真实 WebP（21 张）；Hanfu Muse 001～030 已全部补齐为真实 WebP（30 张）
 - Hanfu Muse 001～010 已于 2026-09-24 完成新一轮成片刷新：10 张均为 941x1672、9:16 高质量 WebP，并保持原编号与静态路径
 - 新增 Photography / Editorial Portrait，首批 10 张真实 WebP，作为跨场景高级人像星球
 - Ocean Muse 001～010 已完成首批真实化；Snow Muse 001～020 已完成两批共 20 张真实 WebP；Tokyo Night 001～011 已全部真实化为 941x1672 WebP
@@ -88,8 +88,8 @@ npm run build
 
 ## 默认持续迭代顺序
 
-1. Hanfu 021～030 Batch 02
-2. 扩展新 Planet
-3. 持续按 10 张一批补充现有 Planet
+1. 扩展新 Planet
+2. 持续按 10 张一批补充现有 Planet
+3. 对现有 Planet 做质量刷新与去同脸优化
 
 用户说“继续”时，默认从 regeneration queue 的最高优先级开始执行。
