@@ -141,6 +141,17 @@ const GALAXY_ANCHORS: Record<string, { x: number; y: number }> = {
   photography: { x: 42, y: 76 }
 };
 
+const GALAXY_DEPTH: Record<string, { z: number; scale: number; opacity: number }> = {
+  nature: { z: 72, scale: 1.05, opacity: .96 },
+  urban: { z: -72, scale: .91, opacity: .76 },
+  eastern: { z: 22, scale: 1, opacity: .88 },
+  fashion: { z: -118, scale: .86, opacity: .66 },
+  lifestyle: { z: -36, scale: .94, opacity: .80 },
+  fantasy: { z: 112, scale: 1.10, opacity: 1 },
+  future: { z: 48, scale: 1.03, opacity: .92 },
+  photography: { z: -88, scale: .90, opacity: .72 }
+};
+
 const GALAXY_ROUTES = [
   ['nature', 'fashion'],
   ['nature', 'fantasy'],
@@ -157,6 +168,10 @@ const GALAXY_ROUTES = [
 
 function getGalaxyAnchor(galaxyId: string) {
   return GALAXY_ANCHORS[galaxyId] ?? { x: 50, y: 50 };
+}
+
+function getGalaxyDepth(galaxyId: string) {
+  return GALAXY_DEPTH[galaxyId] ?? { z: 0, scale: 1, opacity: .86 };
 }
 
 function getUniverseStarPlacement(style: MuseStyle, index: number, total: number) {
@@ -510,6 +525,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
         {galaxies.map((galaxy) => {
           const baseAnchor = getGalaxyAnchor(galaxy.id);
           const anchor = focusedGalaxy === galaxy.id ? { x: 64, y: 49 } : baseAnchor;
+          const depth = getGalaxyDepth(galaxy.id);
           const galaxyStyles = styles.filter((style) => style.galaxyId === galaxy.id);
           const imageCount = galaxyStyles.reduce((total, style) => total + style.images.length, 0);
           const generatedCount = galaxyStyles.reduce(
@@ -537,7 +553,13 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
                 !isDormant ? `completion-${getCompletionTier(completionRatio)}` : ''
               ].filter(Boolean).join(' ')}
               data-galaxy={galaxy.id}
-              style={{ left: `${anchor.x}%`, top: `${anchor.y}%` }}
+              style={{
+                left: `${anchor.x}%`,
+                top: `${anchor.y}%`,
+                '--galaxy-z': `${depth.z}px`,
+                '--galaxy-depth-scale': depth.scale,
+                '--galaxy-depth-opacity': depth.opacity
+              } as CSSProperties}
               onClick={() => focusGalaxy(galaxy.id)}
               onPointerEnter={() => !focusedGalaxy && setRouteGalaxy(galaxy.id)}
               onPointerLeave={() => !focusedGalaxy && setRouteGalaxy(null)}
@@ -568,6 +590,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           const baseStarSize = getUniverseStarSize(style);
           const starSize = focusedGalaxy === style.galaxyId ? Math.min(30, baseStarSize * 1.22) : baseStarSize;
           const galaxy = getGalaxyById(style.galaxyId);
+          const depth = getGalaxyDepth(style.galaxyId);
           const completionRatio = getCompletionRatio(style);
           const isVisible = visibleStyleIds.has(style.id);
           const previewImages = getPreviewImages(style);
@@ -578,7 +601,10 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
             top: `${position.y}%`,
             width: starSize,
             height: starSize,
-            '--maturity-progress': `${Math.max(8, maturity.ratio * 100)}%`
+            '--maturity-progress': `${Math.max(8, maturity.ratio * 100)}%`,
+            '--star-z': `${depth.z * .82}px`,
+            '--star-depth-scale': depth.scale,
+            '--star-depth-opacity': Math.min(1, depth.opacity + .06)
           } as CSSProperties;
 
           return (
