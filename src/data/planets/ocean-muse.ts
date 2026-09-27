@@ -1,6 +1,7 @@
 import type { MusePlanet } from '../types';
 import { oceanBatch02 } from '../generation/ocean-batch-02';
 import { oceanBatch03 } from '../generation/ocean-batch-03';
+import { oceanBatch04 } from '../generation/ocean-batch-04';
 
 const negativePrompt = 'lowres, blurry, jpeg artifacts, overprocessed skin, bad anatomy, extra fingers, malformed hands, asymmetrical eyes, deformed face, duplicate person, text, logo, watermark, frame, oversaturated';
 
@@ -222,6 +223,60 @@ export const oceanMuse: MusePlanet = {
         }
       };
     }),
-    ...oceanBatch03
+    ...oceanBatch03,
+    ...oceanBatch04.map((spec) => {
+      const number = spec.id.replace('ocean-', '');
+      return {
+        id: spec.id,
+        title: spec.title,
+        image: spec.outputPath,
+        galaxyId: 'nature',
+        planetId: 'ocean-muse',
+        prompt: spec.prompt,
+        negativePrompt: spec.negativePrompt,
+        tags: [...spec.tags],
+        dna: {
+          subject: {
+            gender: 'female' as const,
+            ageGroup: 'adult' as const,
+            ageBand: spec.identity.ageBand,
+            identityId: `ocean-identity-${number}`,
+            identitySource: 'authored' as const,
+            face: {
+              shape: spec.identity.face[0],
+              eyeShape: spec.identity.face[1],
+              noseShape: spec.identity.face[2],
+              lipShape: spec.identity.face[3],
+              distinctiveFeatures: [...spec.identity.distinctiveFeatures]
+            },
+            region: spec.identity.region,
+            hair: [...spec.identity.hair]
+          },
+          fashion: { outfit: [...spec.fashion] },
+          environment: {
+            scene: spec.scene[0],
+            season: spec.scene[1],
+            time: spec.scene[2]
+          },
+          pose: { action: 'editorial-pose', expression: 'confident-soft' },
+          photography: {
+            composition: spec.photography.composition,
+            lens: spec.photography.lens,
+            angle: spec.photography.angle,
+            lighting: [...spec.photography.lighting]
+          },
+          aesthetics: {
+            styles: ['photorealistic', 'cinematic', 'editorial'],
+            mood: ['young', 'elegant', 'sensual']
+          },
+          generation: {
+            aspectRatio: '9:16',
+            resolution: '941x1672',
+            format: 'webp',
+            assetType: 'generated' as const
+          }
+        }
+      };
+    })
   ]
 };

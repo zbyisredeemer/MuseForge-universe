@@ -1,0 +1,130 @@
+{
+  "batch": "ocean-batch-04",
+  "date": "2026-09-27",
+  "planetId": "ocean-muse",
+  "imageNumbers": {
+    "from": 31,
+    "to": 40
+  },
+  "count": 10,
+  "generator": "built-in imagegen",
+  "sourceComposition": "one independently generated portrait per asset; 032-040 use 031 only as a collection-style anchor",
+  "webp": {
+    "quality": 93,
+    "method": 6,
+    "resize": false,
+    "width": 941,
+    "height": 1672
+  },
+  "metadataFile": "src/data/generation/ocean-batch-04.ts",
+  "identitySource": "authored",
+  "verification": {
+    "localWebpDecode": "passed",
+    "binaryBlobShaMatchesLocal": "10/10",
+    "existingRecordsPreserved": 122,
+    "planetImageCount": 40,
+    "totalImageCount": 132
+  },
+  "images": [
+    {
+      "number": 31,
+      "id": "ocean-031",
+      "title": "济州青岸",
+      "path": "public/images/nature/ocean-muse/ocean-muse-031.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 342466,
+      "gitBlobSha": "6ae7c520fba0440d10fd26cc0fc7ef13518096fe"
+    },
+    {
+      "number": 32,
+      "id": "ocean-032",
+      "title": "马赛午潮",
+      "path": "public/images/nature/ocean-muse/ocean-muse-032.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 334908,
+      "gitBlobSha": "2db2b08a6844a37f0f0cfffb3cba925d2fc72fef"
+    },
+    {
+      "number": 33,
+      "id": "ocean-033",
+      "title": "巴拉望翠湾",
+      "path": "public/images/nature/ocean-muse/ocean-muse-033.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 308944,
+      "gitBlobSha": "bf434e210604d82671d23e29eb1ea357c9b6f0d5"
+    },
+    {
+      "number": 34,
+      "id": "ocean-034",
+      "title": "亚速尔雾蓝",
+      "path": "public/images/nature/ocean-muse/ocean-muse-034.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 401048,
+      "gitBlobSha": "6f3e6bb3894e6dace89af45d2a5d624361083e1f"
+    },
+    {
+      "number": 35,
+      "id": "ocean-035",
+      "title": "斐济红树林",
+      "path": "public/images/nature/ocean-muse/ocean-muse-035.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 361516,
+      "gitBlobSha": "0e37d2978819b0ef7e641d41d5aaf679d7df508c"
+    },
+    {
+      "number": 36,
+      "id": "ocean-036",
+      "title": "卡萨布兰卡海风",
+      "path": "public/images/nature/ocean-muse/ocean-muse-036.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 310958,
+      "gitBlobSha": "d24b1c6d50894670c11920461ee20f0e48ba5fd0"
+    },
+    {
+      "number": 37,
+      "id": "ocean-037",
+      "title": "卑尔根峡湾晨雾",
+      "path": "public/images/nature/ocean-muse/ocean-muse-037.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 333152,
+      "gitBlobSha": "8d7cf523d596c59e9dffaf335f7e684710f568c2"
+    },
+    {
+      "number": 38,
+      "id": "ocean-038",
+      "title": "萨尔瓦多彩岸",
+      "path": "public/images/nature/ocean-muse/ocean-muse-038.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 313812,
+      "gitBlobSha": "ea0380b590e91032f4c9e7d68086fd96d08caf36"
+    },
+    {
+      "number": 39,
+      "id": "ocean-039",
+      "title": "釜山蓝桥夜",
+      "path": "public/images/nature/ocean-muse/ocean-muse-039.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 237094,
+      "gitBlobSha": "0419ae766e5f7d3eb4203880531a571a5ff50eeb"
+    },
+    {
+      "number": 40,
+      "id": "ocean-040",
+      "title": "夏威夷熔岩霞光",
+      "path": "public/images/nature/ocean-muse/ocean-muse-040.webp",
+      "width": 941,
+      "height": 1672,
+      "sizeBytes": 400178,
+      "gitBlobSha": "1ab858e63d1b44794003500d15a6580af5a2a160"
+    }
+  ]
+}

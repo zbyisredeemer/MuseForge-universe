@@ -376,6 +376,30 @@ Hanfu Muse 当前 active 真实图为 **30 / 30**；021～030 Batch 02 已完成
 - 最终资产规格继续统一为 **941x1672 / 9:16 / WebP**，每张独立生成，禁止拼图拆分；
 - 场景覆盖济州玄武岩海岸、马赛旧港、巴拉望石灰岩泻湖、亚速尔火山潮池、斐济红树林栈道、卡萨布兰卡海滨、卑尔根峡湾、萨尔瓦多彩岸、釜山蓝桥夜与夏威夷熔岩海岸；
 - 10 张均配置独立的 ageBand / face / hair / distinctiveFeatures / region，继续执行 Identity DNA 去同脸；
-- 当前状态：**生成规格已入库，真实 WebP 尚未生成/上传**；
-- 在真实图片全部存在前，`oceanBatch04` **不接入** `oceanMuse.images`，避免产生缺图引用或把未生成资产误标为 generated；
+- 当前状态：**031～040 已生成并完成真实 WebP 入库**；
+- `oceanBatch04` 已接入 `oceanMuse.images`，并为本批成片设置 `subject.identitySource = 'authored'`，保留逐张身份设定；
 - 成片完成后按 `IMAGE_ASSET_WORKFLOW.md` 执行：生成 → WebP → base64 → create_blob → create_tree → create_commit → update_ref(main)，并同步 `ocean-muse.ts`、README、Pipeline 与批次清单。
+
+
+## 2026-09-27 Ocean Muse Batch 04 完成记录
+
+- 新增 Ocean Muse **031～040**，固定一批 **10 张**；Ocean Muse 真实图片总数更新为 **40 张**，全站图片总数更新为 **132 张**。
+- 使用内置图片生成工具完成 10 张独立成片；031 单独生成，032～040 以 031 的整体摄影语言作为风格锚点，但人物 Identity / 场景 / 服装均按各自规格独立设置。
+- 10 张最终资产均为 **941x1672 / 9:16 / WebP**，WebP quality 93 / method 6；未做插值放大。
+- 静态目录：`public/images/nature/ocean-muse/`；生成规格：`src/data/generation/ocean-batch-04.ts`。
+- `src/data/planets/ocean-muse.ts` 已接入 `oceanBatch04`；031～040 均设置 `assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'` 和 `identitySource = 'authored'`。
+- 10 个 GitHub 图片 Blob SHA 与本地 Git blob SHA **10/10 一致**；图片与元数据通过同一个 Git tree / commit 原子接入。
+- 批次清单：`docs/batches/2026-09-27-ocean-batch-04.json`。
+
+| 编号 | 标题 | 文件 |
+| --- | --- | --- |
+| 031 | 济州青岸 | `ocean-muse-031.webp` |
+| 032 | 马赛午潮 | `ocean-muse-032.webp` |
+| 033 | 巴拉望翠湾 | `ocean-muse-033.webp` |
+| 034 | 亚速尔雾蓝 | `ocean-muse-034.webp` |
+| 035 | 斐济红树林 | `ocean-muse-035.webp` |
+| 036 | 卡萨布兰卡海风 | `ocean-muse-036.webp` |
+| 037 | 卑尔根峡湾晨雾 | `ocean-muse-037.webp` |
+| 038 | 萨尔瓦多彩岸 | `ocean-muse-038.webp` |
+| 039 | 釜山蓝桥夜 | `ocean-muse-039.webp` |
+| 040 | 夏威夷熔岩霞光 | `ocean-muse-040.webp` |
