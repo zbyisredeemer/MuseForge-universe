@@ -3321,3 +3321,22 @@ summary {
     font-size: 29px;
   }
 }
+
+
+/* ---- v0.9.1 reliable 3D card interaction ---- */
+.sphere-card {
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sphere-card img,
+.sphere-card > span,
+.sphere-card::before,
+.sphere-card::after {
+  pointer-events: none;
+}
+
+.sphere-card:active {
+  filter: brightness(1.08);
+}
