@@ -389,51 +389,52 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           <span><b>{galaxies.length}</b><small>视觉星系</small></span>
         </div>
 
-        <div className="universe-controls" aria-label="宇宙筛选">
-          <div className="control-row control-density">
-            <span className="control-label">探索</span>
-            {([
-              ['all', '全部星球'],
-              ['complete', '精选完成'],
-              ['rich', '影像丰富']
-            ] as const).map(([value, label]) => (
-              <button
-                key={value}
-                className={densityFilter === value ? 'active' : ''}
-                onClick={() => setDensityFilter(value)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+      </div>
 
-          <div className="control-row galaxy-filter-row">
-            <span className="control-label">星域</span>
+      <div className="universe-controls" aria-label="宇宙筛选">
+        <div className="control-row control-density">
+          <span className="control-label">探索</span>
+          {([
+            ['all', '全部星球'],
+            ['complete', '精选完成'],
+            ['rich', '影像丰富']
+          ] as const).map(([value, label]) => (
             <button
-              className={galaxyFilter === 'all' && !focusedGalaxy ? 'active' : ''}
-              onClick={() => handleGalaxyFilter('all')}
+              key={value}
+              className={densityFilter === value ? 'active' : ''}
+              onClick={() => setDensityFilter(value)}
             >
-              全部
+              {label}
             </button>
-            {galaxies.map((galaxy) => (
-              <button
-                key={galaxy.id}
-                data-galaxy={galaxy.id}
-                className={effectiveGalaxyFilter === galaxy.id ? 'active' : ''}
-                onClick={() => handleGalaxyFilter(galaxy.id)}
-              >
-                {galaxy.name.replace('星系', '')}
-              </button>
-            ))}
-          </div>
+          ))}
+        </div>
 
-          <div className="universe-legend">
-            <span>悬浮预览</span>
-            <i />
-            <span>点击星系聚焦</span>
-            <i />
-            <span>进入星球浏览完整作品</span>
-          </div>
+        <div className="control-row galaxy-filter-row">
+          <span className="control-label">星域</span>
+          <button
+            className={galaxyFilter === 'all' && !focusedGalaxy ? 'active' : ''}
+            onClick={() => handleGalaxyFilter('all')}
+          >
+            全部
+          </button>
+          {galaxies.map((galaxy) => (
+            <button
+              key={galaxy.id}
+              data-galaxy={galaxy.id}
+              className={effectiveGalaxyFilter === galaxy.id ? 'active' : ''}
+              onClick={() => handleGalaxyFilter(galaxy.id)}
+            >
+              {galaxy.name.replace('星系', '')}
+            </button>
+          ))}
+        </div>
+
+        <div className="universe-legend">
+          <span>悬浮预览</span>
+          <i />
+          <span>点击星系聚焦</span>
+          <i />
+          <span>进入星球浏览完整作品</span>
         </div>
       </div>
 
