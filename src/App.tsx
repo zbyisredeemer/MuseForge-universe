@@ -1,5 +1,6 @@
 import { MouseEvent as ReactMouseEvent, PointerEvent, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
+import { createPortal } from 'react-dom';
 import { galaxies, getGalaxyById, styles } from './data/styles';
 import type { MuseImage, MuseStyle } from './data/styles';
 
@@ -666,13 +667,27 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
 
 function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void }) {
   const [copied, setCopied] = useState(false);
+  const tags = Array.isArray(image.tags) ? image.tags : [];
+  const negativePrompt = image.negativePrompt || '未配置 Negative Prompt';
+  const identity = image.dna?.subject;
+  const generation = image.dna?.generation;
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
   const copyPrompt = async () => {
+    if (!image.prompt) return;
     await navigator.clipboard.writeText(image.prompt);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1400);
   };
 
-  return (
+  return createPortal(
     <div className="viewer" role="dialog" aria-modal="true" aria-label={image.title} onMouseDown={(e: ReactMouseEvent<HTMLDivElement>) => { if (e.currentTarget === e.target) onClose(); }}>
       <div className="viewer-panel">
         <button className="viewer-close" onClick={onClose}>×</button>
@@ -683,34 +698,35 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
         <aside className="prompt-panel">
           <div className="eyebrow">PROMPT DNA</div>
           <h3>{image.title}</h3>
-          <div className="tag-row">{image.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+          {tags.length > 0 && <div className="tag-row">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
           <label>Prompt</label>
           <p className="prompt-text">{image.prompt}</p>
           <button className="copy-button" onClick={copyPrompt}>{copied ? '已复制 ✓' : '复制 Prompt'}</button>
           <details>
             <summary>Negative Prompt</summary>
-            <p>{image.negativePrompt}</p>
+            <p>{negativePrompt}</p>
           </details>
-          {image.dna.subject.identityId && (
+          {identity?.identityId && (
             <details open>
-              <summary>Identity DNA · {image.dna.subject.identityId}</summary>
+              <summary>Identity DNA · {identity.identityId}</summary>
               <p>
                 {[
-                  image.dna.subject.ageBand && `年龄 ${image.dna.subject.ageBand}`,
-                  image.dna.subject.face?.shape && `脸型 ${image.dna.subject.face.shape}`,
-                  image.dna.subject.face?.skinTone && `肤色 ${image.dna.subject.face.skinTone}`,
-                  image.dna.subject.face?.eyeShape && `眼型 ${image.dna.subject.face.eyeShape}`,
-                  image.dna.subject.face?.noseShape && `鼻型 ${image.dna.subject.face.noseShape}`,
-                  image.dna.subject.face?.lipShape && `唇型 ${image.dna.subject.face.lipShape}`,
-                  image.dna.subject.hair?.join(' / ')
+                  identity.ageBand && `年龄 ${identity.ageBand}`,
+                  identity.face?.shape && `脸型 ${identity.face.shape}`,
+                  identity.face?.skinTone && `肤色 ${identity.face.skinTone}`,
+                  identity.face?.eyeShape && `眼型 ${identity.face.eyeShape}`,
+                  identity.face?.noseShape && `鼻型 ${identity.face.noseShape}`,
+                  identity.face?.lipShape && `唇型 ${identity.face.lipShape}`,
+                  identity.hair?.join(' / ')
                 ].filter(Boolean).join(' · ')}
               </p>
             </details>
           )}
-          <div className="image-meta">{image.dna.generation.resolution?.replace('x', ' × ') ?? '未知分辨率'} {image.dna.generation.format?.toUpperCase() ?? ''} · {image.dna.generation.assetType === 'generated' ? 'AI 生成图' : '视觉占位图'}</div>
+          <div className="image-meta">{generation?.resolution?.replace('x', ' × ') ?? '未知分辨率'} {generation?.format?.toUpperCase() ?? ''} · {generation?.assetType === 'generated' ? 'AI 生成图' : '视觉占位图'}</div>
         </aside>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
