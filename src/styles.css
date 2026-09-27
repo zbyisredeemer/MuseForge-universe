@@ -2267,3 +2267,115 @@ a:focus-visible {
     border-radius: 16px;
   }
 }
+
+
+/* ---- v0.8.1 layout separation + viewer portal ---- */
+/* Reserve a real text lane on the home screen so the star map never competes with the intro copy. */
+@media (min-width: 1001px) {
+  .hero-copy {
+    left: clamp(44px, 4vw, 78px);
+    width: min(380px, 28vw);
+  }
+
+  .hero-copy h1 {
+    max-width: 380px;
+  }
+
+  .hero-copy p {
+    max-width: 350px;
+  }
+
+  .universe-controls {
+    width: min(380px, 28vw);
+  }
+
+  .constellation {
+    inset: 76px 1.5vw 48px max(460px, 31vw);
+  }
+
+  .galaxy-focus-panel {
+    left: 1.5%;
+  }
+}
+
+.viewer {
+  z-index: 10000;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(circle at 34% 42%, rgba(33, 91, 79, .13), transparent 30%),
+    rgba(0, 2, 6, .91);
+  backdrop-filter: blur(22px) saturate(1.05);
+}
+
+.viewer-panel {
+  z-index: 1;
+  isolation: isolate;
+  min-height: 0;
+}
+
+.viewer-image-wrap,
+.prompt-panel {
+  min-width: 0;
+  min-height: 0;
+}
+
+.viewer-image-wrap img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.viewer-close {
+  z-index: 20;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 1000px) {
+  .hero-copy {
+    z-index: 24;
+  }
+
+  .constellation {
+    inset: 318px 8px 68px;
+  }
+
+  .viewer {
+    padding: 16px;
+  }
+
+  .viewer-panel {
+    width: min(94vw, 860px);
+    height: min(92vh, 900px);
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 58%) minmax(0, 42%);
+  }
+}
+
+@media (max-width: 640px) {
+  .constellation {
+    inset: 312px -42px 72px -28px;
+  }
+
+  .viewer {
+    padding: 0;
+  }
+
+  .viewer-panel {
+    width: 100vw;
+    height: 100dvh;
+    max-height: none;
+    grid-template-rows: minmax(0, 55%) minmax(0, 45%);
+  }
+
+  .viewer-close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .prompt-panel {
+    padding: 28px 18px 24px;
+  }
+}
