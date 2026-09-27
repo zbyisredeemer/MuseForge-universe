@@ -1,4 +1,4 @@
-import { PointerEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { PointerEvent, WheelEvent, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { galaxies, getGalaxyById, styles } from './data/styles';
@@ -798,8 +798,15 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   );
   const [isDragging, setIsDragging] = useState(false);
   const sphereRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const frontCardRef = useRef<HTMLElement | null>(null);
   const rotation = useRef({ x: -8, y: 0 });
+  const zoom = useRef(1);
   const velocity = useRef({ x: 0, y: 0 });
+  const viewTarget = useRef<{ x: number; y: number; zoom: number; mode: 'snap' | 'reset' } | null>(null);
+  const snapArmed = useRef(false);
+  const snapPauseUntil = useRef(0);
+  const lastInteraction = useRef(0);
   const drag = useRef({
     active: false,
     startX: 0,
@@ -811,6 +818,45 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   });
   const suppressClick = useRef(false);
 
+  const nearestEquivalentAngle = (target: number, current: number) => {
+    const delta = ((target - current + 540) % 360) - 180;
+    return current + delta;
+  };
+
+  const getCardDepth = (pitchDegrees: number, yawDegrees: number) => {
+    const rx = rotation.current.x * (Math.PI / 180);
+    const ry = rotation.current.y * (Math.PI / 180);
+    const pitch = pitchDegrees * (Math.PI / 180);
+    const yaw = yawDegrees * (Math.PI / 180);
+
+    return (
+      -Math.sin(rx) * Math.sin(pitch) +
+      Math.cos(rx) * Math.cos(pitch) * Math.cos(yaw + ry)
+    );
+  };
+
+  const getNearestFrontTarget = () => {
+    const sphere = sphereRef.current;
+    if (!sphere) return null;
+
+    let best: { pitch: number; yaw: number; depth: number } | null = null;
+    sphere.querySelectorAll<HTMLElement>('.sphere-card').forEach((card) => {
+      const pitch = Number(card.dataset.pitch ?? 0);
+      const yaw = Number(card.dataset.yaw ?? 0);
+      const depth = getCardDepth(pitch, yaw);
+
+      if (!best || depth > best.depth) {
+        best = { pitch, yaw, depth };
+      }
+    });
+
+    if (!best) return null;
+    return {
+      x: Math.max(-65, Math.min(65, -best.pitch)),
+      y: nearestEquivalentAngle(-best.yaw, rotation.current.y)
+    };
+  };
+
   const applySphereRotation = () => {
     const sphere = sphereRef.current;
     if (!sphere) return;
@@ -818,18 +864,19 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     sphere.style.transform =
       `rotateX(${rotation.current.x}deg) rotateY(${rotation.current.y}deg)`;
 
-    const rx = rotation.current.x * (Math.PI / 180);
-    const ry = rotation.current.y * (Math.PI / 180);
-    const sinRx = Math.sin(rx);
-    const cosRx = Math.cos(rx);
+    if (sceneRef.current) {
+      sceneRef.current.style.transform = `scale(${zoom.current})`;
+      sceneRef.current.style.setProperty('--planet-zoom', zoom.current.toFixed(3));
+    }
+
     const cards = sphere.querySelectorAll<HTMLElement>('.sphere-card');
+    let frontCard: HTMLElement | null = null;
+    let frontDepth = -Infinity;
 
     cards.forEach((card) => {
-      const pitch = Number(card.dataset.pitch ?? 0) * (Math.PI / 180);
-      const yaw = Number(card.dataset.yaw ?? 0) * (Math.PI / 180);
-      const normalizedDepth =
-        -sinRx * Math.sin(pitch) +
-        cosRx * Math.cos(pitch) * Math.cos(yaw + ry);
+      const pitch = Number(card.dataset.pitch ?? 0);
+      const yaw = Number(card.dataset.yaw ?? 0);
+      const normalizedDepth = getCardDepth(pitch, yaw);
       const frontness = Math.max(0, Math.min(1, (normalizedDepth + 1) / 2));
       const focus = Math.pow(frontness, .72);
       const scale = .76 + focus * .30;
@@ -844,10 +891,27 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
       card.style.setProperty('--card-depth-brightness', brightness.toFixed(3));
       card.style.setProperty('--card-depth-saturation', saturation.toFixed(3));
       card.style.zIndex = String(10 + Math.round(frontness * 90));
+
+      if (normalizedDepth > frontDepth) {
+        frontDepth = normalizedDepth;
+        frontCard = card;
+      }
     });
+
+    if (frontCardRef.current !== frontCard) {
+      frontCardRef.current?.classList.remove('is-front');
+      frontCard?.classList.add('is-front');
+      frontCardRef.current = frontCard;
+    }
   };
 
   useEffect(() => {
+    rotation.current = { x: -8, y: 0 };
+    zoom.current = 1;
+    velocity.current = { x: 0, y: 0 };
+    viewTarget.current = null;
+    snapArmed.current = false;
+    snapPauseUntil.current = 0;
     applySphereRotation();
 
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -859,16 +923,56 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
       lastFrame = now;
 
       if (!drag.current.active && !media.matches) {
-        const damping = Math.pow(0.925, dt / 16.667);
-        velocity.current.x *= damping;
-        velocity.current.y *= damping;
+        const target = viewTarget.current;
 
-        const autoSpin = 0.0042;
-        rotation.current.x = Math.max(
-          -65,
-          Math.min(65, rotation.current.x + velocity.current.x * dt)
-        );
-        rotation.current.y += (velocity.current.y + autoSpin) * dt;
+        if (target) {
+          const ease = 1 - Math.pow(.80, dt / 16.667);
+          rotation.current.x += (target.x - rotation.current.x) * ease;
+          rotation.current.y += (target.y - rotation.current.y) * ease;
+          zoom.current += (target.zoom - zoom.current) * ease;
+
+          const settled =
+            Math.abs(target.x - rotation.current.x) < .035 &&
+            Math.abs(target.y - rotation.current.y) < .045 &&
+            Math.abs(target.zoom - zoom.current) < .0015;
+
+          if (settled) {
+            rotation.current.x = target.x;
+            rotation.current.y = target.y;
+            zoom.current = target.zoom;
+            viewTarget.current = null;
+            snapArmed.current = false;
+            snapPauseUntil.current = now + (target.mode === 'snap' ? 1050 : 1400);
+          }
+        } else {
+          const damping = Math.pow(0.925, dt / 16.667);
+          velocity.current.x *= damping;
+          velocity.current.y *= damping;
+
+          rotation.current.x = Math.max(
+            -65,
+            Math.min(65, rotation.current.x + velocity.current.x * dt)
+          );
+          rotation.current.y += velocity.current.y * dt;
+
+          const speed = Math.hypot(velocity.current.x, velocity.current.y);
+          const canSnap =
+            snapArmed.current &&
+            speed < .0028 &&
+            now - lastInteraction.current > 260;
+
+          if (canSnap) {
+            const snap = getNearestFrontTarget();
+            if (snap) {
+              viewTarget.current = { ...snap, zoom: zoom.current, mode: 'snap' };
+            } else {
+              snapArmed.current = false;
+            }
+          } else if (now >= snapPauseUntil.current) {
+            rotation.current.y += .0042 * dt;
+          }
+        }
+
         applySphereRotation();
       }
 
@@ -876,10 +980,16 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     };
 
     frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      frontCardRef.current?.classList.remove('is-front');
+      frontCardRef.current = null;
+    };
   }, [style.id]);
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    viewTarget.current = null;
+    snapArmed.current = false;
     drag.current = {
       active: true,
       startX: event.clientX,
@@ -921,12 +1031,15 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     drag.current.lastX = event.clientX;
     drag.current.lastY = event.clientY;
     drag.current.lastTime = now;
+    lastInteraction.current = now;
     applySphereRotation();
   };
 
   const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
     drag.current.active = false;
     setIsDragging(false);
+    lastInteraction.current = performance.now();
+    snapArmed.current = drag.current.moved;
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -937,6 +1050,34 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         suppressClick.current = false;
       }, 0);
     }
+  };
+
+  const onWheel = (event: WheelEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const nextZoom = Math.max(.72, Math.min(1.34, zoom.current - event.deltaY * .00075));
+    zoom.current = nextZoom;
+    viewTarget.current = null;
+    snapArmed.current = false;
+    snapPauseUntil.current = performance.now() + 420;
+    lastInteraction.current = performance.now();
+    applySphereRotation();
+  };
+
+  const resetView = () => {
+    velocity.current = { x: 0, y: 0 };
+    snapArmed.current = false;
+    viewTarget.current = {
+      x: -8,
+      y: nearestEquivalentAngle(0, rotation.current.y),
+      zoom: 1,
+      mode: 'reset'
+    };
+  };
+
+  const onDoubleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLElement).closest('.sphere-card')) return;
+    event.preventDefault();
+    resetView();
   };
 
   return (
@@ -950,7 +1091,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
           <b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}
           <span className={`style-maturity maturity-badge maturity-badge-${maturity.stage}`}>{maturity.label} · {Math.round(maturity.ratio * 100)}%</span>
         </div>
-        <div className="drag-hint"><span>DRAG TO ORBIT</span><i />拖动旋转 · 松手惯性 · 自动巡航</div>
+        <div className="drag-hint"><span>DRAG TO ORBIT</span><i />拖动旋转 · 惯性吸附 · 滚轮缩放 · 双击空白复位</div>
       </div>
 
       <div
@@ -959,40 +1100,44 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onWheel={onWheel}
+        onDoubleClick={onDoubleClick}
       >
-        <div className="planet-body" aria-hidden="true">
-          <i className="planet-atmosphere" />
-          <i className="planet-surface" />
-          <i className="planet-terminator" />
-          <i className="planet-latitude planet-latitude-a" />
-          <i className="planet-latitude planet-latitude-b" />
-        </div>
-        <div className="sphere-glow" />
-        <div ref={sphereRef} className="sphere">
-          {orderedImages.map((image, index) => {
-            const [pitch, yaw] = getSpherePlacement(index, orderedImages.length);
-            return (
-              <button
-                key={image.id}
-                type="button"
-                className={`sphere-card ${image.dna.generation.assetType === 'generated' ? 'generated' : 'placeholder'}`}
-                data-pitch={pitch}
-                data-yaw={yaw}
-                style={{
-                  transform: `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(330px) scale(var(--card-depth-scale, 1))`
-                }}
-                aria-label={`查看作品：${image.title}`}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  if (suppressClick.current) return;
-                  onSelect(image);
-                }}
-              >
-                <img src={image.image} alt={image.title} draggable={false} loading="lazy" decoding="async" />
-                <span>{image.title}</span>
-              </button>
-            );
-          })}
+        <div ref={sceneRef} className="planet-scene">
+          <div className="planet-body" aria-hidden="true">
+            <i className="planet-atmosphere" />
+            <i className="planet-surface" />
+            <i className="planet-terminator" />
+            <i className="planet-latitude planet-latitude-a" />
+            <i className="planet-latitude planet-latitude-b" />
+          </div>
+          <div className="sphere-glow" />
+          <div ref={sphereRef} className="sphere">
+            {orderedImages.map((image, index) => {
+              const [pitch, yaw] = getSpherePlacement(index, orderedImages.length);
+              return (
+                <button
+                  key={image.id}
+                  type="button"
+                  className={`sphere-card ${image.dna.generation.assetType === 'generated' ? 'generated' : 'placeholder'}`}
+                  data-pitch={pitch}
+                  data-yaw={yaw}
+                  style={{
+                    transform: `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(330px) scale(var(--card-depth-scale, 1))`
+                  }}
+                  aria-label={`查看作品：${image.title}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    if (suppressClick.current) return;
+                    onSelect(image);
+                  }}
+                >
+                  <img src={image.image} alt={image.title} draggable={false} loading="lazy" decoding="async" />
+                  <span>{image.title}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
