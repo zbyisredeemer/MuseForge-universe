@@ -18,11 +18,35 @@ function App() {
   const [view, setView] = useState<View>({ kind: 'universe' });
   const [selected, setSelected] = useState<MuseImage | null>(null);
 
+  const goUniverse = () => {
+    setSelected(null);
+    setView({ kind: 'universe' });
+    window.scrollTo({ top: 0, left: 0 });
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+
+      if (selected) {
+        setSelected(null);
+        return;
+      }
+
+      if (view.kind === 'style') {
+        goUniverse();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selected, view.kind]);
+
   return (
-    <main className="app-shell">
+    <main className={`app-shell view-${view.kind}`}>
       <UniverseBackdrop />
       <header className="topbar">
-        <button className="brand" onClick={() => { setView({ kind: 'universe' }); setSelected(null); }}>
+        <button type="button" className="brand" onClick={goUniverse} aria-label="返回 MuseForge 宇宙首页">
           <span className="brand-mark">✦</span>
           <span>MuseForge <b>Universe</b></span>
         </button>
@@ -32,7 +56,7 @@ function App() {
       {view.kind === 'universe' ? (
         <Universe onOpen={(style) => setView({ kind: 'style', style })} />
       ) : (
-        <StyleWorld style={view.style} onBack={() => setView({ kind: 'universe' })} onSelect={setSelected} />
+        <StyleWorld style={view.style} onBack={goUniverse} onSelect={setSelected} />
       )}
 
       {selected && <ImageViewer image={selected} onClose={() => setSelected(null)} />}
@@ -605,7 +629,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   return (
     <section className="style-view">
       <div className="style-copy">
-        <button className="back-button" onClick={onBack}>← 返回宇宙</button>
+        <button type="button" className="back-button" onClick={onBack} aria-label="返回宇宙星图">← <span>返回宇宙</span></button>
         <div className="eyebrow">{galaxy?.subtitle ?? 'UNIVERSE'} GALAXY · PLANET {String(style.sequence).padStart(3, '0')}</div>
         <h2>{style.name}</h2>
         <p>{style.description}</p>
