@@ -341,6 +341,9 @@ export function applyIdentityDiversity(planets: MusePlanet[]): MusePlanet[] {
   return planets.map((planet) => ({
     ...planet,
     images: planet.images.map((image, localIndex) => {
+      // Keep the identity used to generate curated assets. Do not advance the
+      // procedural index, so appending these assets cannot change older faces.
+      if (image.dna.subject.identitySource === 'authored') return image;
       const profile = applyIdentityOverride(image.id, buildIdentityProfile(globalIndex++));
       const regionalStyle = getRegionalStyle(planet.id, localIndex);
       const basePrompt = removeFixedRegionalDescriptor(image.prompt, regionalStyle);

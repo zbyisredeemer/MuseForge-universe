@@ -6,6 +6,7 @@ export type MuseImageDNA = {
     ageGroup: 'adult';
     ageBand?: string;
     identityId?: string;
+    identitySource?: 'authored' | 'procedural';
     face?: {
       shape?: string;
       faceWidth?: string;

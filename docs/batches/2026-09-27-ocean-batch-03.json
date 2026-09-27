@@ -1,0 +1,144 @@
+{
+  "batch": "ocean-batch-03",
+  "date": "2026-09-27",
+  "planetId": "ocean-muse",
+  "imageNumbers": {
+    "from": 21,
+    "to": 30
+  },
+  "count": 10,
+  "generator": "built-in imagegen",
+  "sourceComposition": "one independently generated portrait per asset",
+  "webp": {
+    "quality": 93,
+    "method": 6,
+    "resize": false,
+    "width": 941,
+    "height": 1672
+  },
+  "metadataFile": "src/data/generation/ocean-batch-03.ts",
+  "identitySource": "authored",
+  "review": {
+    "visualChecks": [
+      "single clearly adult subject",
+      "distinct facial structure and hair",
+      "fashion and scene match final metadata",
+      "hands and anatomy",
+      "no visible text or watermark"
+    ],
+    "candidateSelectionNotes": {
+      "025": "Selected the fitted cobalt knit dress after reviewing a more casual jacket-and-dress candidate.",
+      "029": "Selected the tailored halter jumpsuit after reviewing a collared linen dress candidate.",
+      "030": "Selected an opaque champagne blouse and tailored trousers."
+    }
+  },
+  "verification": {
+    "localWebpDecode": "passed",
+    "binaryBlobShaMatchesLocal": "10/10",
+    "existingRecordsPreserved": 112,
+    "planetImageCount": 30,
+    "totalImageCount": 122
+  },
+  "images": [
+    {
+      "number": 21,
+      "id": "ocean-021",
+      "title": "粉沙晨曲",
+      "path": "public/images/nature/ocean-muse/ocean-muse-021.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 345730,
+      "gitBlobSha": "3c7625113f9542dfb62f1c23404e9b597b2a8587"
+    },
+    {
+      "number": 22,
+      "id": "ocean-022",
+      "title": "琉球柠夏",
+      "path": "public/images/nature/ocean-muse/ocean-muse-022.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 455534,
+      "gitBlobSha": "9a7d17798b70b3f4606917fa2d0fc871b8f4c32a"
+    },
+    {
+      "number": 23,
+      "id": "ocean-023",
+      "title": "柠港橙影",
+      "path": "public/images/nature/ocean-muse/ocean-muse-023.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 375604,
+      "gitBlobSha": "1ea15fbc14e5a2ffcfff877a2e35144b90842739"
+    },
+    {
+      "number": 24,
+      "id": "ocean-024",
+      "title": "岩湾玫风",
+      "path": "public/images/nature/ocean-muse/ocean-muse-024.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 412496,
+      "gitBlobSha": "3a49149e25ccb7ea9bbdb44679972ea04feac304"
+    },
+    {
+      "number": 25,
+      "id": "ocean-025",
+      "title": "潮池钴蓝",
+      "path": "public/images/nature/ocean-muse/ocean-muse-025.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 452364,
+      "gitBlobSha": "2244b883db4c337fb8e369b1061bde4d2c625faa"
+    },
+    {
+      "number": 26,
+      "id": "ocean-026",
+      "title": "岬湾白帆",
+      "path": "public/images/nature/ocean-muse/ocean-muse-026.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 414526,
+      "gitBlobSha": "644531723026b62d15ec48021ba06da40c786a25"
+    },
+    {
+      "number": 27,
+      "id": "ocean-027",
+      "title": "蓝洞银波",
+      "path": "public/images/nature/ocean-muse/ocean-muse-027.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 375294,
+      "gitBlobSha": "6e685ec502b550fdeb7b16db2b417f8cc410d411"
+    },
+    {
+      "number": 28,
+      "id": "ocean-028",
+      "title": "珊瑚落霞",
+      "path": "public/images/nature/ocean-muse/ocean-muse-028.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 311828,
+      "gitBlobSha": "94cd4d9045ffc2dffc2349ddb1008304d58ba68b"
+    },
+    {
+      "number": 29,
+      "id": "ocean-029",
+      "title": "渔湾青晨",
+      "path": "public/images/nature/ocean-muse/ocean-muse-029.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 297316,
+      "gitBlobSha": "f3d620a967548004dd2ea0f4b44535ddfbb3b0b3"
+    },
+    {
+      "number": 30,
+      "id": "ocean-030",
+      "title": "海窗香槟",
+      "path": "public/images/nature/ocean-muse/ocean-muse-030.webp",
+      "width": 941,
+      "height": 1672,
+      "bytes": 209356,
+      "gitBlobSha": "b037d47dc7076bf09d4d1b22c4abb3d8023dc272"
+    }
+  ]
+}

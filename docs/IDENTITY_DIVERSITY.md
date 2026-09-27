@@ -63,3 +63,10 @@ npm run validate:style
 ```
 
 `validate:style` 会确保年龄范围没有重新漂移到 20～28 岁之外。
+
+
+## 已完成成片的身份保留
+
+当图片拥有逐张编写、已经用于生成的完整 Identity DNA 时，设置 `dna.subject.identitySource = 'authored'`。`applyIdentityDiversity` 保留该条目的 Prompt / face / hair / ageBand / identityId，不再用程序化模板覆盖它，也不增加程序化序号，避免新增成片改变其他旧图的身份资料。全局 Style Bible 仍然正常应用。
+
+Ocean Muse 021～030 使用此规则，完整设定在 `src/data/generation/ocean-batch-03.ts`。

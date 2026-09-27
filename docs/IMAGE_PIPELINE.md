@@ -341,3 +341,29 @@ Hanfu Muse 当前 active 真实图为 **30 / 30**；021～030 Batch 02 已完成
 - 本批场景覆盖双体船日落、太平洋冲浪、圣托里尼、巴厘岛崖池、桑给巴尔木帆船、马尔代夫水屋、火山黑沙滩、热带雨栈桥、灯塔海崖与荧光海夜滩；
 - 所有新增条目均设置 `generation.assetType = 'generated'`、`format = 'webp'`、`resolution = '941x1672'`；
 - Ocean Muse 当前真实图片总数：**20 张**。
+
+
+## 2026-09-27 Ocean Muse Batch 03 完成记录
+
+- 新增 Ocean Muse **021～030**，固定一批 **10 张**；海洋系真实图片总数更新为 **30 张**，全站为 **122 张**。
+- 使用内置图片生成工具逐张独立生成，未使用拼图拆分；025 / 029 / 030 调整为覆盖更完整的针织裙、连体裤或衬衫套装后重新生成，025 / 029 再经候选造型复核后选择最终版本。
+- 最终 WebP 均保留原生成图实际尺寸 **941x1672**（约 9:16），quality 93 / method 6；没有插值放大，也不标记为 4K。
+- 静态目录：`public/images/nature/ocean-muse/`；元数据与完整最终提示词：`src/data/generation/ocean-batch-03.ts`。
+- 已同步 title / tags / Prompt / Negative Prompt / Identity DNA / photography / resolution，`oceanMuse.images` 直接接入本批 10 个 generated 条目。
+- 本批采用 `subject.identitySource = 'authored'`，展示层保留实际生成使用的脸型、发型和年龄设定。新增条目不消耗旧的程序化身份序号，避免后续星球的既有身份随数量变化而改变。
+- 提交前逐张检查场景、服装、手部和人物差异，解码检查 WebP，并核对本地 Git blob SHA 与上传 SHA；图片和文本元数据放入同一个 commit。
+- 执行 `npm run validate`、`npm run build`，并额外验证运行时合并数据的 122 个唯一 ID / 图片路径、本批连续编号和原 112 条记录保持不变。
+- 批次清单及校验值：`docs/batches/2026-09-27-ocean-batch-03.json`。
+
+| 编号 | 标题 | 文件 |
+| --- | --- | --- |
+| 021 | 粉沙晨曲 | `ocean-muse-021.webp` |
+| 022 | 琉球柠夏 | `ocean-muse-022.webp` |
+| 023 | 柠港橙影 | `ocean-muse-023.webp` |
+| 024 | 岩湾玫风 | `ocean-muse-024.webp` |
+| 025 | 潮池钴蓝 | `ocean-muse-025.webp` |
+| 026 | 岬湾白帆 | `ocean-muse-026.webp` |
+| 027 | 蓝洞银波 | `ocean-muse-027.webp` |
+| 028 | 珊瑚落霞 | `ocean-muse-028.webp` |
+| 029 | 渔湾青晨 | `ocean-muse-029.webp` |
+| 030 | 海窗香槟 | `ocean-muse-030.webp` |

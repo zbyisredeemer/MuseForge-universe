@@ -1,5 +1,6 @@
 import type { MusePlanet } from '../types';
 import { oceanBatch02 } from '../generation/ocean-batch-02';
+import { oceanBatch03 } from '../generation/ocean-batch-03';
 
 const negativePrompt = 'lowres, blurry, jpeg artifacts, overprocessed skin, bad anatomy, extra fingers, malformed hands, asymmetrical eyes, deformed face, duplicate person, text, logo, watermark, frame, oversaturated';
 
@@ -220,6 +221,7 @@ export const oceanMuse: MusePlanet = {
           }
         }
       };
-    })
+    }),
+    ...oceanBatch03
   ]
 };
