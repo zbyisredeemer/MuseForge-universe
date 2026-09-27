@@ -1,4 +1,4 @@
-import { MouseEvent as ReactMouseEvent, PointerEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { PointerEvent, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { galaxies, getGalaxyById, styles } from './data/styles';
@@ -76,9 +76,9 @@ function UniverseBackdrop() {
   const stars = useMemo(() => {
     let seed = 731;
     const rand = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-    return Array.from({ length: 420 }, (_, index) => ({
+    return Array.from({ length: 144 }, (_, index) => ({
       id: index,
-      depth: index % 4,
+      depth: index % 3,
       left: `${rand() * 100}%`,
       top: `${rand() * 100}%`,
       size: 0.55 + rand() * 2.35,
@@ -105,7 +105,7 @@ function UniverseBackdrop() {
 
       <div className="galaxy-band" />
 
-      {[0, 1, 2, 3].map((depth) => (
+      {[0, 1, 2].map((depth) => (
         <div key={depth} className={`star-layer star-layer-${depth}`}>
           {stars.filter((star) => star.depth === depth).map((star) => (
             <i
@@ -229,6 +229,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
   const [galaxyFilter, setGalaxyFilter] = useState<string>('all');
   const [focusedGalaxy, setFocusedGalaxy] = useState<string | null>(null);
   const [routeGalaxy, setRouteGalaxy] = useState<string | null>(null);
+  const [previewStyleId, setPreviewStyleId] = useState<string | null>(null);
   const constellationRef = useRef<HTMLDivElement>(null);
 
   const effectiveGalaxyFilter = focusedGalaxy ?? galaxyFilter;
@@ -256,6 +257,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
 
   const parallaxFrame = useRef<number | null>(null);
   const parallaxTarget = useRef({ x: 0, y: 0 });
+  const parallaxCurrent = useRef({ x: 0, y: 0 });
 
   const applyParallax = (x: number, y: number) => {
     const root = document.documentElement;
@@ -270,10 +272,25 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
   const scheduleParallax = (x: number, y: number) => {
     parallaxTarget.current = { x, y };
     if (parallaxFrame.current !== null) return;
-    parallaxFrame.current = window.requestAnimationFrame(() => {
-      parallaxFrame.current = null;
-      applyParallax(parallaxTarget.current.x, parallaxTarget.current.y);
-    });
+
+    const tick = () => {
+      const current = parallaxCurrent.current;
+      const target = parallaxTarget.current;
+      const nextX = current.x + (target.x - current.x) * 0.16;
+      const nextY = current.y + (target.y - current.y) * 0.16;
+      parallaxCurrent.current = { x: nextX, y: nextY };
+      applyParallax(nextX, nextY);
+
+      if (Math.abs(target.x - nextX) > 0.004 || Math.abs(target.y - nextY) > 0.004) {
+        parallaxFrame.current = window.requestAnimationFrame(tick);
+      } else {
+        parallaxCurrent.current = target;
+        applyParallax(target.x, target.y);
+        parallaxFrame.current = null;
+      }
+    };
+
+    parallaxFrame.current = window.requestAnimationFrame(tick);
   };
 
   const onUniversePointerMove = (event: PointerEvent<HTMLElement>) => {
@@ -580,8 +597,16 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               aria-label={`打开${style.name}，共${style.images.length}张照片，状态${maturity.label}`}
               style={starStyle}
               onClick={() => isVisible && onOpen(style)}
-              onPointerEnter={() => !focusedGalaxy && setRouteGalaxy(style.galaxyId)}
-              onPointerLeave={() => !focusedGalaxy && setRouteGalaxy(null)}
+              onPointerEnter={() => {
+                if (!focusedGalaxy) setRouteGalaxy(style.galaxyId);
+                setPreviewStyleId(style.id);
+              }}
+              onPointerLeave={() => {
+                if (!focusedGalaxy) setRouteGalaxy(null);
+                setPreviewStyleId((current) => current === style.id ? null : current);
+              }}
+              onFocus={() => setPreviewStyleId(style.id)}
+              onBlur={() => setPreviewStyleId((current) => current === style.id ? null : current)}
             >
               <span className="star-maturity-track" />
               <span className="star-maturity-ring" />
@@ -589,7 +614,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
               <span className="star-pulse" />
               <span className="star-tooltip">
                 <span className="star-preview-strip" aria-hidden="true">
-                  {previewImages.map((image) => (
+                  {previewStyleId === style.id && previewImages.map((image) => (
                     <span key={image.id} className="star-preview-thumb">
                       <img src={image.image} alt="" loading="lazy" decoding="async" />
                     </span>
@@ -660,7 +685,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
           <b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}
           <span className={`style-maturity maturity-badge maturity-badge-${maturity.stage}`}>{maturity.label} · {Math.round(maturity.ratio * 100)}%</span>
         </div>
-        <div className="drag-hint"><span>DRAG TO ORBIT</span><i />点击任意影像进入完整作品</div>
+        <div className="drag-hint"><span>DRAG TO ORBIT</span><i />点击任意影像快速预览</div>
       </div>
 
       <div className="sphere-stage" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
@@ -678,11 +703,10 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
                 onPointerDown={(event: PointerEvent<HTMLButtonElement>) => {
                   event.stopPropagation();
                 }}
-                onPointerUp={(event: PointerEvent<HTMLButtonElement>) => {
+                onClick={(event) => {
                   event.stopPropagation();
                   onSelect(image);
                 }}
-                onClick={() => onSelect(image)}
               >
                 <img src={image.image} alt={image.title} draggable={false} loading="lazy" decoding="async" />
                 <span>{image.title}</span>
@@ -696,12 +720,6 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
 }
 
 function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void }) {
-  const [copied, setCopied] = useState(false);
-  const tags = Array.isArray(image.tags) ? image.tags : [];
-  const negativePrompt = image.negativePrompt || '未配置 Negative Prompt';
-  const identity = image.dna?.subject;
-  const generation = image.dna?.generation;
-
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -710,51 +728,21 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
     };
   }, []);
 
-  const copyPrompt = async () => {
-    if (!image.prompt) return;
-    await navigator.clipboard.writeText(image.prompt);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1400);
-  };
-
   return createPortal(
-    <div className="viewer" role="dialog" aria-modal="true" aria-label={image.title} onMouseDown={(e: ReactMouseEvent<HTMLDivElement>) => { if (e.currentTarget === e.target) onClose(); }}>
-      <div className="viewer-panel">
-        <button className="viewer-close" onClick={onClose}>×</button>
-        <div className="viewer-image-wrap">
-          <img src={image.image} alt={image.title} />
-          <a href={image.image} target="_blank" rel="noreferrer" className="open-original">查看原图 ↗</a>
-        </div>
-        <aside className="prompt-panel">
-          <div className="eyebrow">PROMPT DNA</div>
-          <h3>{image.title}</h3>
-          {tags.length > 0 && <div className="tag-row">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
-          <label>Prompt</label>
-          <p className="prompt-text">{image.prompt}</p>
-          <button className="copy-button" onClick={copyPrompt}>{copied ? '已复制 ✓' : '复制 Prompt'}</button>
-          <details>
-            <summary>Negative Prompt</summary>
-            <p>{negativePrompt}</p>
-          </details>
-          {identity?.identityId && (
-            <details open>
-              <summary>Identity DNA · {identity.identityId}</summary>
-              <p>
-                {[
-                  identity.ageBand && `年龄 ${identity.ageBand}`,
-                  identity.face?.shape && `脸型 ${identity.face.shape}`,
-                  identity.face?.skinTone && `肤色 ${identity.face.skinTone}`,
-                  identity.face?.eyeShape && `眼型 ${identity.face.eyeShape}`,
-                  identity.face?.noseShape && `鼻型 ${identity.face.noseShape}`,
-                  identity.face?.lipShape && `唇型 ${identity.face.lipShape}`,
-                  identity.hair?.join(' / ')
-                ].filter(Boolean).join(' · ')}
-              </p>
-            </details>
-          )}
-          <div className="image-meta">{generation?.resolution?.replace('x', ' × ') ?? '未知分辨率'} {generation?.format?.toUpperCase() ?? ''} · {generation?.assetType === 'generated' ? 'AI 生成图' : '视觉占位图'}</div>
-        </aside>
-      </div>
+    <div
+      className="viewer quick-viewer"
+      role="dialog"
+      aria-modal="true"
+      aria-label={image.title}
+      onClick={(event) => {
+        if (event.currentTarget === event.target) onClose();
+      }}
+    >
+      <figure className="quick-viewer-card">
+        <button type="button" className="viewer-close" onClick={onClose} aria-label="关闭预览">×</button>
+        <img src={image.image} alt={image.title} decoding="async" />
+        <figcaption>{image.title}</figcaption>
+      </figure>
     </div>,
     document.body
   );
