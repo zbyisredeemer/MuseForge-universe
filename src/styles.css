@@ -3363,3 +3363,155 @@ summary {
     padding: 10px;
   }
 }
+
+
+/* ---- v0.9.3 fast universe + instant thumbnail preview ---- */
+/* Reduce paint/composite pressure while keeping the universe alive. */
+.universe-bg {
+  transition: transform .08s ease-out;
+}
+
+.nebula-a {
+  filter: blur(58px);
+  animation-duration: 34s;
+}
+
+.nebula-b {
+  filter: blur(64px);
+  animation-duration: 40s;
+}
+
+.nebula-c {
+  filter: blur(54px);
+  animation-duration: 38s;
+}
+
+.galaxy-system {
+  animation-duration: 32s;
+}
+
+.galaxy-disc {
+  filter: blur(4px);
+  animation-duration: 72s;
+}
+
+.galaxy-band {
+  filter: blur(18px);
+  opacity: .14;
+  animation-duration: 38s;
+}
+
+.dust-star {
+  box-shadow:
+    0 0 6px rgba(196, 240, 239, .50),
+    0 0 12px rgba(126, 209, 190, .08);
+}
+
+.universe-view .constellation {
+  transition: translate .08s ease-out;
+}
+
+.universe-view .hero-copy {
+  transition: translate .12s ease-out, opacity .4s ease, transform .4s ease;
+}
+
+/* Preview images are mounted only for the star currently being explored. */
+.star-preview-strip {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(var(--aurora), .055), transparent 55%),
+    rgba(255, 255, 255, .018);
+}
+
+/* Fast image preview: reuse the already-visible gallery asset instead of opening the heavy metadata viewer. */
+.quick-viewer {
+  z-index: 10000;
+  padding: 22px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 2, 6, .82);
+  backdrop-filter: blur(14px);
+  cursor: zoom-out;
+}
+
+.quick-viewer-card {
+  position: relative;
+  width: min(360px, 84vw);
+  max-height: 86vh;
+  margin: 0;
+  padding: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(220, 235, 230, .13);
+  border-radius: 20px;
+  background: rgba(5, 10, 14, .96);
+  box-shadow:
+    0 28px 100px rgba(0, 0, 0, .68),
+    0 0 0 1px rgba(255, 255, 255, .015);
+  cursor: default;
+}
+
+.quick-viewer-card > img {
+  display: block;
+  width: 100%;
+  max-height: calc(86vh - 54px);
+  border-radius: 14px;
+  object-fit: contain;
+  background: #020406;
+  image-rendering: auto;
+}
+
+.quick-viewer-card figcaption {
+  padding: 9px 8px 5px;
+  overflow: hidden;
+  color: rgba(233, 241, 238, .66);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quick-viewer-card .viewer-close {
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-color: rgba(255, 255, 255, .12);
+  background: rgba(2, 6, 9, .72);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .34);
+}
+
+@media (max-width: 1000px) {
+  .nebula-c,
+  .shooting-star-b {
+    display: none;
+  }
+
+  .quick-viewer {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .galaxy-band {
+    opacity: .09;
+    filter: blur(12px);
+  }
+
+  .quick-viewer-card {
+    width: min(330px, 90vw);
+    max-height: 82dvh;
+    border-radius: 17px;
+  }
+
+  .quick-viewer-card > img {
+    max-height: calc(82dvh - 52px);
+    border-radius: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .universe-bg,
+  .universe-view .constellation,
+  .universe-view .hero-copy {
+    transition: none !important;
+  }
+}
