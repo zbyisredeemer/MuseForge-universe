@@ -1808,3 +1808,70 @@
     transition: none !important;
   }
 }
+
+
+/* ---- v1.5 orbit navigation controls ---- */
+.view-style .planet-scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: scale(1);
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform .11s ease-out;
+  pointer-events: none;
+}
+
+.view-style .planet-scene .sphere {
+  pointer-events: auto;
+}
+
+.view-style .sphere-card.is-front {
+  opacity: 1 !important;
+  filter:
+    blur(0)
+    brightness(max(1, var(--card-depth-brightness, 1)))
+    saturate(max(1, var(--card-depth-saturation, 1)));
+  box-shadow:
+    0 0 0 1px rgba(203, 243, 229, .22),
+    0 24px 80px rgba(0, 0, 0, .56),
+    0 0 44px rgba(var(--v10-mint), .12);
+}
+
+.view-style .sphere-card.is-front span {
+  opacity: .96;
+  background: rgba(2, 8, 8, .72);
+  box-shadow: 0 0 22px rgba(var(--v10-mint), .06);
+}
+
+.view-style .sphere-stage.is-dragging .planet-scene {
+  transition: none;
+}
+
+.view-style .sphere-stage::before,
+.view-style .sphere-stage::after {
+  transition: opacity .22s ease, filter .22s ease;
+}
+
+.view-style .sphere-stage:hover::before {
+  opacity: .88;
+  filter: drop-shadow(0 0 16px rgba(var(--v10-mint), .05));
+}
+
+@media (max-width: 640px) {
+  .view-style .planet-scene {
+    transition-duration: .08s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-style .planet-scene {
+    transition: none !important;
+  }
+
+  .view-style .sphere-card.is-front {
+    filter: none !important;
+  }
+}
