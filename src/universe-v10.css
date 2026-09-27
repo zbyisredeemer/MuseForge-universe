@@ -972,3 +972,522 @@
     transition-duration: .01ms !important;
   }
 }
+
+
+/* ---- v1.2 seamless world flight ---- */
+.world-flight-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 72;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1200px;
+}
+
+.world-flight-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 58% 50%, transparent 0 11%, rgba(1, 4, 10, .12) 31%, rgba(0, 2, 7, .62) 100%);
+  opacity: 0;
+}
+
+.world-flight-object {
+  position: absolute;
+  left: 58%;
+  top: 50%;
+  width: 120px;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  border-radius: 50%;
+}
+
+.world-flight-core,
+.world-flight-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.world-flight-core {
+  width: 22%;
+  height: 22%;
+  background:
+    radial-gradient(circle at 34% 30%, #fff 0 9%, rgba(231,255,248,.98) 21%, rgba(var(--v10-mint), .82) 48%, rgba(72, 74, 155, .22) 72%, transparent 100%);
+  box-shadow:
+    0 0 18px rgba(255,255,255,.30),
+    0 0 58px rgba(var(--v10-mint), .48),
+    0 0 130px rgba(var(--v10-violet), .22);
+}
+
+.world-flight-ring {
+  border: 1px solid rgba(215, 240, 235, .17);
+  box-shadow: 0 0 34px rgba(var(--v10-mint), .08);
+}
+
+.world-flight-ring-a {
+  width: 62%;
+  height: 62%;
+  transform: translate(-50%, -50%) rotateX(68deg) rotateZ(-18deg);
+}
+
+.world-flight-ring-b {
+  width: 92%;
+  height: 44%;
+  border-color: rgba(177, 156, 226, .14);
+  transform: translate(-50%, -50%) rotateX(70deg) rotateZ(28deg);
+}
+
+.world-flight-caption {
+  position: absolute;
+  left: 58%;
+  top: calc(50% + 108px);
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  min-width: 260px;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+}
+
+.world-flight-caption span {
+  color: rgba(var(--v10-gold), .58);
+  font-size: 7px;
+  letter-spacing: .28em;
+}
+
+.world-flight-caption strong {
+  color: rgba(244, 248, 245, .92);
+  font-family: "Songti SC", STSong, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -.025em;
+}
+
+.world-flight-caption small {
+  color: rgba(214, 227, 229, .30);
+  font-size: 7px;
+  letter-spacing: .14em;
+}
+
+.world-flight-overlay-entering .world-flight-vignette {
+  animation: v12VignetteIn .68s ease both;
+}
+
+.world-flight-overlay-entering .world-flight-object {
+  animation: v12PortalEnter .68s cubic-bezier(.16,.78,.18,1) both;
+}
+
+.world-flight-overlay-entering .world-flight-ring-a {
+  animation: v12PortalRingA .68s cubic-bezier(.16,.78,.18,1) both;
+}
+
+.world-flight-overlay-entering .world-flight-ring-b {
+  animation: v12PortalRingB .68s cubic-bezier(.16,.78,.18,1) both;
+}
+
+.world-flight-overlay-entering .world-flight-caption {
+  animation: v12CaptionIn .54s ease .08s both;
+}
+
+.world-flight-overlay-arriving .world-flight-vignette {
+  animation: v12VignetteOut .52s ease both;
+}
+
+.world-flight-overlay-arriving .world-flight-object {
+  animation: v12PortalArrive .52s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.world-flight-overlay-arriving .world-flight-caption {
+  animation: v12CaptionOut .28s ease both;
+}
+
+.world-flight-overlay-returning .world-flight-vignette {
+  animation: v12VignetteIn .52s ease both;
+}
+
+.world-flight-overlay-returning .world-flight-object {
+  animation: v12PortalReturn .52s cubic-bezier(.25,.72,.2,1) both;
+}
+
+.world-flight-overlay-returning .world-flight-caption {
+  animation: v12CaptionIn .40s ease both;
+}
+
+.world-flight-overlay-settling .world-flight-vignette {
+  animation: v12VignetteOut .56s ease both;
+}
+
+.world-flight-overlay-settling .world-flight-object {
+  animation: v12PortalSettle .56s cubic-bezier(.2,.72,.2,1) both;
+}
+
+.world-flight-overlay-settling .world-flight-caption {
+  animation: v12CaptionOut .30s ease both;
+}
+
+/* Universe departure: target star becomes the visual tunnel entrance. */
+.view-universe .world-flight-active .galaxy-routes,
+.view-universe .world-flight-active .orbit,
+.view-universe .world-flight-active .hint-line {
+  transition: opacity .38s ease, filter .38s ease;
+}
+
+.view-universe .world-flight-entering .galaxy-routes,
+.view-universe .world-flight-entering .orbit,
+.view-universe .world-flight-entering .hint-line {
+  opacity: .04;
+  filter: blur(1px);
+}
+
+.view-universe .world-flight-entering .galaxy-zone.world-flight-receding,
+.view-universe .world-flight-entering .style-star.world-flight-receding {
+  opacity: 0 !important;
+  filter: blur(2px) saturate(.15);
+  pointer-events: none;
+}
+
+.view-universe .world-flight-entering .galaxy-zone.world-target-galaxy {
+  z-index: 35;
+  opacity: .22;
+  filter: saturate(1.35) brightness(1.14);
+  transform:
+    translate(-50%, -50%)
+    translateZ(310px)
+    scale(1.42)
+    rotate(-2deg);
+}
+
+.view-universe .world-flight-entering .style-star.world-target {
+  z-index: 70;
+  pointer-events: none;
+  animation: v12TargetStarDive .68s cubic-bezier(.14,.78,.16,1) both;
+}
+
+.view-universe .world-flight-entering .style-star.world-target .star-tooltip {
+  opacity: 0 !important;
+}
+
+.view-universe .world-flight-entering .hero-copy,
+.view-universe.transition-entering .topbar,
+.view-universe.transition-entering .universe-footer {
+  transition: opacity .42s ease, filter .42s ease;
+}
+
+/* The arriving planet materializes from the same visual tunnel. */
+.transition-arriving .style-view {
+  animation: v12StyleWorldIn .52s cubic-bezier(.18,.76,.2,1) both;
+}
+
+.transition-arriving .style-copy {
+  animation: v12StyleCopyIn .50s ease .06s both;
+}
+
+.transition-arriving .sphere-stage {
+  animation: v12SphereArrive .52s cubic-bezier(.12,.78,.18,1) both;
+}
+
+.transition-arriving .sphere-glow {
+  animation: v12SphereGlowArrive .72s ease both;
+}
+
+/* Return reverses the motion before the universe is mounted again. */
+.transition-returning .style-copy {
+  animation: v12StyleCopyOut .40s ease both;
+  pointer-events: none;
+}
+
+.transition-returning .sphere-stage {
+  animation: v12SphereReturn .52s cubic-bezier(.35,.02,.68,.32) both;
+  pointer-events: none;
+}
+
+.transition-returning .topbar {
+  opacity: .32;
+  transition: opacity .38s ease;
+}
+
+/* Universe re-entry keeps the source galaxy focused, then settles the target star. */
+.view-universe .world-flight-settling .galaxy-zone.world-flight-receding,
+.view-universe .world-flight-settling .style-star.world-flight-receding {
+  animation: v12UniverseRepopulate .56s ease both;
+}
+
+.view-universe .world-flight-settling .galaxy-zone.world-target-galaxy {
+  animation: v12TargetGalaxySettle .56s cubic-bezier(.18,.78,.18,1) both;
+}
+
+.view-universe .world-flight-settling .style-star.world-target {
+  z-index: 70;
+  animation: v12TargetStarReturn .56s cubic-bezier(.18,.78,.18,1) both;
+}
+
+.view-universe .world-flight-settling .galaxy-routes,
+.view-universe .world-flight-settling .orbit,
+.view-universe .world-flight-settling .hint-line {
+  animation: v12UniverseLinesReturn .56s ease both;
+}
+
+@keyframes v12TargetStarDive {
+  0% {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+    transform:
+      translate(-50%, -50%)
+      translateZ(var(--star-z, 0px))
+      scale(var(--star-depth-scale, 1));
+  }
+  42% {
+    opacity: 1;
+    filter: blur(0) brightness(1.42);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(5px) brightness(2);
+    transform:
+      translate(-50%, -50%)
+      translateZ(760px)
+      scale(13);
+  }
+}
+
+@keyframes v12VignetteIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes v12VignetteOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes v12PortalEnter {
+  0% {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translate(-50%, -50%) translateZ(-220px) scale(.08) rotate(-12deg);
+  }
+  46% {
+    opacity: .96;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(.3px);
+    transform: translate(-50%, -50%) translateZ(360px) scale(3.8) rotate(7deg);
+  }
+}
+
+@keyframes v12PortalArrive {
+  from {
+    opacity: 1;
+    filter: blur(.3px);
+    transform: translate(-50%, -50%) translateZ(360px) scale(3.8) rotate(7deg);
+  }
+  to {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate(-50%, -50%) translateZ(760px) scale(8.2) rotate(12deg);
+  }
+}
+
+@keyframes v12PortalReturn {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate(-50%, -50%) translateZ(650px) scale(7.4) rotate(10deg);
+  }
+  to {
+    opacity: 1;
+    filter: blur(.4px);
+    transform: translate(-50%, -50%) translateZ(240px) scale(3.2) rotate(4deg);
+  }
+}
+
+@keyframes v12PortalSettle {
+  from {
+    opacity: 1;
+    filter: blur(.4px);
+    transform: translate(-50%, -50%) translateZ(240px) scale(3.2) rotate(4deg);
+  }
+  to {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate(-50%, -50%) translateZ(-160px) scale(.18) rotate(-9deg);
+  }
+}
+
+@keyframes v12PortalRingA {
+  from { transform: translate(-50%, -50%) rotateX(68deg) rotateZ(-18deg) scale(.65); }
+  to { transform: translate(-50%, -50%) rotateX(68deg) rotateZ(148deg) scale(1.2); }
+}
+
+@keyframes v12PortalRingB {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(28deg) scale(.72); }
+  to { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(-122deg) scale(1.32); }
+}
+
+@keyframes v12CaptionIn {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: .78; transform: translate(-50%, 0); }
+}
+
+@keyframes v12CaptionOut {
+  from { opacity: .78; transform: translate(-50%, 0); }
+  to { opacity: 0; transform: translate(-50%, -8px); }
+}
+
+@keyframes v12StyleWorldIn {
+  from { opacity: .18; }
+  to { opacity: 1; }
+}
+
+@keyframes v12StyleCopyIn {
+  from { opacity: 0; transform: translate3d(-18px, 0, -40px); filter: blur(4px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@keyframes v12SphereArrive {
+  from {
+    opacity: 0;
+    filter: blur(12px) brightness(1.4);
+    transform: translate3d(2vw, 0, 160px) scale(.62);
+  }
+  52% { opacity: .82; }
+  to {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes v12SphereGlowArrive {
+  0% { opacity: 0; transform: scale(.52); }
+  60% { opacity: 1; transform: scale(1.14); }
+  100% { opacity: .92; transform: scale(1); }
+}
+
+@keyframes v12StyleCopyOut {
+  from { opacity: 1; transform: translate3d(0,0,0); }
+  to { opacity: 0; transform: translate3d(-18px,0,-30px); filter: blur(3px); }
+}
+
+@keyframes v12SphereReturn {
+  from {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0,0,0) scale(1);
+  }
+  to {
+    opacity: 0;
+    filter: blur(10px) brightness(1.28);
+    transform: translate3d(2vw,0,180px) scale(1.46);
+  }
+}
+
+@keyframes v12UniverseRepopulate {
+  from { opacity: 0; filter: blur(3px) saturate(.1); }
+  to { opacity: var(--galaxy-depth-opacity, .82); filter: blur(0) saturate(1); }
+}
+
+@keyframes v12TargetGalaxySettle {
+  from {
+    opacity: .06;
+    filter: blur(5px) brightness(1.5);
+    transform: translate(-50%, -50%) translateZ(520px) scale(2.2) rotate(3deg);
+  }
+  to {
+    opacity: .30;
+    filter: saturate(1.24) brightness(1.08);
+    transform: translate(-50%, -50%) translateZ(170px) scale(1.06) rotate(-2deg);
+  }
+}
+
+@keyframes v12TargetStarReturn {
+  from {
+    opacity: 0;
+    filter: blur(6px) brightness(1.8);
+    transform: translate(-50%, -50%) translateZ(720px) scale(10);
+  }
+  46% { opacity: .82; }
+  to {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+    transform: translate(-50%, -50%) translateZ(170px) scale(1.08);
+  }
+}
+
+@keyframes v12UniverseLinesReturn {
+  from { opacity: 0; filter: blur(2px); }
+  to { opacity: .68; filter: blur(0); }
+}
+
+@media (max-width: 1000px) {
+  .world-flight-object,
+  .world-flight-caption {
+    left: 58%;
+  }
+
+  .world-flight-object {
+    width: 92px;
+  }
+
+  .world-flight-caption {
+    top: calc(50% + 86px);
+  }
+
+  .view-universe .world-flight-entering .galaxy-zone.world-target-galaxy {
+    transform: translate(-50%, -50%) translateZ(80px) scale(1.18) rotate(-3deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .world-flight-object,
+  .world-flight-caption {
+    left: 50%;
+  }
+
+  .world-flight-object {
+    top: 58%;
+    width: 78px;
+  }
+
+  .world-flight-caption {
+    top: calc(58% + 72px);
+  }
+
+  .world-flight-caption strong {
+    font-size: 18px;
+  }
+
+  .world-flight-caption span,
+  .world-flight-caption small {
+    font-size: 6px;
+  }
+
+  .transition-arriving .sphere-stage,
+  .transition-returning .sphere-stage {
+    transform-origin: center 42%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-flight-overlay {
+    display: none;
+  }
+
+  .view-universe .world-flight-entering .style-star.world-target,
+  .view-universe .world-flight-settling .style-star.world-target,
+  .view-universe .world-flight-settling .galaxy-zone.world-target-galaxy,
+  .transition-arriving .style-view,
+  .transition-arriving .style-copy,
+  .transition-arriving .sphere-stage,
+  .transition-returning .style-copy,
+  .transition-returning .sphere-stage {
+    animation: none !important;
+  }
+}
