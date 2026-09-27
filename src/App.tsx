@@ -812,9 +812,39 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   const suppressClick = useRef(false);
 
   const applySphereRotation = () => {
-    if (!sphereRef.current) return;
-    sphereRef.current.style.transform =
+    const sphere = sphereRef.current;
+    if (!sphere) return;
+
+    sphere.style.transform =
       `rotateX(${rotation.current.x}deg) rotateY(${rotation.current.y}deg)`;
+
+    const rx = rotation.current.x * (Math.PI / 180);
+    const ry = rotation.current.y * (Math.PI / 180);
+    const sinRx = Math.sin(rx);
+    const cosRx = Math.cos(rx);
+    const cards = sphere.querySelectorAll<HTMLElement>('.sphere-card');
+
+    cards.forEach((card) => {
+      const pitch = Number(card.dataset.pitch ?? 0) * (Math.PI / 180);
+      const yaw = Number(card.dataset.yaw ?? 0) * (Math.PI / 180);
+      const normalizedDepth =
+        -sinRx * Math.sin(pitch) +
+        cosRx * Math.cos(pitch) * Math.cos(yaw + ry);
+      const frontness = Math.max(0, Math.min(1, (normalizedDepth + 1) / 2));
+      const focus = Math.pow(frontness, .72);
+      const scale = .76 + focus * .30;
+      const opacity = .14 + focus * .86;
+      const blur = Math.max(0, (1 - focus) * 2.7);
+      const brightness = .54 + focus * .60;
+      const saturation = .58 + focus * .50;
+
+      card.style.setProperty('--card-depth-scale', scale.toFixed(3));
+      card.style.setProperty('--card-depth-opacity', opacity.toFixed(3));
+      card.style.setProperty('--card-depth-blur', `${blur.toFixed(2)}px`);
+      card.style.setProperty('--card-depth-brightness', brightness.toFixed(3));
+      card.style.setProperty('--card-depth-saturation', saturation.toFixed(3));
+      card.style.zIndex = String(10 + Math.round(frontness * 90));
+    });
   };
 
   useEffect(() => {
@@ -946,7 +976,11 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
                 key={image.id}
                 type="button"
                 className={`sphere-card ${image.dna.generation.assetType === 'generated' ? 'generated' : 'placeholder'}`}
-                style={{ transform: `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(330px)` }}
+                data-pitch={pitch}
+                data-yaw={yaw}
+                style={{
+                  transform: `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(330px) scale(var(--card-depth-scale, 1))`
+                }}
                 aria-label={`查看作品：${image.title}`}
                 onClick={(event) => {
                   event.stopPropagation();
