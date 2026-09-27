@@ -840,7 +840,10 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     if (!sphere) return null;
 
     let best: { pitch: number; yaw: number; depth: number } | null = null;
-    sphere.querySelectorAll<HTMLElement>('.sphere-card').forEach((card) => {
+    const cards = sphere.querySelectorAll<HTMLElement>('.sphere-card');
+
+    for (let index = 0; index < cards.length; index += 1) {
+      const card = cards[index];
       const pitch = Number(card.dataset.pitch ?? 0);
       const yaw = Number(card.dataset.yaw ?? 0);
       const depth = getCardDepth(pitch, yaw);
@@ -848,7 +851,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
       if (!best || depth > best.depth) {
         best = { pitch, yaw, depth };
       }
-    });
+    }
 
     if (!best) return null;
     return {
@@ -873,7 +876,8 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     let frontCard: HTMLElement | null = null;
     let frontDepth = -Infinity;
 
-    cards.forEach((card) => {
+    for (let index = 0; index < cards.length; index += 1) {
+      const card = cards[index];
       const pitch = Number(card.dataset.pitch ?? 0);
       const yaw = Number(card.dataset.yaw ?? 0);
       const normalizedDepth = getCardDepth(pitch, yaw);
@@ -896,7 +900,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         frontDepth = normalizedDepth;
         frontCard = card;
       }
-    });
+    }
 
     if (frontCardRef.current !== frontCard) {
       frontCardRef.current?.classList.remove('is-front');
