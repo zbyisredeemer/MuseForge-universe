@@ -1014,6 +1014,14 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!drag.current.active || drag.current.pointerId !== event.pointerId) return;
 
+    if (event.buttons === 0) {
+      drag.current.active = false;
+      drag.current.pointerId = null;
+      suppressClick.current = false;
+      setIsDragging(false);
+      return;
+    }
+
     const now = performance.now();
     const dx = event.clientX - drag.current.lastX;
     const dy = event.clientY - drag.current.lastY;
@@ -1118,6 +1126,11 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onLostPointerCapture={() => {
+          drag.current.active = false;
+          drag.current.pointerId = null;
+          setIsDragging(false);
+        }}
         onWheel={onWheel}
         onDoubleClick={onDoubleClick}
       >
