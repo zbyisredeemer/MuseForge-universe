@@ -730,3 +730,244 @@
     animation: none !important;
   }
 }
+
+
+/* ---- v1.1 cinematic depth navigation ---- */
+.view-universe .constellation {
+  transform-style: preserve-3d;
+  transform-origin: 64% 49%;
+  transition:
+    transform .82s cubic-bezier(.16, .76, .18, 1),
+    filter .62s ease,
+    opacity .5s ease;
+}
+
+.view-universe .galaxy-zone {
+  opacity: var(--galaxy-depth-opacity, .88);
+  transform:
+    translate(-50%, -50%)
+    translateZ(var(--galaxy-z, 0px))
+    scale(var(--galaxy-depth-scale, 1))
+    rotate(-8deg);
+  transform-style: preserve-3d;
+  transition:
+    opacity .48s ease,
+    filter .48s ease,
+    transform .72s cubic-bezier(.16, .76, .18, 1),
+    left .72s cubic-bezier(.16, .76, .18, 1),
+    top .72s cubic-bezier(.16, .76, .18, 1),
+    box-shadow .35s ease;
+}
+
+.view-universe .galaxy-zone:not(.dormant):hover {
+  opacity: 1;
+  transform:
+    translate(-50%, -50%)
+    translateZ(calc(var(--galaxy-z, 0px) + 36px))
+    scale(calc(var(--galaxy-depth-scale, 1) * 1.035))
+    rotate(-5deg);
+}
+
+.view-universe .galaxy-zone:not(.dormant):hover .galaxy-zone-mist {
+  opacity: .78;
+  filter: blur(19px);
+}
+
+.view-universe .style-star {
+  opacity: var(--star-depth-opacity, .90);
+  transform:
+    translate(-50%, -50%)
+    translateZ(var(--star-z, 0px))
+    scale(var(--star-depth-scale, 1));
+  transform-style: preserve-3d;
+  transition:
+    opacity .38s ease,
+    transform .62s cubic-bezier(.16, .76, .18, 1),
+    left .68s cubic-bezier(.16, .76, .18, 1),
+    top .68s cubic-bezier(.16, .76, .18, 1),
+    filter .3s ease;
+}
+
+.view-universe .style-star.filtered-out {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.view-universe .style-star.focus-star {
+  opacity: 1;
+  transform:
+    translate(-50%, -50%)
+    translateZ(170px)
+    scale(1.08);
+}
+
+.view-universe .focus-mode .hero-copy {
+  opacity: .12;
+  transform: translateY(-49%) translateX(-26px) scale(.96);
+  filter: blur(.15px);
+}
+
+.view-universe .focus-mode .universe-controls {
+  opacity: .07;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+.view-universe .universe-controls {
+  transition: opacity .45s ease, transform .55s cubic-bezier(.16, .76, .18, 1);
+}
+
+.view-universe .focus-mode .universe-footer {
+  opacity: .22;
+}
+
+.view-universe .focus-mode .constellation {
+  animation: none;
+  transform: translate3d(-1.6vw, 0, 96px) scale(1.065);
+  filter: saturate(1.08);
+}
+
+.view-universe .focus-mode .constellation::before {
+  width: min(73vw, 980px);
+  height: min(73vw, 980px);
+  opacity: .92;
+  border-color: rgba(var(--v10-mint), .075);
+  box-shadow:
+    0 0 130px rgba(var(--v10-mint), .045),
+    inset 0 0 110px rgba(var(--v10-violet), .026);
+}
+
+.view-universe .focus-mode .constellation::after {
+  width: min(53vw, 710px);
+  height: min(53vw, 710px);
+  opacity: .86;
+}
+
+.view-universe .galaxy-zone.focused {
+  opacity: .30;
+  filter: saturate(1.24) brightness(1.08);
+  animation: v11FocusedGalaxyBreathe 8.5s ease-in-out infinite alternate;
+}
+
+.view-universe .galaxy-zone.receded {
+  opacity: .018 !important;
+  filter: blur(1.8px) saturate(.12);
+  transform:
+    translate(-50%, -50%)
+    translateZ(-240px)
+    scale(.54)
+    rotate(-10deg);
+}
+
+.view-universe .focus-mode .style-star.focus-star .star-pulse {
+  animation-duration: 3.6s;
+}
+
+.view-universe .focus-mode .style-star.focus-star .star-core {
+  box-shadow:
+    0 0 9px rgba(250,255,253,.98),
+    0 0 30px rgba(var(--v10-mint), .80),
+    0 0 94px rgba(var(--v10-mint), .48);
+}
+
+@keyframes v11CameraDrift {
+  0% {
+    transform: translate3d(-.18vw, .14vh, 0) rotateX(.28deg) rotateY(-.48deg) scale(1);
+  }
+  48% {
+    transform: translate3d(.28vw, -.24vh, 10px) rotateX(-.18deg) rotateY(.42deg) scale(1.004);
+  }
+  100% {
+    transform: translate3d(.08vw, .22vh, 4px) rotateX(.22deg) rotateY(.18deg) scale(1.002);
+  }
+}
+
+@keyframes v11FocusedGalaxyBreathe {
+  from {
+    transform: translate(-50%, -50%) translateZ(150px) scale(1.02) rotate(-4deg);
+  }
+  to {
+    transform: translate(-50%, -50%) translateZ(190px) scale(1.10) rotate(2deg);
+  }
+}
+
+@media (min-width: 1001px) {
+  .view-universe .universe-view:not(.focus-mode) .constellation {
+    animation: v11CameraDrift 17s ease-in-out infinite alternate;
+  }
+
+  .view-universe .galaxy-zone {
+    will-change: transform, opacity;
+  }
+
+  .view-universe .style-star {
+    will-change: transform, opacity;
+  }
+}
+
+@media (max-width: 1000px) {
+  .view-universe .constellation {
+    transform: none;
+  }
+
+  .view-universe .focus-mode .constellation {
+    transform: translate3d(0, 10px, 36px) scale(1.025);
+  }
+
+  .view-universe .galaxy-zone {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(0) scale(1) rotate(-8deg);
+  }
+
+  .view-universe .galaxy-zone:not(.dormant):hover {
+    transform: translate(-50%, -50%) translateZ(0) scale(1.02) rotate(-6deg);
+  }
+
+  .view-universe .style-star {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(0) scale(1);
+  }
+
+  .view-universe .style-star.filtered-out {
+    opacity: 0 !important;
+  }
+
+  .view-universe .style-star.focus-star {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(24px) scale(1.04);
+  }
+
+  .view-universe .focus-mode .hero-copy {
+    opacity: .08;
+    transform: translateX(-10px) scale(.98);
+  }
+
+  .view-universe .galaxy-zone.receded {
+    opacity: .015 !important;
+    transform: translate(-50%, -50%) scale(.68);
+  }
+}
+
+@media (max-width: 640px) {
+  .view-universe .focus-mode .constellation {
+    transform: translate3d(0, 20px, 24px) scale(1.015);
+  }
+
+  .view-universe .focus-mode .hero-copy {
+    opacity: .02;
+    pointer-events: none;
+  }
+
+  .view-universe .focus-mode .universe-controls {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-universe .constellation,
+  .view-universe .galaxy-zone,
+  .view-universe .style-star {
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
+}
