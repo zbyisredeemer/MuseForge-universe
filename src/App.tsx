@@ -809,6 +809,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   const lastInteraction = useRef(0);
   const drag = useRef({
     active: false,
+    pointerId: null as number | null,
     startX: 0,
     startY: 0,
     lastX: 0,
@@ -992,10 +993,13 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   }, [style.id]);
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (!event.isPrimary || event.button !== 0) return;
+
     viewTarget.current = null;
     snapArmed.current = false;
     drag.current = {
       active: true,
+      pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
       lastX: event.clientX,
@@ -1005,12 +1009,10 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     };
     velocity.current = { x: 0, y: 0 };
     suppressClick.current = false;
-    setIsDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    if (!drag.current.active) return;
+    if (!drag.current.active || drag.current.pointerId !== event.pointerId) return;
 
     const now = performance.now();
     const dx = event.clientX - drag.current.lastX;
@@ -1019,11 +1021,19 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     const totalDy = event.clientY - drag.current.startY;
     const dt = Math.max(8, now - drag.current.lastTime);
 
-    if (Math.abs(totalDx) > 4 || Math.abs(totalDy) > 4) {
+    if (!drag.current.moved && (Math.abs(totalDx) > 4 || Math.abs(totalDy) > 4)) {
       drag.current.moved = true;
       suppressClick.current = true;
+      setIsDragging(true);
+
+      if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }
     }
 
+    if (!drag.current.moved) return;
+
+    event.preventDefault();
     rotation.current.x = Math.max(-65, Math.min(65, rotation.current.x - dy * 0.18));
     rotation.current.y += dx * 0.22;
 
@@ -1040,16 +1050,20 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   };
 
   const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    if (!drag.current.active || drag.current.pointerId !== event.pointerId) return;
+
+    const moved = drag.current.moved;
     drag.current.active = false;
+    drag.current.pointerId = null;
     setIsDragging(false);
     lastInteraction.current = performance.now();
-    snapArmed.current = drag.current.moved;
+    snapArmed.current = moved;
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
 
-    if (drag.current.moved) {
+    if (moved) {
       window.setTimeout(() => {
         suppressClick.current = false;
       }, 0);
