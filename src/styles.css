@@ -3340,3 +3340,26 @@ summary {
 .sphere-card:active {
   filter: brightness(1.08);
 }
+
+
+/* ---- v0.9.2 native-resolution viewer ---- */
+/* Keep detail images crisp: show at intrinsic size and only scale down when the viewport is smaller. */
+.viewer-image-wrap {
+  padding: clamp(18px, 2vw, 30px);
+}
+
+.viewer-image-wrap img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  image-rendering: auto;
+  flex: none;
+}
+
+@media (max-width: 640px) {
+  .viewer-image-wrap {
+    padding: 10px;
+  }
+}
