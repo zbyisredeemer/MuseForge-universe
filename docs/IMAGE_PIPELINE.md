@@ -367,3 +367,15 @@ Hanfu Muse 当前 active 真实图为 **30 / 30**；021～030 Batch 02 已完成
 | 028 | 珊瑚落霞 | `ocean-muse-028.webp` |
 | 029 | 渔湾青晨 | `ocean-muse-029.webp` |
 | 030 | 海窗香槟 | `ocean-muse-030.webp` |
+
+
+## 2026-09-27 Ocean Muse Batch 04 生成规格
+
+- 已新增生成规格：`src/data/generation/ocean-batch-04.ts`；
+- 目标编号：`ocean-muse-031.webp` ～ `ocean-muse-040.webp`，固定 **10 张**；
+- 最终资产规格继续统一为 **941x1672 / 9:16 / WebP**，每张独立生成，禁止拼图拆分；
+- 场景覆盖济州玄武岩海岸、马赛旧港、巴拉望石灰岩泻湖、亚速尔火山潮池、斐济红树林栈道、卡萨布兰卡海滨、卑尔根峡湾、萨尔瓦多彩岸、釜山蓝桥夜与夏威夷熔岩海岸；
+- 10 张均配置独立的 ageBand / face / hair / distinctiveFeatures / region，继续执行 Identity DNA 去同脸；
+- 当前状态：**生成规格已入库，真实 WebP 尚未生成/上传**；
+- 在真实图片全部存在前，`oceanBatch04` **不接入** `oceanMuse.images`，避免产生缺图引用或把未生成资产误标为 generated；
+- 成片完成后按 `IMAGE_ASSET_WORKFLOW.md` 执行：生成 → WebP → base64 → create_blob → create_tree → create_commit → update_ref(main)，并同步 `ocean-muse.ts`、README、Pipeline 与批次清单。
