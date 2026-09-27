@@ -1,4 +1,4 @@
-import { PointerEvent, WheelEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { MouseEvent, PointerEvent, WheelEvent, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { galaxies, getGalaxyById, styles } from './data/styles';
@@ -1074,7 +1074,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     };
   };
 
-  const onDoubleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onDoubleClick = (event: MouseEvent<HTMLDivElement>) => {
     if ((event.target as HTMLElement).closest('.sphere-card')) return;
     event.preventDefault();
     resetView();
