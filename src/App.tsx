@@ -660,19 +660,61 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     [style.images]
   );
   const [rotation, setRotation] = useState({ x: -8, y: 0 });
-  const drag = useRef({ active: false, x: 0, y: 0, startX: 0, startY: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const drag = useRef({
+    active: false,
+    x: 0,
+    y: 0,
+    startX: 0,
+    startY: 0,
+    moved: false
+  });
+  const suppressClick = useRef(false);
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    drag.current = { active: true, x: rotation.x, y: rotation.y, startX: event.clientX, startY: event.clientY };
+    drag.current = {
+      active: true,
+      x: rotation.x,
+      y: rotation.y,
+      startX: event.clientX,
+      startY: event.clientY,
+      moved: false
+    };
+    suppressClick.current = false;
+    setIsDragging(true);
     event.currentTarget.setPointerCapture(event.pointerId);
   };
+
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!drag.current.active) return;
+
     const dx = event.clientX - drag.current.startX;
     const dy = event.clientY - drag.current.startY;
-    setRotation({ x: Math.max(-65, Math.min(65, drag.current.x - dy * 0.18)), y: drag.current.y + dx * 0.22 });
+
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+      drag.current.moved = true;
+      suppressClick.current = true;
+    }
+
+    setRotation({
+      x: Math.max(-65, Math.min(65, drag.current.x - dy * 0.18)),
+      y: drag.current.y + dx * 0.22
+    });
   };
-  const onPointerUp = () => { drag.current.active = false; };
+
+  const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    drag.current.active = false;
+    setIsDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    if (drag.current.moved) {
+      window.setTimeout(() => {
+        suppressClick.current = false;
+      }, 0);
+    }
+  };
 
   return (
     <section className="style-view">
@@ -688,7 +730,13 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         <div className="drag-hint"><span>DRAG TO ORBIT</span><i />点击任意影像快速预览</div>
       </div>
 
-      <div className="sphere-stage" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
+      <div
+        className={`sphere-stage${isDragging ? ' is-dragging' : ''}`}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+      >
         <div className="sphere-glow" />
         <div className="sphere" style={{ transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)` }}>
           {orderedImages.map((image, index) => {
@@ -700,11 +748,9 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
                 className={`sphere-card ${image.dna.generation.assetType === 'generated' ? 'generated' : 'placeholder'}`}
                 style={{ transform: `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(330px)` }}
                 aria-label={`查看作品：${image.title}`}
-                onPointerDown={(event: PointerEvent<HTMLButtonElement>) => {
-                  event.stopPropagation();
-                }}
                 onClick={(event) => {
                   event.stopPropagation();
+                  if (suppressClick.current) return;
                   onSelect(image);
                 }}
               >
@@ -720,6 +766,8 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
 }
 
 function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void }) {
+  const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -727,6 +775,18 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
       document.body.style.overflow = previousOverflow;
     };
   }, []);
+
+  const copyPrompt = async () => {
+    if (!image.prompt) return;
+
+    try {
+      await navigator.clipboard.writeText(image.prompt);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1400);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   return createPortal(
     <div
@@ -740,8 +800,26 @@ function ImageViewer({ image, onClose }: { image: MuseImage; onClose: () => void
     >
       <figure className="quick-viewer-card">
         <button type="button" className="viewer-close" onClick={onClose} aria-label="关闭预览">×</button>
-        <img src={image.image} alt={image.title} decoding="async" />
-        <figcaption>{image.title}</figcaption>
+
+        <div className="quick-viewer-image">
+          <img src={image.image} alt={image.title} decoding="async" />
+        </div>
+
+        <figcaption className="quick-viewer-info">
+          <div className="quick-viewer-title-row">
+            <strong>{image.title}</strong>
+            <button
+              type="button"
+              className="quick-copy-button"
+              onClick={copyPrompt}
+              disabled={!image.prompt}
+            >
+              {copied ? '已复制 ✓' : '复制提示词'}
+            </button>
+          </div>
+          <div className="quick-prompt-label">PROMPT</div>
+          <p className="quick-prompt-text">{image.prompt || '未配置 Prompt'}</p>
+        </figcaption>
       </figure>
     </div>,
     document.body
