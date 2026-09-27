@@ -1832,8 +1832,8 @@
   opacity: 1 !important;
   filter:
     blur(0)
-    brightness(max(1, var(--card-depth-brightness, 1)))
-    saturate(max(1, var(--card-depth-saturation, 1)));
+    brightness(1.08)
+    saturate(1.06);
   box-shadow:
     0 0 0 1px rgba(203, 243, 229, .22),
     0 24px 80px rgba(0, 0, 0, .56),
