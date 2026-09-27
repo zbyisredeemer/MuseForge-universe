@@ -5,6 +5,8 @@ import { galaxies, getGalaxyById, styles } from './data/styles';
 import type { MuseImage, MuseStyle } from './data/styles';
 
 type View = { kind: 'universe' } | { kind: 'style'; style: MuseStyle };
+type WorldTransitionPhase = 'entering' | 'arriving' | 'returning' | 'settling';
+type WorldTransition = { phase: WorldTransitionPhase; style: MuseStyle } | null;
 
 function getSpherePlacement(index: number, total: number) {
   if (total <= 1) return [0, 0] as const;
@@ -18,11 +20,63 @@ function getSpherePlacement(index: number, total: number) {
 function App() {
   const [view, setView] = useState<View>({ kind: 'universe' });
   const [selected, setSelected] = useState<MuseImage | null>(null);
+  const [worldTransition, setWorldTransition] = useState<WorldTransition>(null);
+  const transitionTimers = useRef<number[]>([]);
+
+  const queueTransition = (callback: () => void, delay: number) => {
+    const timer = window.setTimeout(() => {
+      transitionTimers.current = transitionTimers.current.filter((item) => item !== timer);
+      callback();
+    }, delay);
+    transitionTimers.current.push(timer);
+  };
+
+  useEffect(() => {
+    return () => {
+      transitionTimers.current.forEach((timer) => window.clearTimeout(timer));
+      transitionTimers.current = [];
+    };
+  }, []);
+
+  const openStyle = (style: MuseStyle) => {
+    if (worldTransition) return;
+
+    setSelected(null);
+    setWorldTransition({ phase: 'entering', style });
+
+    queueTransition(() => {
+      setView({ kind: 'style', style });
+      setWorldTransition({ phase: 'arriving', style });
+      window.scrollTo({ top: 0, left: 0 });
+
+      queueTransition(() => {
+        setWorldTransition(null);
+      }, 520);
+    }, 680);
+  };
 
   const goUniverse = () => {
     setSelected(null);
-    setView({ kind: 'universe' });
-    window.scrollTo({ top: 0, left: 0 });
+
+    if (view.kind === 'universe') {
+      window.scrollTo({ top: 0, left: 0 });
+      return;
+    }
+
+    if (worldTransition) return;
+
+    const style = view.style;
+    setWorldTransition({ phase: 'returning', style });
+
+    queueTransition(() => {
+      setView({ kind: 'universe' });
+      setWorldTransition({ phase: 'settling', style });
+      window.scrollTo({ top: 0, left: 0 });
+
+      queueTransition(() => {
+        setWorldTransition(null);
+      }, 560);
+    }, 520);
   };
 
   useEffect(() => {
@@ -41,10 +95,18 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selected, view.kind]);
+  }, [selected, view, worldTransition]);
+
+  const transitionClass = worldTransition ? ` transition-${worldTransition.phase}` : '';
+  const universeTransitionStyleId =
+    view.kind === 'universe' && worldTransition ? worldTransition.style.id : null;
+  const initialFocusedGalaxy =
+    view.kind === 'universe' && worldTransition?.phase === 'settling'
+      ? worldTransition.style.galaxyId
+      : null;
 
   return (
-    <main className={`app-shell view-${view.kind}`}>
+    <main className={`app-shell view-${view.kind}${transitionClass}`}>
       <UniverseBackdrop />
       <header className="topbar">
         <button type="button" className="brand" onClick={goUniverse} aria-label="返回 MuseForge 宇宙首页">
@@ -62,13 +124,40 @@ function App() {
       </header>
 
       {view.kind === 'universe' ? (
-        <Universe onOpen={(style) => setView({ kind: 'style', style })} />
+        <Universe
+          onOpen={openStyle}
+          transitionStyleId={universeTransitionStyleId}
+          transitionPhase={worldTransition?.phase ?? null}
+          initialFocusedGalaxy={initialFocusedGalaxy}
+        />
       ) : (
         <StyleWorld style={view.style} onBack={goUniverse} onSelect={setSelected} />
       )}
 
+      {worldTransition && <WorldFlightOverlay transition={worldTransition} />}
       {selected && <ImageViewer image={selected} onClose={() => setSelected(null)} />}
     </main>
+  );
+}
+
+function WorldFlightOverlay({ transition }: { transition: Exclude<WorldTransition, null> }) {
+  const galaxy = getGalaxyById(transition.style.galaxyId);
+  const isEntering = transition.phase === 'entering' || transition.phase === 'arriving';
+
+  return (
+    <div className={`world-flight-overlay world-flight-overlay-${transition.phase}`} aria-hidden="true">
+      <div className="world-flight-vignette" />
+      <div className="world-flight-object">
+        <i className="world-flight-ring world-flight-ring-a" />
+        <i className="world-flight-ring world-flight-ring-b" />
+        <i className="world-flight-core" />
+      </div>
+      <div className="world-flight-caption">
+        <span>{isEntering ? 'ENTERING WORLD' : 'RETURNING TO UNIVERSE'}</span>
+        <strong>{transition.style.name}</strong>
+        <small>{galaxy?.name ?? transition.style.subtitle}</small>
+      </div>
+    </div>
   );
 }
 
@@ -239,14 +328,26 @@ function getMaturityState(style: MuseStyle): { stage: MaturityStage; label: stri
 
 type UniverseDensityFilter = 'all' | 'complete' | 'rich';
 
-function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
+function Universe({
+  onOpen,
+  transitionStyleId = null,
+  transitionPhase = null,
+  initialFocusedGalaxy = null
+}: {
+  onOpen: (style: MuseStyle) => void;
+  transitionStyleId?: string | null;
+  transitionPhase?: WorldTransitionPhase | null;
+  initialFocusedGalaxy?: string | null;
+}) {
   const [densityFilter, setDensityFilter] = useState<UniverseDensityFilter>('all');
   const [galaxyFilter, setGalaxyFilter] = useState<string>('all');
-  const [focusedGalaxy, setFocusedGalaxy] = useState<string | null>(null);
+  const [focusedGalaxy, setFocusedGalaxy] = useState<string | null>(initialFocusedGalaxy);
   const [routeGalaxy, setRouteGalaxy] = useState<string | null>(null);
   const [previewStyleId, setPreviewStyleId] = useState<string | null>(null);
   const constellationRef = useRef<HTMLDivElement>(null);
 
+  const transitionStyle = transitionStyleId ? styles.find((style) => style.id === transitionStyleId) : undefined;
+  const transitionGalaxyId = transitionStyle?.galaxyId ?? null;
   const effectiveGalaxyFilter = focusedGalaxy ?? galaxyFilter;
 
   const filteredStyles = styles.filter((style) => {
@@ -381,7 +482,12 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
 
   return (
     <section
-      className={`universe-view${focusedGalaxy ? ' focus-mode' : ''}`}
+      className={[
+        'universe-view',
+        focusedGalaxy ? 'focus-mode' : '',
+        transitionStyleId ? 'world-flight-active' : '',
+        transitionPhase ? `world-flight-${transitionPhase}` : ''
+      ].filter(Boolean).join(' ')}
       onPointerMove={onUniversePointerMove}
       onPointerLeave={resetParallax}
     >
@@ -550,7 +656,9 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
                 isReceded ? 'receded' : '',
                 isFilteredOut ? 'filtered-out' : '',
                 !isDormant && !hasVisibleStyles ? 'empty-result' : '',
-                !isDormant ? `completion-${getCompletionTier(completionRatio)}` : ''
+                !isDormant ? `completion-${getCompletionTier(completionRatio)}` : '',
+                transitionGalaxyId === galaxy.id ? 'world-target-galaxy' : '',
+                transitionStyleId && transitionGalaxyId !== galaxy.id ? 'world-flight-receding' : ''
               ].filter(Boolean).join(' ')}
               data-galaxy={galaxy.id}
               style={{
@@ -616,14 +724,16 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
                 `maturity-${maturity.stage}`,
                 focusedGalaxy === style.galaxyId ? 'focus-star' : '',
                 tooltipDirection,
-                isVisible ? '' : 'filtered-out'
+                isVisible ? '' : 'filtered-out',
+                transitionStyleId === style.id ? 'world-target' : '',
+                transitionStyleId && transitionStyleId !== style.id ? 'world-flight-receding' : ''
               ].filter(Boolean).join(' ')}
               data-galaxy={style.galaxyId}
               aria-hidden={!isVisible}
               tabIndex={isVisible ? 0 : -1}
               aria-label={`打开${style.name}，共${style.images.length}张照片，状态${maturity.label}`}
               style={starStyle}
-              onClick={() => isVisible && onOpen(style)}
+              onClick={() => isVisible && !transitionStyleId && onOpen(style)}
               onPointerEnter={() => {
                 if (!focusedGalaxy) setRouteGalaxy(style.galaxyId);
                 setPreviewStyleId(style.id);
