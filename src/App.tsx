@@ -796,27 +796,70 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
     () => [...style.images].sort((a, b) => Number(b.dna.generation.assetType === 'generated') - Number(a.dna.generation.assetType === 'generated')),
     [style.images]
   );
-  const [rotation, setRotation] = useState({ x: -8, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const sphereRef = useRef<HTMLDivElement>(null);
+  const rotation = useRef({ x: -8, y: 0 });
+  const velocity = useRef({ x: 0, y: 0 });
   const drag = useRef({
     active: false,
-    x: 0,
-    y: 0,
     startX: 0,
     startY: 0,
+    lastX: 0,
+    lastY: 0,
+    lastTime: 0,
     moved: false
   });
   const suppressClick = useRef(false);
 
+  const applySphereRotation = () => {
+    if (!sphereRef.current) return;
+    sphereRef.current.style.transform =
+      `rotateX(${rotation.current.x}deg) rotateY(${rotation.current.y}deg)`;
+  };
+
+  useEffect(() => {
+    applySphereRotation();
+
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    let lastFrame = performance.now();
+
+    const tick = (now: number) => {
+      const dt = Math.min(34, Math.max(0, now - lastFrame));
+      lastFrame = now;
+
+      if (!drag.current.active && !media.matches) {
+        const damping = Math.pow(0.925, dt / 16.667);
+        velocity.current.x *= damping;
+        velocity.current.y *= damping;
+
+        const autoSpin = 0.0042;
+        rotation.current.x = Math.max(
+          -65,
+          Math.min(65, rotation.current.x + velocity.current.x * dt)
+        );
+        rotation.current.y += (velocity.current.y + autoSpin) * dt;
+        applySphereRotation();
+      }
+
+      frame = window.requestAnimationFrame(tick);
+    };
+
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [style.id]);
+
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     drag.current = {
       active: true,
-      x: rotation.x,
-      y: rotation.y,
       startX: event.clientX,
       startY: event.clientY,
+      lastX: event.clientX,
+      lastY: event.clientY,
+      lastTime: performance.now(),
       moved: false
     };
+    velocity.current = { x: 0, y: 0 };
     suppressClick.current = false;
     setIsDragging(true);
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -825,23 +868,36 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!drag.current.active) return;
 
-    const dx = event.clientX - drag.current.startX;
-    const dy = event.clientY - drag.current.startY;
+    const now = performance.now();
+    const dx = event.clientX - drag.current.lastX;
+    const dy = event.clientY - drag.current.lastY;
+    const totalDx = event.clientX - drag.current.startX;
+    const totalDy = event.clientY - drag.current.startY;
+    const dt = Math.max(8, now - drag.current.lastTime);
 
-    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+    if (Math.abs(totalDx) > 4 || Math.abs(totalDy) > 4) {
       drag.current.moved = true;
       suppressClick.current = true;
     }
 
-    setRotation({
-      x: Math.max(-65, Math.min(65, drag.current.x - dy * 0.18)),
-      y: drag.current.y + dx * 0.22
-    });
+    rotation.current.x = Math.max(-65, Math.min(65, rotation.current.x - dy * 0.18));
+    rotation.current.y += dx * 0.22;
+
+    velocity.current = {
+      x: Math.max(-0.12, Math.min(0.12, (-dy * 0.18) / dt)),
+      y: Math.max(-0.16, Math.min(0.16, (dx * 0.22) / dt))
+    };
+
+    drag.current.lastX = event.clientX;
+    drag.current.lastY = event.clientY;
+    drag.current.lastTime = now;
+    applySphereRotation();
   };
 
   const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
     drag.current.active = false;
     setIsDragging(false);
+
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
@@ -864,7 +920,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
           <b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}
           <span className={`style-maturity maturity-badge maturity-badge-${maturity.stage}`}>{maturity.label} · {Math.round(maturity.ratio * 100)}%</span>
         </div>
-        <div className="drag-hint"><span>DRAG TO ORBIT</span><i />点击任意影像快速预览</div>
+        <div className="drag-hint"><span>DRAG TO ORBIT</span><i />拖动旋转 · 松手惯性 · 自动巡航</div>
       </div>
 
       <div
@@ -874,8 +930,15 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
+        <div className="planet-body" aria-hidden="true">
+          <i className="planet-atmosphere" />
+          <i className="planet-surface" />
+          <i className="planet-terminator" />
+          <i className="planet-latitude planet-latitude-a" />
+          <i className="planet-latitude planet-latitude-b" />
+        </div>
         <div className="sphere-glow" />
-        <div className="sphere" style={{ transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)` }}>
+        <div ref={sphereRef} className="sphere">
           {orderedImages.map((image, index) => {
             const [pitch, yaw] = getSpherePlacement(index, orderedImages.length);
             return (
