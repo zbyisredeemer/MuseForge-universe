@@ -671,9 +671,17 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
             return (
               <button
                 key={image.id}
+                type="button"
                 className={`sphere-card ${image.dna.generation.assetType === 'generated' ? 'generated' : 'placeholder'}`}
                 style={{ transform: `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(330px)` }}
-                onPointerDown={(e: PointerEvent<HTMLButtonElement>) => e.stopPropagation()}
+                aria-label={`查看作品：${image.title}`}
+                onPointerDown={(event: PointerEvent<HTMLButtonElement>) => {
+                  event.stopPropagation();
+                }}
+                onPointerUp={(event: PointerEvent<HTMLButtonElement>) => {
+                  event.stopPropagation();
+                  onSelect(image);
+                }}
                 onClick={() => onSelect(image)}
               >
                 <img src={image.image} alt={image.title} draggable={false} loading="lazy" decoding="async" />
