@@ -49,9 +49,16 @@ function App() {
       <header className="topbar">
         <button type="button" className="brand" onClick={goUniverse} aria-label="返回 MuseForge 宇宙首页">
           <span className="brand-mark">✦</span>
-          <span>MuseForge <b>Universe</b></span>
+          <span className="brand-copy">
+            <span>MuseForge</span>
+            <b>UNIVERSE</b>
+          </span>
         </button>
-        <div className="topbar-meta">PROMPT CONSTELLATION · v0.5</div>
+        <div className="topbar-meta">
+          <span>CURATED AI PORTRAITS</span>
+          <i />
+          <span>{styles.length} WORLDS</span>
+        </div>
       </header>
 
       {view.kind === 'universe' ? (
@@ -347,17 +354,31 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
       onPointerLeave={resetParallax}
     >
       <div className="hero-copy">
-        <div className="eyebrow">EXPLORE VISUAL STYLES AS STARS</div>
-        <h1>每一颗星，<br />都是一种美女影像风格。</h1>
-        <p>按星系探索不同风格。悬浮查看照片数量，点击星系聚焦，再进入具体风格星球浏览高清影像与 Prompt DNA。</p>
+        <div className="hero-kicker">
+          <span className="hero-kicker-line" />
+          <span>THE MUSE CONSTELLATION</span>
+        </div>
+        <h1>
+          <span>让美，</span>
+          <em>拥有自己的星轨。</em>
+        </h1>
+        <p className="hero-lead">一个持续生长的视觉宇宙。每颗星代表一种影像审美，每个星球收藏一组独立的人物、场景与 Prompt DNA。</p>
+
+        <div className="hero-signals" aria-label="宇宙概览">
+          <span><b>{styles.length}</b><small>风格星球</small></span>
+          <i />
+          <span><b>{styles.reduce((total, style) => total + style.images.length, 0)}</b><small>精选影像</small></span>
+          <i />
+          <span><b>{galaxies.length}</b><small>视觉星系</small></span>
+        </div>
 
         <div className="universe-controls" aria-label="宇宙筛选">
           <div className="control-row control-density">
-            <span className="control-label">显示</span>
+            <span className="control-label">探索</span>
             {([
-              ['all', '全部'],
-              ['complete', '高完成度'],
-              ['rich', '10+ 照片']
+              ['all', '全部星球'],
+              ['complete', '精选完成'],
+              ['rich', '影像丰富']
             ] as const).map(([value, label]) => (
               <button
                 key={value}
@@ -370,7 +391,7 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           </div>
 
           <div className="control-row galaxy-filter-row">
-            <span className="control-label">星系</span>
+            <span className="control-label">星域</span>
             <button
               className={galaxyFilter === 'all' && !focusedGalaxy ? 'active' : ''}
               onClick={() => handleGalaxyFilter('all')}
@@ -390,10 +411,11 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
           </div>
 
           <div className="universe-legend">
-            <span><i className="legend-dot legend-color" />颜色 = 星系</span>
-            <span><i className="legend-dot legend-size" />大小 = 照片数</span>
-            <span><i className="legend-dot legend-bright" />亮度 = 完成度</span>
-            <span><i className="legend-ring" />外圈 = 成熟度</span>
+            <span>悬浮预览</span>
+            <i />
+            <span>点击星系聚焦</span>
+            <i />
+            <span>进入星球浏览完整作品</span>
           </div>
         </div>
       </div>
@@ -589,15 +611,15 @@ function Universe({ onOpen }: { onOpen: (style: MuseStyle) => void }) {
         <div className="hint-line">
           <span />
           {focusedGalaxy
-            ? `${filteredStyles.length} 颗风格星球 · 点击进入`
-            : `${filteredStyles.length} / ${styles.length} 颗星可见 · 靠近星系查看航线`}
+            ? `${filteredStyles.length} 个世界正在等待探索`
+            : 'SELECT A STAR · ENTER A WORLD'}
         </div>
       </div>
 
       <div className="universe-footer">
-        <span>{galaxies.length} GALAXY · {new Set(styles.map((style) => style.galaxyId)).size} ACTIVE</span>
-        <span>{styles.length} PLANET ONLINE</span>
-        <span>{styles.reduce((total, style) => total + style.images.length, 0)} MUSES · PROMPT DNA</span>
+        <span>MUSEFORGE / VISUAL ARCHIVE</span>
+        <span>{new Set(styles.map((style) => style.galaxyId)).size} ACTIVE GALAXIES</span>
+        <span>PROMPT DNA · IDENTITY · IMAGE</span>
       </div>
     </section>
   );
@@ -638,7 +660,7 @@ function StyleWorld({ style, onBack, onSelect }: { style: MuseStyle; onBack: () 
           <b>{style.images.length}</b> 张作品 · {generatedCount} 张生成图{placeholderCount > 0 ? ' · ' + placeholderCount + ' 张占位图' : ''}
           <span className={`style-maturity maturity-badge maturity-badge-${maturity.stage}`}>{maturity.label} · {Math.round(maturity.ratio * 100)}%</span>
         </div>
-        <div className="drag-hint">拖动球体旋转 · 真实图优先 · 点击图片查看高清图与 Prompt</div>
+        <div className="drag-hint"><span>DRAG TO ORBIT</span><i />点击任意影像进入完整作品</div>
       </div>
 
       <div className="sphere-stage" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
